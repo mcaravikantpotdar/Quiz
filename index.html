@@ -3,100 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CodeTutor App</title>
+    <title>CodeTutor</title>
     <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
 
-<div class="quiz-container">
-
-    <div id="uploadScreen" class="screen active">
-        <div class="quiz-header">
-            <h1>🎓 CodeTutor</h1>
-            <button id="viewScoreboardBtn" style="font-size:0.8rem; background:#64748b; color:white;">🏆 Scoreboard</button>
-        </div>
-
-        <div class="login-panel">
-            <div class="input-group">
-                <input type="text" id="studentName" placeholder="Enter Your Name">
-                <input type="text" id="schoolName" placeholder="Enter School Name">
+    <div class="quiz-container">
+        <div id="uploadScreen" class="screen active">
+            <div class="quiz-header">
+                <h1>🎓 CodeTutor</h1>
+                <button id="viewScoreboardBtn" style="background:#64748b; color:white; border:none; padding:8px 12px; border-radius:5px; cursor:pointer;">🏆 Scoreboard</button>
             </div>
 
-            <div class="mode-selector">
-                <label><input type="radio" name="quizMode" value="practice" checked> 🛡️ Practice</label>
-                <label><input type="radio" name="quizMode" value="test"> ⚔️ Test Mode</label>
-            </div>
+            <div class="login-panel">
+                <div class="input-group">
+                    <input type="text" id="studentName" placeholder="Enter Your Name">
+                    <input type="text" id="schoolName" placeholder="Enter School Name">
+                </div>
 
-            <div style="font-weight:bold; margin-top:10px;">Select a Chapter:</div>
-            <div id="quizList" class="quiz-list"></div>
+                <div class="mode-selector">
+                    <label><input type="radio" name="quizMode" value="practice" checked> 🛡️ Practice Mode</label>
+                    <label style="margin-left:15px;"><input type="radio" name="quizMode" value="test"> ⚔️ Test Mode</label>
+                </div>
 
-            <div style="display:flex; justify-content:space-between; margin-top:15px;">
-                <button id="startQuiz" disabled>Start Learning ▶</button>
-                <button id="demoModeBtn" style="background:#e2e8f0; color:#475569; font-size:0.8rem;">🛠️ Demo</button>
-            </div>
-            <div id="errorMessage" style="color:red; text-align:center; margin-top:10px;"></div>
-        </div>
-    </div>
+                <h3 style="margin-bottom:10px;">Select a Chapter:</h3>
+                <div id="quizList" class="quiz-list"></div>
 
-    <div id="quizScreen" class="screen">
-        <div class="quiz-header">
-            <div id="chapterTitle" style="font-weight:bold;">Chapter</div>
-            <div class="stats-bar">
-                <span>⏰ <span id="timer">0</span>s</span>
-                <span>⭐ <span id="currentScore">0</span></span>
+                <div style="display:flex; gap:10px;">
+                    <button id="startQuiz" style="flex:1; background:#2563eb; color:white; padding:15px; border-radius:8px; border:none; font-weight:bold; cursor:pointer;" disabled>Start Learning ▶</button>
+                    <button id="demoModeBtn" style="background:#e2e8f0; border:none; padding:10px; border-radius:8px; cursor:pointer;">🛠️ Demo</button>
+                </div>
             </div>
+            <div id="errorMessage" style="color:red; margin-top:15px; text-align:center;"></div>
         </div>
 
-        <div id="questionGrid" style="display:flex; flex-wrap:wrap; gap:5px; margin-bottom:15px;"></div>
-
-        <div class="question-area">
-            <div class="q-badge">Question <span id="currentQuestion">1</span> / <span id="totalQuestions">0</span></div>
-            <div class="question-text">
-                <div id="questionEn"></div>
-                <div id="questionHi" style="color:#64748b; font-size:0.9em; margin-top:5px;"></div>
+        <div id="quizScreen" class="screen">
+            <div class="quiz-header">
+                <div id="chapterTitle" style="font-weight:bold; font-size:1.2rem;">Chapter</div>
+                <div style="display:flex; gap:15px; font-weight:bold;">
+                    <span>⏰ <span id="timer">0</span>s</span>
+                    <span>⭐ <span id="currentScore">0</span></span>
+                </div>
             </div>
-        </div>
 
-        <div id="optionsContainer" class="options-grid"></div>
+            <div id="questionGrid" style="display:flex; flex-wrap:wrap; gap:5px; margin-bottom:20px;"></div>
 
-        <div class="nav-buttons">
-            <button id="prevBtn">← Back</button>
-            <button id="hintBtn">💡 Hint</button>
-            <button id="nextBtn">Next →</button>
-        </div>
-        <div style="text-align:center; margin-top:15px;">
-            <button id="quitBtn" style="background:none; color:red; font-size:0.9rem;">Quit Quiz</button>
-        </div>
-    </div>
-
-    <div id="resultsScreen" class="screen">
-        <div style="text-align:center;">
-            <h2>🎉 Quiz Completed!</h2>
-            <div style="font-size:3rem; font-weight:bold; margin:20px 0;">
-                <span id="finalScore">0</span> / <span id="totalPossible">0</span>
+            <div class="question-area">
+                <div id="questionEn" class="question-text"></div>
+                <div id="questionHi" style="color:#64748b; margin-top:10px;"></div>
             </div>
-            <h3 id="percentage" style="color:#2563eb;">0%</h3>
-            <p>Time Taken: <span id="totalTime">0m</span></p>
+
+            <div id="optionsContainer" class="options-grid"></div>
+
+            <div class="nav-buttons" style="display:flex; justify-content:space-between; margin-top:25px;">
+                <button id="prevBtn" style="padding:10px 20px; border-radius:6px; border:none; background:#cbd5e1;">← Back</button>
+                <button id="hintBtn" style="padding:10px 20px; border-radius:6px; border:none; background:#fbbf24; color:#78350f;">💡 Hint</button>
+                <button id="nextBtn" style="padding:10px 20px; border-radius:6px; border:none; background:#2563eb; color:white;">Next →</button>
+            </div>
             
-            <div id="resultsBreakdown" style="text-align:left; border:1px solid #e2e8f0; padding:10px; max-height:200px; overflow-y:auto; margin:20px 0;"></div>
-
-            <div class="nav-buttons" style="justify-content:center; gap:10px;">
-                <button id="retakeBtn">🔄 Retake</button>
-                <button id="homeBtn">🏠 Home</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="scoreboardScreen" class="screen">
-        <h2>🏆 Leaderboard</h2>
-        <table style="width:100%; border-collapse:collapse;">
-            <thead style="background:#f1f5f9; text-align:left;">
-                <tr><th style="padding:10px;">Date</th><th>Name</th><th>Score</th></tr>
-            </thead>
-            <tbody id="scoreboardBody"></tbody>
-        </table>
-        <div class="nav-buttons">
-            <button id="backFromScoreboard">← Back</button>
+            <button id="quitBtn" style="margin-top:20px; background:none; border:none; color:#ef4444; width:100%; cursor:pointer;">Quit Quiz</button>
         </div>
     </div>
 
@@ -104,18 +69,15 @@
         <div class="modal-content">
             <h3>Quit Quiz?</h3>
             <p>Your progress will be lost.</p>
-            <div style="display:flex; justify-content:center; gap:10px; margin-top:20px;">
-                <button id="confirmQuit" style="background:red; color:white;">Yes, Quit</button>
-                <button id="cancelQuit" style="background:#cbd5e1; color:black;">Cancel</button>
+            <div style="display:flex; gap:10px; margin-top:20px;">
+                <button id="confirmQuit" style="flex:1; background:#ef4444; color:white; border:none; padding:12px; border-radius:6px; font-weight:bold; cursor:pointer;">Yes, Quit</button>
+                <button id="cancelQuit" style="flex:1; background:#cbd5e1; border:none; padding:12px; border-radius:6px; font-weight:bold; cursor:pointer;">Cancel</button>
             </div>
         </div>
     </div>
 
-</div>
-
-<script src="scripts/utils.js"></script>
-<script src="scripts/quiz-engine.js"></script>
-<script src="scripts/app.js"></script>
-
+    <script src="scripts/utils.js"></script>
+    <script src="scripts/quiz-engine.js"></script>
+    <script src="scripts/app.js"></script>
 </body>
 </html>
