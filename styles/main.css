@@ -1,9 +1,11 @@
-/* --- DUOLINGO AESTHETIC --- */
+/* --- DUOLINGO INSPIRED AESTHETIC --- */
 :root {
     --green: #58cc02;
+    --green-dark: #46a302;
     --blue: #1cb0f6;
+    --blue-dark: #1482b5;
     --white: #ffffff;
-    --gray-bg: #f7f7f7;
+    --gray-light: #f7f7f7;
     --text: #4b4b4b;
     --border: #e5e5e5;
     --error: #ff4b4b;
@@ -14,105 +16,138 @@
 body {
     background-color: var(--white);
     color: var(--text);
-    font-family: 'DIN Round', 'Segoe UI', sans-serif;
-    margin: 0; padding: 20px;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
 }
 
-/* SCREEN HANDLING */
-.screen { display: none; }
-.screen.active { display: flex; flex-direction: column; align-items: center; }
+/* SCREEN VISIBILITY LOGIC */
+.screen { display: none; width: 100%; max-width: 600px; flex-direction: column; }
+.screen.active { display: flex; }
 
-.app-container { width: 100%; max-width: 600px; margin: 0 auto; }
+/* CONTAINERS & CARDS */
+.app-container { width: 100%; display: flex; justify-content: center; }
 
-/* CARD LOOK */
 .card {
     background: var(--white);
     border: 2px solid var(--border);
     border-bottom: 4px solid var(--border);
-    border-radius: 15px;
-    padding: 20px;
+    border-radius: 18px;
+    padding: 25px;
     width: 100%;
+    margin-top: 20px;
 }
 
 /* BUTTONS */
 button {
-    border-radius: 12px;
+    border-radius: 15px;
     border: none;
     cursor: pointer;
-    font-weight: bold;
+    font-weight: 800;
     font-size: 1rem;
-    padding: 12px 20px;
-    transition: filter 0.2s;
+    padding: 12px 24px;
+    text-transform: uppercase;
+    transition: filter 0.2s, transform 0.1s;
 }
+button:active { transform: translateY(2px); }
 
 .primary-btn {
     background: var(--green);
     color: white;
-    border-bottom: 4px solid #46a302;
+    border-bottom: 4px solid var(--green-dark);
 }
 
 .secondary-btn {
     background: var(--blue);
     color: white;
-    border-bottom: 4px solid #1482b5;
+    border-bottom: 4px solid var(--blue-dark);
 }
 
-/* OPTIONS (Responsive PC/Mobile) */
+/* CHAPTER LIST (The buttons in your first screen) */
+.chapter-list {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 2px solid var(--border);
+    border-radius: 15px;
+    margin: 15px 0;
+}
+
+.quiz-btn-item {
+    padding: 15px;
+    border-bottom: 2px solid var(--border);
+    cursor: pointer;
+    font-weight: 600;
+}
+.quiz-btn-item:hover { background: var(--gray-light); }
+.quiz-btn-item.selected {
+    background: #ddf4ff;
+    color: var(--blue);
+    border-left: 5px solid var(--blue);
+}
+
+/* OPTION BUTTON LAYOUT (Responsive) */
 .option-card {
     display: flex;
     border: 2px solid var(--border);
     border-bottom: 4px solid var(--border);
     border-radius: 15px;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     cursor: pointer;
-    overflow: hidden;
+    background: white;
 }
 
 .option-label {
+    width: 50px;
     background: #f1f1f1;
-    width: 45px;
     display: flex;
     justify-content: center;
     align-items: center;
     font-weight: 900;
+    font-size: 1.2rem;
     border-right: 2px solid var(--border);
 }
 
-/* MOBILE VIEW (Default) */
+/* Mobile Layout */
 .option-content {
     flex: 1;
-    padding: 10px 15px;
+    padding: 12px 18px;
     display: flex;
-    flex-direction: column; /* Top-Down */
+    flex-direction: column;
+    gap: 5px;
 }
 
-/* PC VIEW */
+/* PC/Desktop Layout (Side-by-Side) */
 @media (min-width: 768px) {
-    .app-container { max-width: 800px; }
-    .option-content { 
-        flex-direction: row; /* Left-Right */
-        align-items: center; 
-    }
+    .screen { max-width: 800px; }
+    .option-content { flex-direction: row; align-items: center; }
     .text-en { flex: 1; border-right: 1px solid var(--border); padding-right: 15px; }
-    .text-hi { flex: 1; padding-left: 15px; }
+    .text-hi { flex: 1; padding-left: 15px; color: var(--text-muted); }
 }
 
-/* MODAL FIX */
+/* MODAL / QUIT POPUP */
 .modal-overlay {
     display: none;
-    position: fixed; top:0; left:0; width:100%; height:100%;
-    background: rgba(0,0,0,0.5); z-index:100;
-    justify-content:center; align-items:center;
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6); z-index: 1000;
+    justify-content: center; align-items: center;
 }
 .modal-overlay.active { display: flex; }
 
-/* CODE BOXES */
+.modal-box {
+    background: white; padding: 30px; border-radius: 20px;
+    text-align: center; width: 90%; max-width: 400px;
+}
+
+/* CODE FORMATTING */
 pre {
     background: #1e1e1e;
-    color: #dcdcdc;
+    color: #efefef;
     padding: 15px;
-    border-radius: 10px;
+    border-radius: 12px;
     overflow-x: auto;
-    font-family: monospace;
+    font-family: 'Consolas', monospace;
     text-align: left;
+    margin: 15px 0;
 }
