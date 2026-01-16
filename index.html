@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Assessment Portal</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+
+    <div id="uploadScreen" class="screen active">
+        <div class="upload-card">
+            <div class="upload-icon">🎓</div>
+            <h1>Student Assessment Portal</h1>
+            <p style="color: #64748b; margin-bottom: 25px;">Enter your details to unlock the chapters.</p>
+            
+            <div style="text-align: left; margin-bottom: 25px;">
+                <div style="margin-bottom: 15px;">
+                    <label style="display:block; font-weight:600; color:#475569; margin-bottom:5px;">Full Name</label>
+                    <input type="text" id="studentName" class="file-input" style="padding: 12px; cursor: text;" placeholder="e.g. Rahul Kumar">
+                </div>
+                <div>
+                    <label style="display:block; font-weight:600; color:#475569; margin-bottom:5px;">School / Institution</label>
+                    <input type="text" id="schoolName" class="file-input" style="padding: 12px; cursor: text;" placeholder="e.g. Govt Model School">
+                </div>
+            </div>
+
+            <div id="quizLibrary" class="quiz-library">
+                <h3>📂 Select Chapter</h3>
+                <div id="quizList" class="quiz-list">
+                    </div>
+            </div>
+
+            <div class="mode-section">
+                <p class="section-label">Select Mode:</p>
+                <div class="mode-grid">
+                    <label class="mode-card">
+                        <input type="radio" name="quizMode" value="practice" checked>
+                        <div class="card-content">
+                            <div class="mode-icon">🎓</div>
+                            <div class="mode-info">
+                                <span class="mode-title">Practice Mode</span>
+                                <div class="mode-tags">
+                                    <span class="tag">99s Timer</span>
+                                    <span class="tag">3 Attempts</span>
+                                    <span class="tag">Explanations ON</span>
+                                </div>
+                            </div>
+                            <div class="check-mark"></div>
+                        </div>
+                    </label>
+
+                    <label class="mode-card">
+                        <input type="radio" name="quizMode" value="test">
+                        <div class="card-content">
+                            <div class="mode-icon">⚡</div>
+                            <div class="mode-info">
+                                <span class="mode-title">Test Mode</span>
+                                <div class="mode-tags">
+                                    <span class="tag strict">40s Timer</span>
+                                    <span class="tag strict">1 Attempt</span>
+                                    <span class="tag strict">No Explanations</span>
+                                </div>
+                            </div>
+                            <div class="check-mark"></div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <div id="errorMessage" class="error-message"></div>
+            
+            <div class="action-buttons" style="flex-direction: column; gap: 10px;">
+                <button id="startQuiz" class="btn-primary" style="width: 100%;" disabled>Start Quiz</button>
+                <button id="viewScoreboardBtn" class="btn-secondary" style="width: 100%;">🏆 View Global Scoreboard</button>
+                
+                <button id="demoModeBtn" class="btn-text" style="margin-top: 10px; font-size: 12px; opacity: 0.8;">🛠️ Run UI Demo (Dev Mode)</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="scoreboardScreen" class="screen">
+        <div class="results-container">
+            <div class="results-header" style="background: #2563eb; display:flex; justify-content:space-between; align-items:center;">
+                <h1 style="margin:0; font-size: 24px;">🏆 Global Scoreboard</h1>
+                <button id="backFromScoreboard" class="btn-icon" style="background: rgba(255,255,255,0.2); color:white; border:none;">✕ Close</button>
+            </div>
+            
+            <div class="results-breakdown" style="padding:0;">
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                        <thead style="background: #f1f5f9; color: #475569; font-size: 14px;">
+                            <tr>
+                                <th style="padding: 15px;">Date</th>
+                                <th style="padding: 15px;">Student</th>
+                                <th style="padding: 15px;">Chapter</th>
+                                <th style="padding: 15px;">Mode</th>
+                                <th style="padding: 15px;">Score</th>
+                                <th style="padding: 15px;">Time</th>
+                            </tr>
+                        </thead>
+                        <tbody id="scoreboardBody" style="font-size: 14px; color: #334155;">
+                            <tr><td colspan="6" style="padding:20px; text-align:center;">Loading scores...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="quizScreen" class="screen">
+        <div class="quiz-header">
+            <h2 id="chapterTitle" class="chapter-title">Loading...</h2>
+            
+            <div class="quiz-stats-row">
+                <div class="header-left">
+                    <div class="stat-badge">
+                        <span class="stat-label">Question</span>
+                        <span class="stat-value"><span id="currentQuestion">1</span>/<span id="totalQuestions">0</span></span>
+                    </div>
+                    <div class="stat-badge">
+                        <span class="stat-label">Timer</span>
+                        <span class="stat-value" id="timer">99</span><span class="stat-unit">s</span>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="stat-badge score-badge">
+                        <span class="stat-label">Score</span>
+                        <span class="stat-value"><span id="currentScore">0</span>/<span id="maxScore">0</span></span>
+                    </div>
+                    <div class="action-buttons">
+                        <button id="hintBtn" class="btn-icon">💡 Hint</button>
+                        <button id="quitBtn" class="btn-icon">🏁 Quit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-grid" id="questionGrid"></div>
+
+        <div class="question-area">
+            <div class="question-text">
+                <div id="questionEn" class="question-en"></div>
+                <div id="questionHi" class="question-hi"></div>
+            </div>
+
+            <div class="options-container" id="optionsContainer"></div>
+
+            <div class="quiz-controls">
+                <button id="prevBtn" class="btn-secondary">← Previous</button>
+                <button id="nextBtn" class="btn-primary">Next →</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="resultsScreen" class="screen">
+        <div class="results-container">
+            <div class="results-header">
+                <h1>Quiz Results</h1>
+                <div class="results-summary">
+                    <div>Total: <span id="finalScore">0</span>/<span id="totalPossible">0</span></div>
+                    <div>Percentage: <span id="percentage">0</span>%</div>
+                    <div>Time: <span id="totalTime">0</span>m</div>
+                </div>
+            </div>
+
+            <div class="results-breakdown" id="resultsBreakdown"></div>
+
+            <div class="results-controls">
+                <button id="retakeBtn" class="btn-primary">Retake Quiz</button>
+                <button id="viewScoreboardFromResults" class="btn-secondary">View Global Scoreboard</button>
+                <button id="homeBtn" class="btn-text" style="display:block; margin-top:10px;">Back to Home</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="quitModal" class="modal">
+        <div class="modal-content">
+            <h3>Quit Quiz?</h3>
+            <p>Are you sure you want to quit? Your progress will be saved.</p>
+            <div class="modal-actions">
+                <button id="confirmQuit" class="btn-danger">Yes, Quit</button>
+                <button id="cancelQuit" class="btn-secondary">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="loadingSpinner" class="spinner"></div>
+
+    <script src="scripts/utils.js"></script>
+    <script src="scripts/quiz-engine.js"></script>
+    <script src="scripts/app.js"></script>
+</body>
+</html>
