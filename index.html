@@ -18,28 +18,28 @@
             
             <div class="card main-card">
                 <div class="input-section">
-                    <input type="text" id="studentName" placeholder="Enter Your Name" autocomplete="off" />
-                    <input type="text" id="schoolName" placeholder="Enter School Name" autocomplete="off" />
+                    <input type="text" id="studentName" placeholder="Student Name" autocomplete="off" />
+                    <input type="text" id="schoolName" placeholder="School Name" autocomplete="off" />
                 </div>
                 
                 <div class="mode-toggle">
                     <label class="toggle-option">
                         <input type="radio" name="quizMode" value="practice" checked> 
-                        <span>🛡️ Practice Mode</span>
+                        <span>🛡️ Practice</span>
                     </label>
                     <label class="toggle-option">
                         <input type="radio" name="quizMode" value="test"> 
-                        <span>⚔️ Test Mode</span>
+                        <span>⚔️ Test</span>
                     </label>
                 </div>
 
-                <h3 class="section-label">Select a Chapter:</h3>
+                <h3 class="section-label">Select Your Lesson:</h3>
                 <div id="quizList" class="chapter-list">
                     </div>
 
                 <div class="footer-actions">
                     <button id="startQuiz" class="primary-btn" disabled>Start Learning ▶</button>
-                    <button id="demoModeBtn" class="icon-btn">🛠️ Demo</button>
+                    <button id="demoModeBtn" class="icon-btn">🛠️</button>
                 </div>
             </div>
             <div id="errorMessage" class="error-msg"></div>
@@ -95,23 +95,10 @@
             </div>
         </div>
 
-        <div id="scoreboardScreen" class="screen">
-            <h2>🏆 Leaderboard</h2>
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr><th>Date</th><th>Student</th><th>Score</th></tr>
-                    </thead>
-                    <tbody id="scoreboardBody"></tbody>
-                </table>
-            </div>
-            <button id="backFromScoreboard" class="secondary-btn">← Back</button>
-        </div>
-
         <div id="quitModal" class="modal-overlay">
             <div class="modal-box">
                 <h3>Quit Lesson?</h3>
-                <p>Your current progress will be lost.</p>
+                <p>Your progress will be lost.</p>
                 <div class="modal-buttons">
                     <button id="confirmQuit" class="danger-btn">Yes, Quit</button>
                     <button id="cancelQuit" class="cancel-btn">Stay</button>
