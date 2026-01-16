@@ -1,121 +1,186 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CodeTutor</title>
-    <link rel="stylesheet" href="styles/main.css">
-</head>
-<body>
+/* styles/main.css */
 
-    <div class="quiz-container">
-        
-        <div id="uploadScreen" class="screen active">
-            <div class="quiz-header">
-                <h1>🎓 CodeTutor</h1>
-                <button id="viewScoreboardBtn" style="font-size:0.8rem; padding:8px 12px;">🏆 Rankings</button>
-            </div>
-            
-            <div class="login-panel">
-                <div class="input-group">
-                    <input type="text" id="studentName" placeholder="Enter Your Name" />
-                    <input type="text" id="schoolName" placeholder="Enter School Name" />
-                </div>
-                
-                <div class="mode-selector">
-                    <label><input type="radio" name="quizMode" value="practice" checked> 🛡️ Practice Mode</label>
-                    <label><input type="radio" name="quizMode" value="test"> ⚔️ Test Mode</label>
-                </div>
+/* --- 1. GLOBAL VARIABLES & RESET --- */
+:root {
+    --primary: #2563eb;       /* Blue */
+    --success: #22c55e;       /* Green */
+    --error: #ef4444;         /* Red */
+    --background: #f8fafc;    /* Light Gray */
+    --card-bg: #ffffff;       /* White */
+    --text-main: #1e293b;     /* Dark Slate */
+    --text-muted: #64748b;    /* Gray */
+    --border: #e2e8f0;        /* Light Border */
+    --code-bg: #1e293b;       /* Dark Code BG */
+    --code-text: #e2e8f0;     /* Light Code Text */
+}
 
-                <div style="font-weight:600; color:#64748b;">Select a Chapter:</div>
-                <div id="quizList" class="quiz-list">
-                    </div>
+* { box-sizing: border-box; }
 
-                <div class="action-bar">
-                    <button id="startQuiz" disabled>Start Learning ▶</button>
-                    <button id="demoModeBtn" style="background:none; color:#64748b; margin-left:auto; padding:5px;">🛠️ Demo</button>
-                </div>
-            </div>
-            <div id="errorMessage" style="color:var(--error); margin-top:10px; text-align:center;"></div>
-        </div>
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: var(--background);
+    color: var(--text-main);
+    margin: 0;
+    padding: 20px;
+    line-height: 1.6;
+}
 
-        <div id="quizScreen" class="screen">
-            <div class="quiz-header">
-                <div id="chapterTitle" style="font-weight:bold;">Chapter</div>
-                <div class="stats-bar">
-                    <div>⏰ <span id="timer">0</span>s</div>
-                    <div>⭐ <span id="currentScore">0</span></div>
-                </div>
-            </div>
+/* --- 2. MAIN CONTAINER --- */
+.quiz-container {
+    max-width: 850px;
+    margin: 0 auto;
+    background: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    min-height: 400px;
+}
 
-            <div id="questionGrid" style="display:flex; flex-wrap:wrap; gap:4px; margin-bottom:20px;"></div>
+/* --- 3. HEADER --- */
+.quiz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+.quiz-header h1 { margin: 0; color: var(--primary); font-size: 1.5rem; }
 
-            <div class="question-area">
-                <div class="q-badge">Question <span id="currentQuestion">1</span> / <span id="totalQuestions">0</span></div>
-                <div class="question-text">
-                    <div id="questionEn"></div>
-                    <div id="questionHi" style="color:#64748b; font-size:0.9em; margin-top:8px;"></div>
-                </div>
-            </div>
+/* --- 4. START SCREEN / LOGIN PANEL (The part that looks broken in your screenshot) --- */
+.login-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
 
-            <div id="optionsContainer" class="options-grid"></div>
+.input-group {
+    display: flex;
+    gap: 10px;
+}
+.input-group input {
+    flex: 1;
+    padding: 12px;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    font-size: 1rem;
+}
 
-            <div class="nav-buttons">
-                <button id="prevBtn">← Back</button>
-                <button id="hintBtn">💡 Hint</button>
-                <button id="nextBtn">Next →</button>
-            </div>
-            <div style="text-align:center; margin-top:20px;">
-                <button id="quitBtn" style="background:none; color:#ef4444; padding:5px;">Quit Quiz</button>
-            </div>
-        </div>
+.mode-selector {
+    background: #f1f5f9;
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    gap: 20px;
+    font-weight: 600;
+}
 
-        <div id="resultsScreen" class="screen">
-            <div class="result-card">
-                <h2>🎉 Quiz Completed!</h2>
-                <div class="score-circle">
-                    <span id="finalScore">0</span> / <span id="totalPossible">0</span>
-                </div>
-                <h3 id="percentage" style="color:var(--primary);">0%</h3>
-                <p>Time: <span id="totalTime">0m</span></p>
-                
-                <div id="resultsBreakdown" class="breakdown-list"></div>
+/* The Chapter List Box */
+.quiz-list {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    margin-top: 5px;
+}
 
-                <div class="nav-buttons" style="justify-content:center; flex-wrap:wrap;">
-                    <button id="retakeBtn">🔄 Retake</button>
-                    <button id="homeBtn">🏠 Home</button>
-                </div>
-            </div>
-        </div>
+/* The Individual Chapter Buttons */
+.quiz-btn {
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: background 0.2s;
+    font-weight: 500;
+}
+.quiz-btn:hover { background-color: #f1f5f9; }
+.quiz-btn.selected {
+    background-color: var(--primary);
+    color: white;
+}
 
-        <div id="scoreboardScreen" class="screen">
-            <h2>🏆 Leaderboard</h2>
-            <div style="overflow-x:auto;">
-                <table class="scoreboard-table">
-                    <thead><tr><th>Date</th><th>Name</th><th>Score</th></tr></thead>
-                    <tbody id="scoreboardBody"></tbody>
-                </table>
-            </div>
-            <div class="nav-buttons">
-                <button id="backFromScoreboard">← Back</button>
-            </div>
-        </div>
+/* --- 5. QUIZ SCREEN & QUESTIONS --- */
+.stats-bar { display: flex; gap: 15px; font-weight: bold; color: var(--text-muted); }
 
-        <div id="quitModal" class="modal">
-            <div class="modal-content">
-                <h3>Quit Quiz?</h3>
-                <div style="margin-top:15px; display:flex; gap:10px; justify-content:center;">
-                    <button id="confirmQuit" style="background:var(--error); color:white;">Yes</button>
-                    <button id="cancelQuit" style="background:#cbd5e1; color:black;">No</button>
-                </div>
-            </div>
-        </div>
+.question-area { margin-bottom: 20px; }
+.q-badge {
+    background: #e0f2fe; color: #0369a1;
+    padding: 4px 10px; border-radius: 4px;
+    font-size: 0.8rem; font-weight: bold;
+    display: inline-block; margin-bottom: 10px;
+}
+.question-text { font-size: 1.15rem; font-weight: 600; }
 
-    </div>
+/* Code Blocks (VS Code Style) */
+pre {
+    background: var(--code-bg); color: var(--code-text);
+    padding: 15px; border-radius: 8px;
+    border-left: 5px solid var(--primary);
+    overflow-x: auto; font-family: 'Consolas', monospace;
+}
 
-    <script src="scripts/utils.js"></script>
-    <script src="scripts/quiz-engine.js"></script>
-    <script src="scripts/app.js"></script>
+/* --- 6. OPTIONS (A, B, C, D) --- */
+.options-grid { display: flex; flex-direction: column; gap: 10px; }
 
-</body>
-</html>
+.option-card {
+    display: flex; border: 2px solid var(--border);
+    border-radius: 8px; cursor: pointer;
+    background: white; overflow: hidden;
+    transition: all 0.2s;
+}
+.option-card:hover { border-color: var(--primary); background: #f8fafc; }
+
+.option-label {
+    width: 50px; background: #e2e8f0;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: bold; font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.option-content {
+    flex: 1; padding: 10px 15px;
+    display: flex; flex-direction: column; gap: 4px;
+}
+/* Desktop Layout for Options */
+@media (min-width: 600px) {
+    .option-content { flex-direction: row; align-items: center; }
+    .option-en { flex: 1; border-right: 1px solid var(--border); padding-right: 10px; }
+    .option-hi { flex: 1; padding-left: 10px; }
+}
+
+/* Feedback Colors */
+.option-card.correct { border-color: var(--success); background: #f0fdf4; }
+.option-card.correct .option-label { background: var(--success); color: white; }
+.option-card.wrong { border-color: var(--error); background: #fef2f2; }
+.option-card.wrong .option-label { background: var(--error); color: white; }
+
+/* --- 7. BUTTONS --- */
+.nav-buttons { display: flex; justify-content: space-between; margin-top: 25px; }
+button {
+    padding: 10px 20px; border-radius: 6px; border: none;
+    font-weight: bold; cursor: pointer; font-size: 1rem;
+}
+#startQuiz, #nextBtn { background: var(--primary); color: white; }
+#prevBtn, #homeBtn { background: #cbd5e1; color: var(--text-main); }
+#hintBtn { background: #fbbf24; color: #78350f; }
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* --- 8. UTILITIES --- */
+.screen { display: none; } /* This hides screens not currently in use */
+.screen.active { display: block; animation: fade 0.3s; }
+@keyframes fade { from {opacity:0;} to {opacity:1;} }
+
+/* --- 9. MODALS (The "Quit Quiz" Popup) --- */
+.modal {
+    display: none; /* HIDDEN BY DEFAULT */
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 1000;
+    justify-content: center; align-items: center;
+}
+.modal.active { display: flex; } /* Only shows when active */
+.modal-content {
+    background: white; padding: 25px;
+    border-radius: 10px; text-align: center;
+    width: 300px;
+}
