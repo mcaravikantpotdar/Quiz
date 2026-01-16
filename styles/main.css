@@ -1,371 +1,271 @@
-/* =========================================
-   1. GLOBAL RESET & BASICS
-   ========================================= */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* --- GLOBAL RESET & FONTS --- */
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1e40af;
+    --success: #22c55e;
+    --error: #ef4444;
+    --background: #f8fafc;
+    --card-bg: #ffffff;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+    --code-bg: #1e293b;
+    --code-text: #e2e8f0;
 }
 
 body {
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    background: #f1f5f9; /* Slate 100 */
-    color: #1e293b;      /* Slate 800 */
-    line-height: 1.5;
-    min-height: 100vh;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background-color: var(--background);
+    color: var(--text-main);
+    margin: 0;
+    padding: 20px;
+    line-height: 1.6;
 }
 
-/* =========================================
-   2. SCREEN MANAGEMENT
-   ========================================= */
-.screen {
-    display: none;
-    padding: 20px;
+/* --- QUIZ CONTAINER --- */
+.quiz-container {
     max-width: 900px;
     margin: 0 auto;
-}
-
-.screen.active {
-    display: block;
-    animation: fadeIn 0.3s ease-in-out;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* =========================================
-   3. HOME SCREEN & INPUTS
-   ========================================= */
-.upload-card {
-    background: white;
-    padding: 40px;
-    border-radius: 16px;
+    background: var(--card-bg);
+    border-radius: 12px;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    max-width: 600px;
-    margin: 40px auto;
+    overflow: hidden;
+    padding: 20px;
 }
 
-.upload-icon { font-size: 40px; margin-bottom: 15px; }
-.upload-card h1 { color: #1e293b; margin-bottom: 10px; font-size: 24px; }
-.subtitle { color: #64748b; margin-bottom: 30px; font-size: 14px; }
-
-/* The Name/School Inputs */
-.file-input {
-    width: 100%;
-    padding: 12px 16px;
-    margin-bottom: 16px;
-    border: 2px solid #e2e8f0;
-    border-radius: 8px;
-    font-size: 15px;
-    color: #334155;
-    background: #f8fafc;
-    transition: border-color 0.2s;
-    display: block;
-}
-
-.file-input:focus {
-    outline: none;
-    border-color: #2563eb;
-    background: white;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-}
-
-.file-input::placeholder { color: #94a3b8; }
-
-/* Quiz Library List */
-.quiz-library { text-align: left; margin: 30px 0; }
-.quiz-library h3 { font-size: 13px; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 10px; }
-
-.quiz-list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    max-height: 240px;
-    overflow-y: auto;
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    padding: 10px;
-    background: #f8fafc;
-}
-
-/* Scrollbar styling */
-.quiz-list::-webkit-scrollbar { width: 6px; }
-.quiz-list::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 3px; }
-
-.quiz-btn {
-    background: white;
-    padding: 12px 15px;
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 500;
-    color: #334155;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.quiz-btn:hover { border-color: #94a3b8; transform: translateX(2px); }
-.quiz-btn.selected { 
-    background: #2563eb; 
-    color: white; 
-    border-color: #2563eb; 
-    box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2); 
-}
-
-/* =========================================
-   4. MODE SELECTION CARDS
-   ========================================= */
-.mode-section { text-align: left; margin-bottom: 30px; }
-.section-label { font-size: 13px; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 10px; }
-
-.mode-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-.mode-card { position: relative; cursor: pointer; }
-.mode-card input { position: absolute; opacity: 0; }
-
-.card-content {
-    background: #f8fafc;
-    border: 2px solid #e2e8f0;
-    border-radius: 12px;
-    padding: 15px;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    transition: all 0.2s;
-}
-
-.mode-icon { font-size: 24px; margin-bottom: 8px; }
-.mode-title { font-weight: 700; font-size: 15px; margin-bottom: 5px; color: #1e293b; }
-
-.mode-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; }
-.tag { font-size: 10px; background: #e2e8f0; padding: 2px 6px; border-radius: 4px; font-weight: 600; color: #475569; }
-.tag.strict { background: #fee2e2; color: #991b1b; }
-
-/* Checked State */
-.mode-card input:checked + .card-content { background: #eff6ff; border-color: #2563eb; }
-.mode-card input:checked + .card-content .mode-title { color: #2563eb; }
-.check-mark { position: absolute; top: 8px; right: 8px; width: 18px; height: 18px; background: #2563eb; border-radius: 50%; display: none; align-items: center; justify-content: center; color: white; font-size: 10px; font-weight: bold; }
-.check-mark::after { content: "✓"; }
-.mode-card input:checked + .card-content .check-mark { display: flex; }
-
-/* =========================================
-   5. QUIZ HEADER (STICKY)
-   ========================================= */
+/* --- HEADER & SCOREBOARD --- */
 .quiz-header {
-    background: white;
-    padding: 15px 20px;
-    border-radius: 0 0 16px 16px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-    margin-bottom: 25px;
-    position: sticky;
-    top: 0;
-    z-index: 50; /* Above regular content */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 15px;
+    margin-bottom: 20px;
 }
 
-.chapter-title {
-    text-align: center;
-    font-size: 18px;
-    font-weight: 800;
-    color: #1e293b;
-    margin-bottom: 15px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #f1f5f9;
+.stats-bar {
+    display: flex;
+    gap: 15px;
+    font-size: 0.9rem;
+    font-weight: 600;
 }
 
-.quiz-stats-row { display: flex; justify-content: space-between; align-items: center; }
-.header-left, .header-right { display: flex; gap: 10px; align-items: center; }
-
-.stat-badge {
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
+.stat-item {
+    background: #f1f5f9;
     padding: 5px 12px;
-    text-align: center;
-    min-width: 70px;
+    border-radius: 20px;
 }
-.stat-badge.score-badge { background: #eff6ff; border-color: #bfdbfe; }
 
-.stat-label { display: block; font-size: 10px; font-weight: 700; color: #64748b; text-transform: uppercase; }
-.stat-value { font-size: 16px; font-weight: 800; color: #0f172a; }
-.stat-unit { font-size: 11px; color: #64748b; font-weight: 600; }
-
-#timer.pulse { color: #dc2626; animation: pulse 1s infinite; }
-@keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
-
-/* =========================================
-   6. QUESTION GRID
-   ========================================= */
-.question-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
-    gap: 8px;
+/* --- QUESTION AREA --- */
+.question-area {
     margin-bottom: 25px;
-    background: white;
-    padding: 15px;
-    border-radius: 12px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
-.question-number {
-    height: 54px; /* Fixed height ensures alignment */
-    border: 1px solid #e2e8f0;
+.question-text {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 15px;
+}
+
+/* --- CODE SNIPPET STYLING (The "VS Code" Look) --- */
+.question-text pre, 
+.option-content pre {
+    background: var(--code-bg);
+    color: var(--code-text);
+    padding: 15px;
     border-radius: 8px;
-    background: white;
-    cursor: pointer;
+    border: 1px solid #334155;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.95em;
+    overflow-x: auto; /* Scroll sideways if code is too long */
+    margin: 10px 0;
+    white-space: pre; /* Respects your line breaks and indentations strictly */
+    text-align: left;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.question-text code, 
+.option-content code {
+    font-family: inherit;
+    color: #38bdf8; /* Light blue for keywords */
+}
+
+/* --- OPTIONS GRID --- */
+.options-grid {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.1s;
+    gap: 12px;
 }
 
-.q-number { font-size: 13px; font-weight: 700; color: #64748b; line-height: 1.2; }
-.marks { font-size: 10px; font-weight: 600; color: #94a3b8; margin-top: 2px; }
-
-/* Grid Interaction */
-.question-number:hover { border-color: #3b82f6; }
-.question-number.current { background: #eff6ff; border-color: #3b82f6; transform: scale(1.05); }
-.question-number.current .q-number { color: #2563eb; }
-
-/* Grid Status Colors */
-.question-number.correct { background: #dcfce7; border-color: #22c55e; }
-.question-number.correct .q-number { color: #15803d; }
-.question-number.correct .marks { color: #166534; }
-
-.question-number.wrong { background: #fee2e2; border-color: #ef4444; }
-.question-number.wrong .q-number { color: #b91c1c; }
-.question-number.wrong .marks { color: #991b1b; }
-
-/* =========================================
-   7. QUESTION & OPTIONS AREA
-   ========================================= */
-.question-area { background: white; padding: 25px; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
-.question-text { margin-bottom: 25px; }
-.question-en { font-size: 18px; font-weight: 600; color: #1e293b; margin-bottom: 8px; }
-.question-hi { font-size: 16px; color: #64748b; }
-
-.options-container { display: grid; gap: 12px; }
+/* --- OPTION CARD (The Button) --- */
 .option-card {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    padding: 15px;
-    border: 2px solid #e2e8f0;
+    display: flex;
+    align-items: stretch; /* Make label and content same height */
+    border: 2px solid var(--border);
     border-radius: 10px;
     cursor: pointer;
-    background: white;
-    transition: all 0.2s;
+    transition: all 0.2s ease;
+    background: #fff;
+    overflow: hidden;
 }
 
-.option-card:hover { border-color: #3b82f6; background: #f8fafc; }
-.option-card.correct { background: #f0fdf4; border-color: #22c55e; color: #15803d; }
-.option-card.wrong { background: #fef2f2; border-color: #ef4444; color: #b91c1c; }
-.option-card.disabled { opacity: 0.6; cursor: not-allowed; }
+.option-card:hover {
+    border-color: var(--primary);
+    background: #f8fafc;
+}
 
-/* Controls */
-.quiz-controls { display: flex; justify-content: space-between; margin-top: 25px; padding-top: 20px; border-top: 1px solid #f1f5f9; }
+/* 1. Static Label (A, B, C, D) */
+.option-label {
+    background: #f1f5f9;
+    color: var(--text-muted);
+    font-weight: 800;
+    font-size: 1.1rem;
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 2px solid var(--border);
+    flex-shrink: 0; /* Never shrink */
+}
 
-/* Buttons */
-.btn-primary { background: #2563eb; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
-.btn-primary:hover:not(:disabled) { background: #1d4ed8; }
-.btn-primary:disabled { background: #cbd5e1; cursor: not-allowed; }
+/* 2. Content Container (Holds Eng + Hin) */
+.option-content {
+    flex: 1;
+    display: flex;
+    padding: 12px 15px;
+    gap: 10px;
+}
 
-.btn-secondary { background: white; color: #475569; border: 1px solid #cbd5e1; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; }
-.btn-secondary:hover { background: #f1f5f9; }
+/* 3. Language Text Styling */
+.option-en {
+    font-size: 1rem;
+    color: var(--text-main);
+    font-weight: 500;
+}
 
-.btn-icon { background: white; border: 1px solid #e2e8f0; color: #475569; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; }
-.btn-icon:hover { background: #f8fafc; }
-.btn-danger { background: #ef4444; color: white; padding: 10px 20px; border-radius: 6px; border: none; cursor: pointer; }
+.option-hi {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
 
-/* =========================================
-   8. FEEDBACK & RESULTS
-   ========================================= */
-.feedback-area { margin-top: 20px; padding: 20px; border-radius: 12px; animation: slideIn 0.3s; }
-@keyframes slideIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+/* --- RESPONSIVE LOGIC (PC vs Mobile) --- */
 
-.explanation-area { background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; }
-.hint-area { background: #f0f9ff; border: 1px solid #bae6fd; color: #075985; }
-.key-takeaway-area { margin-top: 15px; padding: 15px; background: #fffbeb; border-left: 4px solid #f59e0b; color: #92400e; border-radius: 4px; }
+/* MOBILE DEFAULT (Up-Down Layout) */
+.option-content {
+    flex-direction: column; /* English Top, Hindi Bottom */
+    text-align: left;
+}
+.option-hi {
+    border-top: 1px dashed var(--border);
+    padding-top: 5px;
+}
 
-/* Results Screen */
-.results-container { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
-.results-header { background: #2563eb; color: white; padding: 30px; text-align: center; }
-.results-summary { display: flex; justify-content: center; gap: 30px; margin-top: 15px; font-size: 18px; font-weight: 600; }
-.results-breakdown { padding: 30px; background: #f8fafc; }
-
-.result-item { padding: 20px; background: white; border: 1px solid #e2e8f0; border-radius: 10px; margin-bottom: 15px; }
-.result-item.correct { border-left: 4px solid #22c55e; }
-.result-item.wrong { border-left: 4px solid #ef4444; }
-
-/* Scoreboard Table */
-.scoreboard-table { width: 100%; border-collapse: collapse; text-align: left; }
-.scoreboard-table th { padding: 12px; background: #f1f5f9; color: #475569; font-weight: 600; font-size: 13px; }
-.scoreboard-table td { padding: 12px; border-bottom: 1px solid #e2e8f0; color: #334155; font-size: 14px; }
-.scoreboard-table tr:hover { background: #f8fafc; }
-
-/* =========================================
-   9. MODALS & UTILS
-   ========================================= */
-.modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 100; align-items: center; justify-content: center; backdrop-filter: blur(2px); }
-.modal.active { display: flex; }
-.modal-content { background: white; padding: 30px; border-radius: 16px; max-width: 400px; width: 90%; text-align: center; }
-.modal-actions { display: flex; gap: 10px; justify-content: center; margin-top: 20px; }
-
-.spinner { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 40px; height: 40px; border: 4px solid #e2e8f0; border-top: 4px solid #2563eb; border-radius: 50%; animation: spin 1s linear infinite; z-index: 200; }
-.spinner.active { display: block; }
-@keyframes spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
-
-.confetti { position: fixed; width: 10px; height: 10px; background: #2563eb; animation: fall 3s linear; z-index: 150; }
-@keyframes fall { to { transform: translateY(100vh) rotate(360deg); } }
-
-.error-message { color: #dc2626; font-size: 14px; margin-top: 10px; }
-
-/* =========================================
-   10. MOBILE & RESPONSIVE ADJUSTMENTS
-   ========================================= */
-@media (max-width: 768px) {
-    .mode-grid { grid-template-columns: 1fr; }
-    .quiz-stats-row { flex-direction: row; flex-wrap: wrap; gap: 10px; }
-    .quiz-btn { font-size: 13px; }
+/* PC / TABLET MODE (Left-Right Layout) */
+@media (min-width: 768px) {
+    .option-content {
+        flex-direction: row; /* Side by side */
+        align-items: center;
+    }
     
-    /* MOBILE STACKING FOR BILINGUAL OPTIONS */
-    .option-card {
-        grid-template-columns: 1fr; /* Change from 2 columns to 1 */
-        gap: 5px; /* Reduce gap slightly */
+    .option-en {
+        flex: 1; /* Take 50% width */
+        border-right: 1px solid var(--border);
+        padding-right: 15px;
+    }
+    
+    .option-hi {
+        flex: 1; /* Take 50% width */
+        border-top: none;
+        padding-top: 0;
+        padding-left: 10px;
     }
 }
 
-/* =========================================
-   11. CODE SNIPPET STYLING (For CS Questions)
-   ========================================= */
-pre {
-    background: #1e293b; /* Dark Slate Background */
-    color: #e2e8f0;      /* Light Text */
+/* --- FEEDBACK STATES (Correct/Wrong) --- */
+.option-card.correct {
+    border-color: var(--success);
+    background-color: #f0fdf4;
+}
+.option-card.correct .option-label {
+    background-color: var(--success);
+    color: white;
+    border-right-color: var(--success);
+}
+
+.option-card.wrong {
+    border-color: var(--error);
+    background-color: #fef2f2;
+    animation: shake 0.4s ease;
+}
+.option-card.wrong .option-label {
+    background-color: var(--error);
+    color: white;
+    border-right-color: var(--error);
+}
+
+/* --- ANIMATIONS --- */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+/* --- FEEDBACK AREAS (Explanation/Hint) --- */
+.feedback-area {
+    margin-top: 20px;
     padding: 15px;
     border-radius: 8px;
-    overflow-x: auto;    /* Scroll bar for long lines */
-    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-    font-size: 14px;
-    margin: 15px 0;
-    border: 1px solid #334155;
-    line-height: 1.4;
+    background: #fff;
+    border-left: 5px solid;
+    animation: slideDown 0.3s ease-out;
 }
 
-code {
-    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+.explanation-area {
+    border-color: var(--success);
+    background: #f0fdf4;
 }
 
-/* Style for inline code (e.g., "Use the <div> tag") */
-p code, li code {
-    background: #f1f5f9;
-    color: #d946ef; /* Magenta for visibility */
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-size: 0.9em;
+.hint-area {
+    border-color: #fbbf24; /* Amber */
+    background: #fffbeb;
+}
+
+.feedback-area h4 {
+    margin: 0 0 10px 0;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* --- NAVIGATION BUTTONS --- */
+.nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    gap: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: none;
     font-weight: 600;
-    border: 1px solid #e2e8f0;
+    cursor: pointer;
+    transition: transform 0.1s;
 }
+
+button:active { transform: scale(0.98); }
+
+#nextBtn { background: var(--primary); color: white; }
+#prevBtn { background: #cbd5e1; color: var(--text-main); }
+#hintBtn { background: #fbbf24; color: #78350f; }
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* --- HIDE SCREENS --- */
+.screen { display: none; }
+.screen.active { display: block; }
