@@ -219,7 +219,8 @@ class QuizApp {
         QuizUtils.showLoading(true);
         this.errorDiv.textContent = '';
         try {
-            const response = await fetch(`jsons/${this.selectedQuizFile}`);
+            // CACHE BUSTING: Adding ?t=${Date.now()} forces the browser to bypass any cached version of the JSON file
+            const response = await fetch(`jsons/${this.selectedQuizFile}?t=${Date.now()}`);
             if (!response.ok) throw new Error(`Could not find chapter file: ${this.selectedQuizFile}`);
             const data = await response.json();
             const validation = QuizUtils.validateQuizJSON(data);
