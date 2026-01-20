@@ -46,14 +46,18 @@ class QuizEngine {
         let marks = 0;
         let finalAttempts = attemptNumber;
 
+        // --- UPDATED LOGIC FOR TEST MODE ---
         if (this.mode === 'test') {
             if (isCorrect) {
                 marks = hintUsed ? 2 : 4;
             } else {
                 marks = 0;
             }
-            finalAttempts = 3; // Force max attempts to lock the question immediately
-        } else {
+            // Test mode always locks after 1 click
+            finalAttempts = 3; 
+        } 
+        // --- UPDATED LOGIC FOR PRACTICE MODE ---
+        else {
             if (isCorrect) {
                 switch (attemptNumber) {
                     case 1: marks = hintUsed ? 3 : 4; break;
@@ -61,18 +65,38 @@ class QuizEngine {
                     case 3: marks = hintUsed ? 1 : 2; break;
                 }
             } else if (attemptNumber === 3) {
+                // Only provide 1 baseline mark if they fail 3 times
                 marks = hintUsed ? 0 : 1;
+            } else {
+                // If wrong and attempts < 3, we don't save final marks yet
+                // This prevents the UI from locking
+                marks = 0;
             }
         }
 
-        this.userAnswers[questionId] = {
-            selectedOption,
-            attempts: finalAttempts,
-            isCorrect,
-            marks,
-            hintUsed,
-            answeredAt: new Date().toISOString()
-        };
+        // Only save to userAnswers if it's correct OR if it's the final attempt
+        // This prevents the "answered" status from revealing spoilers too early
+        if (isCorrect || finalAttempts >= 3) {
+            this.userAnswers[questionId] = {
+                selectedOption,
+                attempts: finalAttempts,
+                isCorrect,
+                marks,
+                hintUsed,
+                answeredAt: new Date().toISOString()
+            };
+        } else {
+            // In Practice Mode, record the partial attempt but don't "finalize" the answer
+            // This allows the UI to show 'wrong' without showing the 'correct' spoiler
+            this.userAnswers[questionId] = {
+                selectedOption,
+                attempts: attemptNumber,
+                isCorrect: false,
+                marks: 0,
+                hintUsed,
+                isPartial: true // Custom flag to indicate it's not locked yet
+            };
+        }
 
         this.calculateScore();
         this.saveProgress();
@@ -94,7 +118,10 @@ class QuizEngine {
     }
 
     calculateScore() {
-        this.score = Object.values(this.userAnswers).reduce((total, answer) => total + answer.marks, 0);
+        // Only count scores from non-partial answers
+        this.score = Object.values(this.userAnswers)
+            .filter(ans => !ans.isPartial)
+            .reduce((total, answer) => total + answer.marks, 0);
     }
 
     getQuestionStatus(questionId) {
@@ -107,7 +134,8 @@ class QuizEngine {
 
     isQuestionDisabled(questionId) {
         const answer = this.userAnswers[questionId];
-        return answer && (answer.isCorrect || answer.attempts >= 3);
+        // Question is only disabled (locked) if it is correct OR all attempts are gone
+        return answer && !answer.isPartial && (answer.isCorrect || answer.attempts >= 3);
     }
 
     getRemainingAttempts(questionId) {
@@ -118,7 +146,8 @@ class QuizEngine {
 
     getQuestionMarks(questionId) {
         const answer = this.userAnswers[questionId];
-        if (!answer) return null;
+        // Don't show marks until the question is finalized
+        if (!answer || answer.isPartial) return null;
         return {
             obtained: answer.marks,
             max: 4,
@@ -127,7 +156,8 @@ class QuizEngine {
     }
 
     isQuestionAnswered(questionId) {
-        return !!this.userAnswers[questionId];
+        const answer = this.userAnswers[questionId];
+        return answer && !answer.isPartial;
     }
 
     initializeQuestionTimer(questionId) {
