@@ -5,10 +5,10 @@ class QuizApp {
         // --- CONFIGURATION ---
         this.SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwxt-akN_S5Dmr3HdtxpEL9by9J80kmZYCufXI1e9_fK3Ep0QYomPU-6jF-3ryPq7Q/exec";
         
-        // --- GITHUB API CONFIG (Updated from your data) ---
+        // --- GITHUB API CONFIG ---
         this.GITHUB_CONFIG = {
             owner: "mcaravikantpotdar", 
-            repo: "Quiz",               
+            repo: "Quiz-Eng-10",               
             path: "jsons"               
         };
         
@@ -16,7 +16,7 @@ class QuizApp {
         this.currentAttempts = {};
         this.hintUsed = {};
         this.shuffledOrders = {}; 
-        this.selectedQuizFile = null;
+        this.selectedQuizUrl = null; 
         this.availableQuizzes = []; 
 
         this.init();
@@ -25,8 +25,6 @@ class QuizApp {
     async init() {
         this.cacheDOM();
         this.bindEvents();
-        
-        // Automatically scan GitHub for quiz files on startup
         await this.autoScanGitHubLibrary();
     }
 
@@ -36,15 +34,10 @@ class QuizApp {
         
         try {
             const response = await fetch(apiUrl, { cache: 'no-cache' });
-            
-            if (!response.ok) {
-                if (response.status === 404) throw new Error(`Folder '${path}' not found.`);
-                throw new Error(`GitHub API Error: ${response.statusText}`);
-            }
+            if (!response.ok) throw new Error(`GitHub API Error: ${response.statusText}`);
             
             const files = await response.json();
 
-            // Transform filenames into clean labels for the UI
             this.availableQuizzes = files
                 .filter(file => file.name.toLowerCase().endsWith('.json'))
                 .map(file => {
@@ -55,7 +48,7 @@ class QuizApp {
                         
                     return {
                         name: `📂 ${cleanName}`,
-                        file: file.name
+                        url: file.download_url 
                     };
                 });
 
@@ -64,7 +57,6 @@ class QuizApp {
             } else {
                 this.renderQuizLibrary();
             }
-
         } catch (error) {
             this.quizListContainer.innerHTML = `<p style="color:#ef4444; font-size:12px; padding:10px;">Scan Error: ${error.message}</p>`;
         }
@@ -95,19 +87,15 @@ class QuizApp {
         this.inputName.addEventListener('input', () => this.validateStartForm());
         this.inputSchool.addEventListener('input', () => this.validateStartForm());
         this.btnStart.addEventListener('click', () => this.handleStart());
-        
         if (this.btnDemo) this.btnDemo.addEventListener('click', () => this.runDemoMode());
-        
         const showScoreboard = () => { QuizUtils.showScreen('scoreboardScreen'); this.fetchScoreboard(); };
         this.btnViewScoreboard.addEventListener('click', showScoreboard);
         if(this.btnViewScoreboardResults) this.btnViewScoreboardResults.addEventListener('click', showScoreboard);
-        
         this.btnBackScoreboard.addEventListener('click', () => {
             if (this.quizEngine.quizData && this.quizEngine.currentQuestionIndex >= 0 && this.quizEngine.score > 0) {
                  QuizUtils.showScreen('resultsScreen');
             } else { QuizUtils.showScreen('uploadScreen'); }
         });
-
         this.btnNext.addEventListener('click', () => this.nextQuestion());
         this.btnPrev.addEventListener('click', () => this.previousQuestion());
         this.btnHint.addEventListener('click', () => this.showHint());
@@ -127,7 +115,7 @@ class QuizApp {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.quiz-btn').forEach(b => b.classList.remove('selected'));
                 btn.classList.add('selected');
-                this.selectedQuizFile = quiz.file;
+                this.selectedQuizUrl = quiz.url; 
                 this.validateStartForm();
             });
             this.quizListContainer.appendChild(btn);
@@ -137,39 +125,17 @@ class QuizApp {
     validateStartForm() {
         const name = this.inputName.value.trim();
         const school = this.inputSchool.value.trim();
-        const hasQuiz = !!this.selectedQuizFile;
+        const hasQuiz = !!this.selectedQuizUrl;
         this.btnStart.disabled = !(name && school && hasQuiz);
     }
 
-    runDemoMode() {
-        this.inputName.value = "Demo Tester";
-        this.inputSchool.value = "UI Lab";
-        const demoData = {
-            metadata: { chapter_title: "UI Smoke Test", chapter_title_hindi: "UI परीक्षण", total_questions: 1 },
-            questions: [
-                {
-                    question_id: "demo1",
-                    question: { en: "Demo Mode Active?", hi: "डेमो मोड सक्रिय?" },
-                    options: { a: {en:"Yes",hi:"हाँ"}, b: {en:"No",hi:"नहीं"}, c: {en:"Maybe",hi:"शायद"}, d: {en:"None",hi:"कोई नहीं"} },
-                    correct_option: "a",
-                    hint: { en: "Click Yes", hi: "हाँ पर क्लिक करें" },
-                    explanation: { en: "UI works.", hi: "UI काम करता है।" },
-                    key_takeaway: { en: "Test passed.", hi: "परीक्षण सफल।" }
-                }
-            ]
-        };
-        this.quizEngine.loadQuizData(demoData);
-        this.startQuiz();
-    }
-
     async handleStart() {
-        if (!this.selectedQuizFile) return;
+        if (!this.selectedQuizUrl) return;
         QuizUtils.showLoading(true);
         this.errorDiv.textContent = '';
         try {
-            // Cache Busting ensure latest JSON content [cite: 27]
-            const response = await fetch(`jsons/${this.selectedQuizFile}?t=${Date.now()}`);
-            if (!response.ok) throw new Error(`Could not find chapter file: ${this.selectedQuizFile}`);
+            const response = await fetch(`${this.selectedQuizUrl}?t=${Date.now()}`);
+            if (!response.ok) throw new Error("Could not download quiz data.");
             const data = await response.json();
             
             const validation = QuizUtils.validateQuizJSON(data);
@@ -186,15 +152,11 @@ class QuizApp {
         const mode = document.querySelector('input[name="quizMode"]:checked').value;
         this.quizEngine.setMode(mode);
         this.quizEngine.clearProgress(); 
-        this.currentAttempts = {};
-        this.hintUsed = {};
-        this.shuffledOrders = {}; 
-
+        this.currentAttempts = {}; this.hintUsed = {}; this.shuffledOrders = {}; 
         const metadata = this.quizEngine.quizData.metadata;
         document.getElementById('chapterTitle').textContent = (metadata.chapter_title || "Quiz") + (metadata.chapter_title_hindi ? ` / ${metadata.chapter_title_hindi}` : "");
         document.getElementById('totalQuestions').textContent = this.quizEngine.getTotalQuestions();
         document.getElementById('maxScore').textContent = this.quizEngine.getMaxScore();
-
         QuizUtils.showScreen('quizScreen');
         this.renderQuestionGrid();
         this.showQuestion(0);
@@ -204,11 +166,9 @@ class QuizApp {
     getShuffledOptions(question) {
         const qId = question.question_id;
         if (this.shuffledOrders[qId]) return this.shuffledOrders[qId];
-        const allText = JSON.stringify(question.options).toLowerCase();
-        const keywords = ["both", "all of", "none of", "above", "below"];
-        const isUnsafe = keywords.some(kw => allText.includes(kw));
         let order = ['a', 'b', 'c', 'd'];
-        if (!isUnsafe) {
+        const allText = JSON.stringify(question.options).toLowerCase();
+        if (!["both", "all of", "none of"].some(kw => allText.includes(kw))) {
             for (let i = order.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [order[i], order[j]] = [order[j], order[i]];
@@ -221,180 +181,118 @@ class QuizApp {
     renderQuestionGrid() {
         const grid = document.getElementById('questionGrid');
         grid.innerHTML = '';
-        this.quizEngine.quizData.questions.forEach((question, index) => {
-            const questionEl = document.createElement('div');
-            questionEl.className = 'question-number';
-            questionEl.dataset.index = index;
-            questionEl.dataset.questionId = question.question_id;
-            
-            const status = this.quizEngine.getQuestionStatus(question.question_id);
-            questionEl.classList.add(status);
-            if (index === this.quizEngine.currentQuestionIndex) questionEl.classList.add('current');
-            
-            questionEl.innerHTML = `<div class="q-number">${index + 1}</div><div class="marks">${this.quizEngine.getQuestionMarks(question.question_id)?.display || ''}</div>`;
-            questionEl.addEventListener('click', () => this.goToQuestion(index));
-            grid.appendChild(questionEl);
+        this.quizEngine.quizData.questions.forEach((q, i) => {
+            const el = document.createElement('div');
+            el.className = `question-number ${this.quizEngine.getQuestionStatus(q.question_id)}`;
+            if (i === this.quizEngine.currentQuestionIndex) el.classList.add('current');
+            el.innerHTML = `<div class="q-number">${i + 1}</div><div class="marks">${this.quizEngine.getQuestionMarks(q.question_id)?.display || ''}</div>`;
+            el.addEventListener('click', () => this.goToQuestion(i));
+            grid.appendChild(el);
         });
     }
 
-    showQuestion(index) {
-        if (this.quizEngine.currentQuestionId) this.quizEngine.saveCurrentQuestionTime(this.quizEngine.currentQuestionId, this.quizEngine.currentTimer);
-        this.quizEngine.currentQuestionIndex = index;
-        const question = this.quizEngine.getCurrentQuestion();
-        if (!question) return;
-        
-        document.getElementById('questionEn').innerHTML = question.question.en;
-        document.getElementById('questionHi').innerHTML = question.question.hi;
-        document.getElementById('currentQuestion').textContent = index + 1;
-        
-        this.renderOptions(question);
-        
+    showQuestion(i) {
+        this.quizEngine.currentQuestionIndex = i;
+        const q = this.quizEngine.getCurrentQuestion();
+        document.getElementById('questionEn').innerHTML = q.question.en;
+        document.getElementById('questionHi').innerHTML = q.question.hi;
+        document.getElementById('currentQuestion').textContent = i + 1;
+        this.renderOptions(q);
         document.querySelectorAll('.hint-area, .explanation-area, .key-takeaway-area').forEach(el => el.remove());
         document.getElementById('optionsContainer').insertAdjacentHTML('afterend', `
             <div id="feedbackContainer" style="display: none;">
-                <div class="feedback-area explanation-area"><h4 class="explanation-header">✅ Explanation</h4><div class="explanation-content"><div class="e-en">${question.explanation.en}</div><div class="e-hi">${question.explanation.hi}</div></div></div>
-                <div class="key-takeaway-area"><h4>🔑 Key Takeaway</h4><div class="key-takeaway-content"><div class="t-en">${question.key_takeaway.en}</div><div class="t-hi">${question.key_takeaway.hi}</div></div></div>
+                <div class="feedback-area explanation-area"><h4>✅ Explanation</h4><div class="e-en">${q.explanation.en}</div><div class="e-hi">${q.explanation.hi}</div></div>
+                <div class="key-takeaway-area"><h4>🔑 Key Takeaway</h4><div class="t-en">${q.key_takeaway.en}</div><div class="t-hi">${q.key_takeaway.hi}</div></div>
             </div>
-            <div id="hintArea" class="feedback-area hint-area" style="display: none;"><h4 class="hint-header">💡 Hint</h4><div class="hint-content"><div class="h-en">${question.hint.en}</div><div class="h-hi">${question.hint.hi}</div></div></div>
+            <div id="hintArea" class="feedback-area hint-area" style="display: none;"><h4>💡 Hint</h4><div class="h-en">${q.hint.en}</div><div class="h-hi">${q.hint.hi}</div></div>
         `);
-
-        if (!this.currentAttempts[question.question_id]) { this.currentAttempts[question.question_id] = 0; this.hintUsed[question.question_id] = false; }
-        
         this.updateNavigationButtons();
-        this.updateQuestionGrid();
-        this.startQuestionTimer(question.question_id);
+        this.startQuestionTimer(q.question_id);
         this.updateHintButton();
-        this.updateScoreDisplay();
-
-        if (this.quizEngine.isQuestionDisabled(question.question_id) && this.quizEngine.mode === 'practice') this.showFeedbackArea('feedbackContainer');
-        if (this.hintUsed[question.question_id]) this.showFeedbackArea('hintArea');
     }
 
-    renderOptions(question) {
+    renderOptions(q) {
         const container = document.getElementById('optionsContainer');
         container.innerHTML = '';
-        const displayOrder = this.getShuffledOptions(question);
-        const visualLabels = ['A', 'B', 'C', 'D'];
-        const isDisabled = this.quizEngine.isQuestionDisabled(question.question_id);
-        const userAnswer = this.quizEngine.userAnswers[question.question_id];
-        
-        displayOrder.forEach((optionKey, index) => {
-            const option = question.options[optionKey];
-            const optionCard = document.createElement('div');
-            optionCard.className = 'option-card';
-            optionCard.innerHTML = `<div class="option-label">${visualLabels[index]}</div><div class="option-content"><div class="option-en">${option.en}</div><div class="option-hi">${option.hi}</div></div>`;
+        const order = this.getShuffledOptions(q);
+        const labels = ['A', 'B', 'C', 'D'];
+        const ans = this.quizEngine.userAnswers[q.question_id];
+        const mode = this.quizEngine.mode;
+        const isDisabled = this.quizEngine.isQuestionDisabled(q.question_id);
+
+        order.forEach((key, idx) => {
+            const card = document.createElement('div');
+            card.className = 'option-card';
+            card.innerHTML = `<div class="option-label">${labels[idx]}</div><div class="option-content"><div>${q.options[key].en}</div><div>${q.options[key].hi}</div></div>`;
             
-            if (userAnswer) {
-                if (optionKey === question.correct_option) optionCard.classList.add('correct');
-                else if (optionKey === userAnswer.selectedOption && !userAnswer.isCorrect) optionCard.classList.add('wrong');
-            } else if (isDisabled && optionKey === question.correct_option) {
-                optionCard.classList.add('correct');
+            // --- UPDATED RENDER LOGIC ---
+            if (ans) {
+                if (mode === 'practice') {
+                    // Practice: Highlight CORRECT green only when finalized (correct or max attempts)
+                    if (key === q.correct_option && isDisabled) {
+                        card.classList.add('correct');
+                    } else if (key === ans.selectedOption && !ans.isCorrect) {
+                        card.classList.add('wrong');
+                    } else if (key === ans.selectedOption && ans.isCorrect) {
+                        card.classList.add('correct');
+                    }
+                } else {
+                    // Test: Just highlight selection neutrally
+                    if (key === ans.selectedOption) card.classList.add('selected-only');
+                }
             }
-            
-            if (isDisabled) optionCard.classList.add('disabled');
-            else optionCard.addEventListener('click', () => this.selectOption(optionKey));
-            container.appendChild(optionCard);
+
+            if (isDisabled) {
+                card.classList.add('disabled');
+            } else {
+                card.addEventListener('click', () => this.selectOption(key));
+            }
+            container.appendChild(card);
         });
     }
 
-    selectOption(selectedOption) {
-        const question = this.quizEngine.getCurrentQuestion();
-        const questionId = question.question_id;
-        this.currentAttempts[questionId] = (this.currentAttempts[questionId] || 0) + 1;
-        const result = this.quizEngine.recordAnswer(questionId, selectedOption, this.currentAttempts[questionId], this.hintUsed[questionId]);
-        this.renderOptions(question);
+    selectOption(opt) {
+        const qId = this.quizEngine.getCurrentQuestion().question_id;
+        this.currentAttempts[qId] = (this.currentAttempts[qId] || 0) + 1;
+        this.quizEngine.recordAnswer(qId, opt, this.currentAttempts[qId], this.hintUsed[qId]);
+        this.showQuestion(this.quizEngine.currentQuestionIndex);
         this.updateScoreDisplay();
-        this.updateQuestionInGrid(questionId);
-        this.updateHintButton();
-
-        if (this.quizEngine.isQuestionDisabled(questionId)) {
-            this.quizEngine.clearTimer();
-            this.updateNavigationButtons();
-            if (this.quizEngine.mode === 'practice') this.showFeedbackArea('feedbackContainer');
-        }
     }
 
-    startQuestionTimer(questionId) {
-        this.quizEngine.startTimer(questionId, (timeLeft) => {
-            document.getElementById('timer').textContent = timeLeft;
-            if (this.quizEngine.mode === 'practice' && timeLeft === 49 && !this.hintUsed[questionId]) this.showHint(true);
+    startQuestionTimer(qId) {
+        this.quizEngine.startTimer(qId, (t) => {
+            document.getElementById('timer').textContent = t;
         }, () => {
-            this.quizEngine.recordTimeout(questionId, this.hintUsed[questionId]);
-            this.currentAttempts[questionId] = 3; 
-            this.renderOptions(this.quizEngine.getCurrentQuestion());
-            this.updateScoreDisplay();
-            this.updateQuestionInGrid(questionId);
-            this.updateHintButton();
-            this.updateNavigationButtons();
-            if (this.quizEngine.mode === 'practice') this.showFeedbackArea('feedbackContainer');
+            this.quizEngine.recordTimeout(qId, this.hintUsed[qId]);
+            this.showQuestion(this.quizEngine.currentQuestionIndex);
         });
-    }
-
-    updateQuestionInGrid(questionId) {
-        const el = document.querySelector(`.question-number[data-question-id="${questionId}"]`);
-        if (!el) return;
-        const status = this.quizEngine.getQuestionStatus(questionId);
-        el.className = `question-number ${status} ${parseInt(el.dataset.index) === this.quizEngine.currentQuestionIndex ? 'current' : ''}`;
-        const marksEl = el.querySelector('.marks');
-        if (marksEl) marksEl.textContent = this.quizEngine.getQuestionMarks(questionId)?.display || '';
-    }
-
-    updateQuestionGrid() { this.quizEngine.quizData.questions.forEach(q => this.updateQuestionInGrid(q.question_id)); }
-    showFeedbackArea(id) { const el = document.getElementById(id); if (el) { el.style.display = 'block'; el.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } }
-    showHint(autoShow = false) {
-        const q = this.quizEngine.getCurrentQuestion();
-        if (this.quizEngine.isQuestionDisabled(q.question_id)) return;
-        if (!this.hintUsed[q.question_id] && !autoShow) { this.hintUsed[q.question_id] = true; this.updateHintButton(); }
-        this.showFeedbackArea('hintArea');
     }
 
     updateHintButton() {
-        const q = this.quizEngine.getCurrentQuestion();
+        const qId = this.quizEngine.getCurrentQuestion().question_id;
         const btn = document.getElementById('hintBtn');
-        if (!q) return;
-        btn.disabled = this.quizEngine.isQuestionDisabled(q.question_id) || this.hintUsed[q.question_id];
-        btn.textContent = this.hintUsed[q.question_id] ? '💡 Hint Used' : (this.quizEngine.mode === 'test' ? '💡 Hint (-2)' : '💡 Hint');
+        btn.disabled = this.quizEngine.isQuestionDisabled(qId) || this.hintUsed[qId];
     }
 
+    showHint(auto = false) {
+        const qId = this.quizEngine.getCurrentQuestion().question_id;
+        this.hintUsed[qId] = true;
+        this.showFeedbackArea('hintArea');
+        this.updateHintButton();
+    }
+
+    showFeedbackArea(id) { document.getElementById(id).style.display = 'block'; }
     updateScoreDisplay() { document.getElementById('currentScore').textContent = this.quizEngine.score; }
     updateNavigationButtons() {
-        const next = document.getElementById('nextBtn');
-        const q = this.quizEngine.getCurrentQuestion();
-        next.disabled = !this.quizEngine.isQuestionDisabled(q.question_id); 
-        next.textContent = this.quizEngine.currentQuestionIndex === this.quizEngine.getTotalQuestions() - 1 ? 'Finish →' : 'Next →';
+        const qId = this.quizEngine.getCurrentQuestion().question_id;
+        document.getElementById('nextBtn').disabled = !this.quizEngine.isQuestionDisabled(qId);
         document.getElementById('prevBtn').disabled = this.quizEngine.currentQuestionIndex === 0;
     }
 
     previousQuestion() { this.quizEngine.clearTimer(); this.showQuestion(this.quizEngine.currentQuestionIndex - 1); }
     nextQuestion() { if (this.quizEngine.currentQuestionIndex === this.quizEngine.getTotalQuestions() - 1) this.completeQuiz(); else { this.quizEngine.clearTimer(); this.showQuestion(this.quizEngine.currentQuestionIndex + 1); } }
     goToQuestion(i) { this.quizEngine.clearTimer(); this.showQuestion(i); }
-    quitQuiz() { this.quizEngine.clearTimer(); this.completeQuiz(); }
-
-    completeQuiz() {
-        this.quizEngine.clearTimer();
-        QuizUtils.createConfetti();
-        const res = this.quizEngine.getResults();
-        document.getElementById('finalScore').textContent = res.totalScore;
-        document.getElementById('totalPossible').textContent = res.maxScore;
-        document.getElementById('percentage').textContent = res.percentage;
-        document.getElementById('totalTime').textContent = res.timeTaken;
-        this.renderResultsBreakdown(res);
-        QuizUtils.showScreen('resultsScreen');
-        this.submitScore(res);
-    }
-
-    renderResultsBreakdown(res) {
-        const container = document.getElementById('resultsBreakdown');
-        container.innerHTML = '';
-        res.questions.forEach((q, i) => {
-            const ans = res.userAnswers[q.question_id];
-            const div = document.createElement('div');
-            div.className = `result-item ${ans?.isCorrect ? 'correct' : 'wrong'}`;
-            div.innerHTML = `<div class="result-meta">Q${i+1} • ${ans?.marks || 0} Marks</div><div class="result-question">${q.question.en}</div><div style="font-size:14px; color:#64748b;">Correct: ${q.options[q.correct_option].en}</div>`;
-            container.appendChild(div);
-        });
-    }
-
+    completeQuiz() { QuizUtils.showScreen('resultsScreen'); this.submitScore(this.quizEngine.getResults()); }
     retakeQuiz() { this.quizEngine.clearProgress(); this.startQuiz(); }
 
     async submitScore(res) {
