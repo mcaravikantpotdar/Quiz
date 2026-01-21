@@ -12,7 +12,7 @@
         <div class="upload-card">
             <div class="upload-icon">🎓</div>
             <h1>Student Assessment Portal</h1>
-            <p style="color: #64748b; margin-bottom: 25px;">Enter your details to unlock the chapters.</p>
+            <p class="subtitle">Enter your details to unlock the chapters.</p>
             
             <div style="text-align: left; margin-bottom: 25px;">
                 <div style="margin-bottom: 15px;">
@@ -27,8 +27,7 @@
 
             <div id="quizLibrary" class="quiz-library">
                 <h3>📂 Select Chapter</h3>
-                <div id="quizList" class="quiz-list">
-                    </div>
+                <div id="quizList" class="quiz-list"></div>
             </div>
 
             <div class="mode-section">
@@ -37,13 +36,12 @@
                     <label class="mode-card">
                         <input type="radio" name="quizMode" value="practice" checked>
                         <div class="card-content">
-                            <div class="mode-icon">🎓</div>
+                            <div class="mode-icon">📖</div>
                             <div class="mode-info">
                                 <span class="mode-title">Practice Mode</span>
                                 <div class="mode-tags">
                                     <span class="tag">99s Timer</span>
                                     <span class="tag">3 Attempts</span>
-                                    <span class="tag">Explanations ON</span>
                                 </div>
                             </div>
                             <div class="check-mark"></div>
@@ -59,7 +57,6 @@
                                 <div class="mode-tags">
                                     <span class="tag strict">40s Timer</span>
                                     <span class="tag strict">1 Attempt</span>
-                                    <span class="tag strict">No Explanations</span>
                                 </div>
                             </div>
                             <div class="check-mark"></div>
@@ -71,36 +68,39 @@
             <div id="errorMessage" class="error-message"></div>
             
             <div class="action-buttons" style="flex-direction: column; gap: 10px;">
-                <button id="startQuiz" class="btn-primary" style="width: 100%;" disabled>Start Quiz</button>
-                <button id="viewScoreboardBtn" class="btn-secondary" style="width: 100%;">🏆 View Global Scoreboard</button>
-                
-                <button id="demoModeBtn" class="btn-text" style="margin-top: 10px; font-size: 12px; opacity: 0.8;">🛠️ Run UI Demo (Dev Mode)</button>
+                <button id="startQuiz" class="btn-primary" style="width: 100%;" disabled>🚀 Start Assessment</button>
+                <button id="viewScoreboardBtn" class="btn-secondary" style="width: 100%;">🏆 View Leaderboard</button>
+                <button id="demoModeBtn" class="btn-text" style="margin-top: 10px; font-size: 11px; opacity: 0.6;">🛠️ Developer Demo Mode</button>
             </div>
         </div>
     </div>
 
     <div id="scoreboardScreen" class="screen">
         <div class="results-container">
-            <div class="results-header" style="background: #2563eb; display:flex; justify-content:space-between; align-items:center;">
-                <h1 style="margin:0; font-size: 24px;">🏆 Global Scoreboard</h1>
-                <button id="backFromScoreboard" class="btn-icon" style="background: rgba(255,255,255,0.2); color:white; border:none;">✕ Close</button>
+            <div class="results-header" style="background: #1e293b; display:flex; justify-content:space-between; align-items:center;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <h1 style="margin:0; font-size: 20px;">🥇 Global Leaderboard</h1>
+                    <span id="adminGear" style="cursor: pointer; opacity: 0.5; font-size: 14px;">⚙️</span>
+                </div>
+                <button id="backFromScoreboard" class="btn-icon" style="background: rgba(255,255,255,0.1); color:white; border:none; padding: 8px 15px;">✕ Close</button>
             </div>
             
             <div class="results-breakdown" style="padding:0;">
                 <div style="overflow-x: auto;">
-                    <table style="width: 100%; border-collapse: collapse; text-align: left;">
-                        <thead style="background: #f1f5f9; color: #475569; font-size: 14px;">
-                            <tr>
-                                <th style="padding: 15px;">Date</th>
-                                <th style="padding: 15px;">Student</th>
-                                <th style="padding: 15px;">Chapter</th>
-                                <th style="padding: 15px;">Mode</th>
-                                <th style="padding: 15px;">Score</th>
-                                <th style="padding: 15px;">Time</th>
+                    <table class="scoreboard-table">
+                        <thead>
+                            <tr id="leaderboardHeaders">
+                                <th data-sort="rank" style="cursor:pointer;">Rank ↕</th>
+                                <th data-sort="date" style="cursor:pointer;">Date / समय ↕</th>
+                                <th data-sort="student" style="cursor:pointer;">Student / छात्र ↕</th>
+                                <th data-sort="chapter" style="cursor:pointer;">Chapter / अध्याय ↕</th>
+                                <th data-sort="mode" style="cursor:pointer;">Mode ↕</th>
+                                <th data-sort="score" style="cursor:pointer;">Score ↕</th>
+                                <th data-sort="efficiency" style="cursor:pointer;">Efficiency ↕</th>
                             </tr>
                         </thead>
-                        <tbody id="scoreboardBody" style="font-size: 14px; color: #334155;">
-                            <tr><td colspan="6" style="padding:20px; text-align:center;">Loading scores...</td></tr>
+                        <tbody id="scoreboardBody">
+                            <tr><td colspan="7" style="padding:40px; text-align:center; color: #64748b;">Syncing scores...</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -110,28 +110,29 @@
 
     <div id="quizScreen" class="screen">
         <div class="quiz-header">
-            <h2 id="chapterTitle" class="chapter-title">Loading...</h2>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #f1f5f9;">
+                <button id="topHomeBtn" class="btn-icon" title="Home">🏠 Home</button>
+                <h2 id="chapterTitle" class="chapter-title" style="margin: 0; border: none; padding: 0;">Chapter Name</h2>
+                <button id="topQuitBtn" class="btn-icon btn-danger-text" title="Quit">🏁 Finish</button>
+            </div>
             
             <div class="quiz-stats-row">
                 <div class="header-left">
                     <div class="stat-badge">
-                        <span class="stat-label">Question</span>
+                        <span class="stat-label">Progress</span>
                         <span class="stat-value"><span id="currentQuestion">1</span>/<span id="totalQuestions">0</span></span>
                     </div>
                     <div class="stat-badge">
-                        <span class="stat-label">Timer</span>
+                        <span class="stat-label">Clock</span>
                         <span class="stat-value" id="timer">99</span><span class="stat-unit">s</span>
                     </div>
                 </div>
                 <div class="header-right">
                     <div class="stat-badge score-badge">
-                        <span class="stat-label">Score</span>
-                        <span class="stat-value"><span id="currentScore">0</span>/<span id="maxScore">0</span></span>
+                        <span class="stat-label">Current Score</span>
+                        <span class="stat-value"><span id="currentScore">0</span></span>
                     </div>
-                    <div class="action-buttons">
-                        <button id="hintBtn" class="btn-icon">💡 Hint</button>
-                        <button id="quitBtn" class="btn-icon">🏁 Quit</button>
-                    </div>
+                    <button id="hintBtn" class="btn-primary" style="padding: 8px 15px; font-size: 13px;">💡 Use Hint</button>
                 </div>
             </div>
         </div>
@@ -147,8 +148,11 @@
             <div class="options-container" id="optionsContainer"></div>
 
             <div class="quiz-controls">
-                <button id="prevBtn" class="btn-secondary">← Previous</button>
-                <button id="nextBtn" class="btn-primary">Next →</button>
+                <button id="prevBtn" class="btn-secondary">← Back</button>
+                <div style="display: flex; gap: 8px;">
+                    <button id="quitBtn" class="btn-secondary" style="border-color: #fecaca; color: #dc2626;">Quit Quiz</button>
+                    <button id="nextBtn" class="btn-primary">Next Question →</button>
+                </div>
             </div>
         </div>
     </div>
@@ -156,20 +160,36 @@
     <div id="resultsScreen" class="screen">
         <div class="results-container">
             <div class="results-header">
-                <h1>Quiz Results</h1>
+                <h1>Performance Report</h1>
                 <div class="results-summary">
-                    <div>Total: <span id="finalScore">0</span>/<span id="totalPossible">0</span></div>
-                    <div>Percentage: <span id="percentage">0</span>%</div>
+                    <div>Score: <span id="finalScore">0</span>/<span id="totalPossible">0</span></div>
+                    <div>Grade: <span id="percentage">0</span>%</div>
                     <div>Time: <span id="totalTime">0</span>m</div>
                 </div>
             </div>
 
             <div class="results-breakdown" id="resultsBreakdown"></div>
 
-            <div class="results-controls">
-                <button id="retakeBtn" class="btn-primary">Retake Quiz</button>
-                <button id="viewScoreboardFromResults" class="btn-secondary">View Global Scoreboard</button>
-                <button id="homeBtn" class="btn-text" style="display:block; margin-top:10px;">Back to Home</button>
+            <div class="results-controls" style="padding: 25px; text-align: center;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px;">
+                    <button id="retakeBtn" class="btn-primary">🔄 Retake / फिर से करें</button>
+                    <button id="viewScoreboardFromResults" class="btn-secondary">🏆 Leaderboard</button>
+                </div>
+                <button id="homeBtn" class="btn-text" style="width: 100%; border: 1px solid #e2e8f0; padding: 10px;">🏠 Back to Main Menu / मुख्य सूची</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="adminModal" class="modal">
+        <div class="modal-content">
+            <div style="font-size: 30px; margin-bottom: 10px;">🔒</div>
+            <h3>Admin Access</h3>
+            <p class="subtitle">Enter the master password to erase all records from the database.</p>
+            <input type="password" id="adminPassword" class="file-input" placeholder="••••••••" style="text-align: center;">
+            <div id="adminError" class="error-message" style="margin-bottom: 15px;"></div>
+            <div class="modal-actions">
+                <button id="confirmReset" class="btn-danger">Delete All Data</button>
+                <button id="closeAdmin" class="btn-secondary">Cancel</button>
             </div>
         </div>
     </div>
@@ -177,10 +197,10 @@
     <div id="quitModal" class="modal">
         <div class="modal-content">
             <h3>Quit Quiz?</h3>
-            <p>Are you sure you want to quit? Your progress will be saved.</p>
+            <p>Your current score will be submitted as-is. Continue?</p>
             <div class="modal-actions">
-                <button id="confirmQuit" class="btn-danger">Yes, Quit</button>
-                <button id="cancelQuit" class="btn-secondary">Cancel</button>
+                <button id="confirmQuit" class="btn-danger">Yes, Finish</button>
+                <button id="cancelQuit" class="btn-secondary">Keep Playing</button>
             </div>
         </div>
     </div>
