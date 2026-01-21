@@ -1,6 +1,6 @@
 /* =========================================
-   1. GLOBAL RESET & BASICS
-   ========================================= */
+    1. GLOBAL RESET & BASICS
+    ========================================= */
 * {
     margin: 0;
     padding: 0;
@@ -16,8 +16,8 @@ body {
 }
 
 /* =========================================
-   2. SCREEN MANAGEMENT
-   ========================================= */
+    2. SCREEN MANAGEMENT
+    ========================================= */
 .screen {
     display: none;
     padding: 20px;
@@ -36,8 +36,8 @@ body {
 }
 
 /* =========================================
-   3. HOME SCREEN & INPUTS
-   ========================================= */
+    3. HOME SCREEN & INPUTS
+    ========================================= */
 .upload-card {
     background: white;
     padding: 40px;
@@ -52,7 +52,6 @@ body {
 .upload-card h1 { color: #1e293b; margin-bottom: 10px; font-size: 24px; }
 .subtitle { color: #64748b; margin-bottom: 30px; font-size: 14px; }
 
-/* The Name/School Inputs */
 .file-input {
     width: 100%;
     padding: 12px 16px;
@@ -73,9 +72,6 @@ body {
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
-.file-input::placeholder { color: #94a3b8; }
-
-/* Quiz Library List */
 .quiz-library { text-align: left; margin: 30px 0; }
 .quiz-library h3 { font-size: 13px; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 10px; }
 
@@ -91,7 +87,6 @@ body {
     background: #f8fafc;
 }
 
-/* Scrollbar styling */
 .quiz-list::-webkit-scrollbar { width: 6px; }
 .quiz-list::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 3px; }
 
@@ -116,8 +111,8 @@ body {
 }
 
 /* =========================================
-   4. MODE SELECTION CARDS
-   ========================================= */
+    4. MODE SELECTION CARDS
+    ========================================= */
 .mode-section { text-align: left; margin-bottom: 30px; }
 .section-label { font-size: 13px; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 10px; }
 
@@ -145,7 +140,6 @@ body {
 .tag { font-size: 10px; background: #e2e8f0; padding: 2px 6px; border-radius: 4px; font-weight: 600; color: #475569; }
 .tag.strict { background: #fee2e2; color: #991b1b; }
 
-/* Checked State */
 .mode-card input:checked + .card-content { background: #eff6ff; border-color: #2563eb; }
 .mode-card input:checked + .card-content .mode-title { color: #2563eb; }
 .check-mark { position: absolute; top: 8px; right: 8px; width: 18px; height: 18px; background: #2563eb; border-radius: 50%; display: none; align-items: center; justify-content: center; color: white; font-size: 10px; font-weight: bold; }
@@ -153,8 +147,8 @@ body {
 .mode-card input:checked + .card-content .check-mark { display: flex; }
 
 /* =========================================
-   5. QUIZ HEADER (STICKY)
-   ========================================= */
+    5. QUIZ HEADER (DUAL NAVIGATION SYNC)
+    ========================================= */
 .quiz-header {
     background: white;
     padding: 15px 20px;
@@ -163,7 +157,7 @@ body {
     margin-bottom: 25px;
     position: sticky;
     top: 0;
-    z-index: 50; /* Above regular content */
+    z-index: 50;
 }
 
 .chapter-title {
@@ -171,9 +165,6 @@ body {
     font-size: 18px;
     font-weight: 800;
     color: #1e293b;
-    margin-bottom: 15px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #f1f5f9;
 }
 
 .quiz-stats-row { display: flex; justify-content: space-between; align-items: center; }
@@ -191,14 +182,13 @@ body {
 
 .stat-label { display: block; font-size: 10px; font-weight: 700; color: #64748b; text-transform: uppercase; }
 .stat-value { font-size: 16px; font-weight: 800; color: #0f172a; }
-.stat-unit { font-size: 11px; color: #64748b; font-weight: 600; }
 
 #timer.pulse { color: #dc2626; animation: pulse 1s infinite; }
 @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
 
 /* =========================================
-   6. QUESTION GRID
-   ========================================= */
+    6. QUESTION GRID & DYNAMIC MARKS
+    ========================================= */
 .question-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
@@ -211,7 +201,8 @@ body {
 }
 
 .question-number {
-    height: 54px; /* Fixed height ensures alignment */
+    position: relative;
+    height: 54px;
     border: 1px solid #e2e8f0;
     border-radius: 8px;
     background: white;
@@ -224,25 +215,26 @@ body {
 }
 
 .q-number { font-size: 13px; font-weight: 700; color: #64748b; line-height: 1.2; }
-.marks { font-size: 10px; font-weight: 600; color: #94a3b8; margin-top: 2px; }
 
-/* Grid Interaction */
+/* REFINED: Marks look tidy inside the grid boxes */
+.marks { 
+    font-size: 9px; 
+    font-weight: 800; 
+    color: #94a3b8; 
+    position: absolute;
+    bottom: 4px;
+}
+
 .question-number:hover { border-color: #3b82f6; }
 .question-number.current { background: #eff6ff; border-color: #3b82f6; transform: scale(1.05); }
-.question-number.current .q-number { color: #2563eb; }
-
-/* Grid Status Colors */
 .question-number.correct { background: #dcfce7; border-color: #22c55e; }
-.question-number.correct .q-number { color: #15803d; }
-.question-number.correct .marks { color: #166534; }
-
+.question-number.correct .marks { color: #15803d; }
 .question-number.wrong { background: #fee2e2; border-color: #ef4444; }
-.question-number.wrong .q-number { color: #b91c1c; }
-.question-number.wrong .marks { color: #991b1b; }
+.question-number.wrong .marks { color: #b91c1c; }
 
 /* =========================================
-   7. QUESTION & OPTIONS AREA
-   ========================================= */
+    7. QUESTION & OPTIONS AREA
+    ========================================= */
 .question-area { background: white; padding: 25px; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
 .question-text { margin-bottom: 25px; }
 .question-en { font-size: 18px; font-weight: 600; color: #1e293b; margin-bottom: 8px; }
@@ -261,29 +253,65 @@ body {
     transition: all 0.2s;
 }
 
-.option-card:hover { border-color: #3b82f6; background: #f8fafc; }
-.option-card.correct { background: #f0fdf4; border-color: #22c55e; color: #15803d; }
-.option-card.wrong { background: #fef2f2; border-color: #ef4444; color: #b91c1c; }
-.option-card.disabled { opacity: 0.6; cursor: not-allowed; }
+.option-card:hover:not(.disabled) { border-color: #3b82f6; background: #f8fafc; }
+.option-card.correct { background: #f0fdf4 !important; border-color: #22c55e !important; color: #15803d !important; }
+.option-card.wrong { background: #fef2f2 !important; border-color: #ef4444 !important; color: #b91c1c !important; }
+.option-card.selected-only { border-color: #2563eb !important; background: #eff6ff !important; }
+.option-card.disabled { opacity: 0.8; cursor: not-allowed; }
 
 /* Controls */
 .quiz-controls { display: flex; justify-content: space-between; margin-top: 25px; padding-top: 20px; border-top: 1px solid #f1f5f9; }
 
-/* Buttons */
-.btn-primary { background: #2563eb; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
-.btn-primary:hover:not(:disabled) { background: #1d4ed8; }
+.btn-primary { background: #2563eb; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+.btn-primary:hover:not(:disabled) { background: #1d4ed8; transform: translateY(-1px); box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
 .btn-primary:disabled { background: #cbd5e1; cursor: not-allowed; }
 
-.btn-secondary { background: white; color: #475569; border: 1px solid #cbd5e1; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; }
-.btn-secondary:hover { background: #f1f5f9; }
+.btn-secondary { background: white; color: #475569; border: 1px solid #cbd5e1; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+.btn-secondary:hover { background: #f1f5f9; border-color: #94a3b8; }
 
 .btn-icon { background: white; border: 1px solid #e2e8f0; color: #475569; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; }
-.btn-icon:hover { background: #f8fafc; }
-.btn-danger { background: #ef4444; color: white; padding: 10px 20px; border-radius: 6px; border: none; cursor: pointer; }
+.btn-icon:hover { background: #f8fafc; border-color: #3b82f6; color: #2563eb; }
+
+.btn-danger-text { color: #dc2626 !important; border-color: #fecaca !important; }
+.btn-danger-text:hover { background: #fef2f2 !important; }
 
 /* =========================================
-   8. FEEDBACK & RESULTS
-   ========================================= */
+    8. LEADERBOARD (UPDATED WITH SORTING)
+    ========================================= */
+.scoreboard-table { width: 100%; border-collapse: collapse; text-align: left; }
+
+.scoreboard-table th { 
+    padding: 15px; 
+    background: #f8fafc; 
+    color: #475569; 
+    font-weight: 700; 
+    font-size: 12px; 
+    text-transform: uppercase; 
+    border-bottom: 2px solid #e2e8f0;
+    transition: all 0.2s;
+    user-select: none;
+}
+
+/* Styles for Clickable Headers */
+.scoreboard-table th[data-sort] {
+    cursor: pointer;
+    position: relative;
+}
+
+.scoreboard-table th[data-sort]:hover {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+/* Sort Indicator Classes (to be applied by JS) */
+.sort-asc::after { content: " ↑"; color: #2563eb; font-size: 14px; }
+.sort-desc::after { content: " ↓"; color: #2563eb; font-size: 14px; }
+
+.scoreboard-table td { padding: 15px; border-bottom: 1px solid #f1f5f9; font-size: 14px; vertical-align: middle; }
+
+/* Admin Gear Style */
+#adminGear:hover { opacity: 1 !important; transform: rotate(45deg); transition: all 0.3s; }
+
 .feedback-area { margin-top: 20px; padding: 20px; border-radius: 12px; animation: slideIn 0.3s; }
 @keyframes slideIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -291,81 +319,27 @@ body {
 .hint-area { background: #f0f9ff; border: 1px solid #bae6fd; color: #075985; }
 .key-takeaway-area { margin-top: 15px; padding: 15px; background: #fffbeb; border-left: 4px solid #f59e0b; color: #92400e; border-radius: 4px; }
 
-/* Results Screen */
 .results-container { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
 .results-header { background: #2563eb; color: white; padding: 30px; text-align: center; }
 .results-summary { display: flex; justify-content: center; gap: 30px; margin-top: 15px; font-size: 18px; font-weight: 600; }
 .results-breakdown { padding: 30px; background: #f8fafc; }
 
-.result-item { padding: 20px; background: white; border: 1px solid #e2e8f0; border-radius: 10px; margin-bottom: 15px; }
-.result-item.correct { border-left: 4px solid #22c55e; }
-.result-item.wrong { border-left: 4px solid #ef4444; }
-
-/* Scoreboard Table */
-.scoreboard-table { width: 100%; border-collapse: collapse; text-align: left; }
-.scoreboard-table th { padding: 12px; background: #f1f5f9; color: #475569; font-weight: 600; font-size: 13px; }
-.scoreboard-table td { padding: 12px; border-bottom: 1px solid #e2e8f0; color: #334155; font-size: 14px; }
-.scoreboard-table tr:hover { background: #f8fafc; }
-
 /* =========================================
-   9. MODALS & UTILS
-   ========================================= */
+    9. MODALS & UTILS
+    ========================================= */
 .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 100; align-items: center; justify-content: center; backdrop-filter: blur(2px); }
 .modal.active { display: flex; }
-.modal-content { background: white; padding: 30px; border-radius: 16px; max-width: 400px; width: 90%; text-align: center; }
-.modal-actions { display: flex; gap: 10px; justify-content: center; margin-top: 20px; }
+.modal-content { background: white; padding: 30px; border-radius: 16px; max-width: 400px; width: 90%; text-align: center; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
 
 .spinner { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 40px; height: 40px; border: 4px solid #e2e8f0; border-top: 4px solid #2563eb; border-radius: 50%; animation: spin 1s linear infinite; z-index: 200; }
 .spinner.active { display: block; }
 @keyframes spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
 
-.confetti { position: fixed; width: 10px; height: 10px; background: #2563eb; animation: fall 3s linear; z-index: 150; }
-@keyframes fall { to { transform: translateY(100vh) rotate(360deg); } }
-
-.error-message { color: #dc2626; font-size: 14px; margin-top: 10px; }
-
 /* =========================================
-   10. MOBILE & RESPONSIVE ADJUSTMENTS
-   ========================================= */
+    10. MOBILE & RESPONSIVE
+    ========================================= */
 @media (max-width: 768px) {
     .mode-grid { grid-template-columns: 1fr; }
-    .quiz-stats-row { flex-direction: row; flex-wrap: wrap; gap: 10px; }
-    .quiz-btn { font-size: 13px; }
-    
-    /* MOBILE STACKING FOR BILINGUAL OPTIONS */
-    .option-card {
-        grid-template-columns: 1fr; /* Change from 2 columns to 1 */
-        gap: 5px; /* Reduce gap slightly */
-    }
-}
-
-/* =========================================
-   11. CODE SNIPPET STYLING (For CS Questions)
-   ========================================= */
-pre {
-    background: #1e293b; /* Dark Slate Background */
-    color: #e2e8f0;      /* Light Text */
-    padding: 15px;
-    border-radius: 8px;
-    overflow-x: auto;    /* Scroll bar for long lines */
-    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-    font-size: 14px;
-    margin: 15px 0;
-    border: 1px solid #334155;
-    line-height: 1.4;
-}
-
-code {
-    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-}
-
-/* Style for inline code (e.g., "Use the <div> tag") */
-p code, li code {
-    background: #f1f5f9;
-    color: #d946ef; /* Magenta for visibility */
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-size: 0.9em;
-    font-weight: 600;
-    border: 1px solid #e2e8f0;
+    .option-card { grid-template-columns: 1fr; gap: 5px; }
+    .quiz-stats-row { flex-direction: row; flex-wrap: wrap; justify-content: space-around; gap: 10px; }
 }
