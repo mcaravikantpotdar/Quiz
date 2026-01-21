@@ -1,0 +1,795 @@
+{
+  "metadata": {
+    "chapter_number": 5,
+    "chapter_title": "HTML Fundamentals - Practical Syntax",
+    "chapter_title_hindi": "HTML फंडामेंटल्स - प्रैक्टिकल सिंटैक्स",
+    "subject": "Computer Science - Class 11",
+    "board": "HPBOSE",
+    "total_questions": 30,
+    "version": "1.0",
+    "naming_convention": "11_CS_CH05_HTML_Practical.json"
+  },
+  "questions": [
+    {
+      "question_id": 1,
+      "question": {
+        "en": "Which of the following shows the correct basic structure of an HTML document?",
+        "hi": "निम्नलिखित में से कौन सा HTML दस्तावेज़ की सही बुनियादी संरचना (basic structure) दिखाता है?"
+      },
+      "options": {
+        "a": {"en": "<html><title><head></head></title><body></body></html>", "hi": "<html><title><head></head></title><body></body></html>"},
+        "b": {"en": "<html><head><title></title></head><body></body></html>", "hi": "<html><head><title></title></head><body></body></html>"},
+        "c": {"en": "<html><body><head><title></title></head></body></html>", "hi": "<html><body><head><title></title></head></body></html>"},
+        "d": {"en": "<head><html><title></title></html><body></body></head>", "hi": "<head><html><title></title></html><body></body></head>"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "The title must be placed inside the head section.",
+        "hi": "शीर्षक (title) को हेड (head) सेक्शन के अंदर रखा जाना चाहिए ।"
+      },
+      "explanation": {
+        "en": "According to the document syntax, an HTML document starts with <html>, followed by the <head> section containing the <title>, and finally the <body> section.",
+        "hi": "दस्तावेज़ सिंटैक्स के अनुसार, एक HTML दस्तावेज़ <html> से शुरू होता है, उसके बाद <head> सेक्शन जिसमें <title> होता है, और अंत में <body> सेक्शन होता है ।"
+      },
+      "key_takeaway": {
+        "en": "Standard order: HTML > HEAD (TITLE) > BODY.",
+        "hi": "मानक क्रम: HTML > HEAD (TITLE) > BODY ।"
+      }
+    },
+    {
+      "question_id": 2,
+      "question": {
+        "en": "How should you correctly write a comment to explain your code?",
+        "hi": "अपने कोड को समझाने के लिए आपको सही तरीके से कमेंट कैसे लिखना चाहिए?"
+      },
+      "options": {
+        "a": {"en": "<comment> This is code </comment>", "hi": "<comment> This is code </comment>"},
+        "b": {"en": "", "hi": ""},
+        "c": {"en": "// This is code", "hi": "// This is code"},
+        "d": {"en": "/* This is code */", "hi": "/* This is code */"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "It is an empty tag used to hide text from the browser.",
+        "hi": "यह एक एम्प्टी टैग है जिसका उपयोग ब्राउज़र से टेक्स्ट छिपाने के लिए किया जाता है ।"
+      },
+      "explanation": {
+        "en": "The comment tag is written as . It is not displayed in the browser and can be used to explain code or disable parts of it.",
+        "hi": "कमेंट टैग को के रूप में लिखा जाता है। यह ब्राउज़र में प्रदर्शित नहीं होता है और इसका उपयोग कोड को समझाने या उसके कुछ हिस्सों को अक्षम करने के लिए किया जा सकता है ।"
+      },
+      "key_takeaway": {
+        "en": "is the specific syntax for HTML comments.",
+        "hi": "HTML कमेंट के लिए विशिष्ट सिंटैक्स है ।"
+      }
+    },
+    {
+      "question_id": 3,
+      "question": {
+        "en": "To set the background color of a web page to yellow, which code is correct?",
+        "hi": "वेब पेज के बैकग्राउंड का रंग पीला सेट करने के लिए कौन सा कोड सही है?"
+      },
+      "options": {
+        "a": {"en": "<BODY background = 'yellow'>", "hi": "<BODY background = 'yellow'>"},
+        "b": {"en": "<BODY bgcolor = 'yellow'>", "hi": "<BODY bgcolor = 'yellow'>"},
+        "c": {"en": "<BODY color = 'yellow'>", "hi": "<BODY color = 'yellow'>"},
+        "d": {"en": "<HTML bgcolor = 'yellow'>", "hi": "<HTML bgcolor = 'yellow'>"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "Background is for images, bgcolor is for colors.",
+        "hi": "बैकग्राउंड इमेज के लिए है, bgcolor रंगों के लिए है ।"
+      },
+      "explanation": {
+        "en": "The 'bgcolor' attribute of the BODY tag specifically defines the background color of the web page.",
+        "hi": "BODY टैग का 'bgcolor' एट्रिब्यूट विशेष रूप से वेब पेज के बैकग्राउंड रंग को परिभाषित करता है ।"
+      },
+      "key_takeaway": {
+        "en": "bgcolor = background color; background = background image.",
+        "hi": "bgcolor = बैकग्राउंड रंग; background = बैकग्राउंड इमेज ।"
+      }
+    },
+    {
+      "question_id": 4,
+      "question": {
+        "en": "If you want to start an ordered list from the number 5, which syntax should you use?",
+        "hi": "यदि आप नंबर 5 से एक ऑर्डर्ड लिस्ट शुरू करना चाहते हैं, तो आपको किस सिंटैक्स का उपयोग करना चाहिए?"
+      },
+      "options": {
+        "a": {"en": "<OL begin = '5'>", "hi": "<OL begin = '5'>"},
+        "b": {"en": "<OL start = '5'>", "hi": "<OL start = '5'>"},
+        "c": {"en": "<OL type = '5'>", "hi": "<OL type = '5'>"},
+        "d": {"en": "<OL index = '5'>", "hi": "<OL index = '5'>"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "The attribute used to change the starting value of numbering is 'start'.",
+        "hi": "नंबरिंग के शुरुआती मान को बदलने के लिए उपयोग किया जाने वाला एट्रिब्यूट 'start' है ।"
+      },
+      "explanation": {
+        "en": "The <OL> tag uses the 'start' attribute to specify the first number of the list.",
+        "hi": "<OL> टैग लिस्ट के पहले नंबर को निर्दिष्ट करने के लिए 'start' एट्रिब्यूट का उपयोग करता है ।"
+      },
+      "key_takeaway": {
+        "en": "The 'start' attribute controls the sequence beginning in ordered lists.",
+        "hi": "'start' एट्रिब्यूट ऑर्डर्ड लिस्ट में क्रम की शुरुआत को नियंत्रित करता है ।"
+      }
+    },
+    {
+      "question_id": 5,
+      "question": {
+        "en": "Which of the following is the correct way to display the image 'logo.png' with a width of 200 pixels?",
+        "hi": "200 पिक्सेल की चौड़ाई के साथ इमेज 'logo.png' को प्रदर्शित करने का सही तरीका निम्नलिखित में से कौन सा है?"
+      },
+      "options": {
+        "a": {"en": "<IMG href = 'logo.png' width = '200'>", "hi": "<IMG href = 'logo.png' width = '200'>"},
+        "b": {"en": "<IMG src = 'logo.png' width = '200'>", "hi": "<IMG src = 'logo.png' width = '200'>"},
+        "c": {"en": "<PIC src = 'logo.png' width = '200'>", "hi": "<PIC src = 'logo.png' width = '200'>"},
+        "d": {"en": "<IMG logo.png width = '200'>", "hi": "<IMG logo.png width = '200'>"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "The 'src' attribute provides the URL or path of the image file.",
+        "hi": "'src' एट्रिब्यूट इमेज फ़ाइल का URL या पथ प्रदान करता है ।"
+      },
+      "explanation": {
+        "en": "To embed an image, the <IMG> tag must use the 'src' attribute for the file source and 'width' for its size.",
+        "hi": "इमेज एम्बेड करने के लिए, <IMG> टैग को फ़ाइल स्रोत के लिए 'src' एट्रिब्यूट और इसके आकार के लिए 'width' का उपयोग करना चाहिए ।"
+      },
+      "key_takeaway": {
+        "en": "<IMG src='filename'> is the mandatory syntax for images.",
+        "hi": "<IMG src='filename'> इमेज के लिए अनिवार्य सिंटैक्स है ।"
+      }
+    },
+    {
+      "question_id": 6,
+      "question": {
+        "en": "What is the correct syntax to create a hyperlink that opens 'www.google.com'?",
+        "hi": "'www.google.com' खोलने वाला हाइपरलिंक बनाने के लिए सही सिंटैक्स क्या है?"
+      },
+      "options": {
+        "a": {"en": "<a url = 'http://www.google.com'> Google </a>", "hi": "<a url = 'http://www.google.com'> Google </a>"},
+        "b": {"en": "<a href = 'http://www.google.com'> Google </a>", "hi": "<a href = 'http://www.google.com'> Google </a>"},
+        "c": {"en": "<link href = 'http://www.google.com'> Google </link>", "hi": "<link href = 'http://www.google.com'> Google </link>"},
+        "d": {"en": "<a src = 'http://www.google.com'> Google </a>", "hi": "<a src = 'http://www.google.com'> Google </a>"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "The anchor tag uses the 'href' attribute to specify the destination URL.",
+        "hi": "एंकर टैग गंतव्य URL निर्दिष्ट करने के लिए 'href' एट्रिब्यूट का उपयोग करता है ।"
+      },
+      "explanation": {
+        "en": "The <a> tag creates a hyperlink, and the 'href' (hypertext reference) attribute specifies the web address to be opened.",
+        "hi": "<a> टैग एक हाइपरलिंक बनाता है, और 'href' एट्रिब्यूट खोले जाने वाले वेब पते को निर्दिष्ट करता है ।"
+      },
+      "key_takeaway": {
+        "en": "<a> with 'href' attribute creates clickable links.",
+        "hi": "'href' एट्रिब्यूट के साथ <a> क्लिक करने योग्य लिंक बनाता है ।"
+      }
+    },
+    {
+      "question_id": 7,
+      "question": {
+        "en": "Which code snippet correctly builds a table with one row and two data cells?",
+        "hi": "कौन सा कोड स्निपेट सही ढंग से एक रो (row) और दो डेटा सेल वाली टेबल बनाता है?"
+      },
+      "options": {
+        "a": {"en": "<table><tr><td>Cell 1</td><td>Cell 2</td></tr></table>", "hi": "<table><tr><td>Cell 1</td><td>Cell 2</td></tr></table>"},
+        "b": {"en": "<table><td><tr>Cell 1</tr><tr>Cell 2</tr></td></table>", "hi": "<table><td><tr>Cell 1</tr><tr>Cell 2</tr></td></table>"},
+        "c": {"en": "<table><tr><th>Cell 1</th></tr><tr><th>Cell 2</th></tr></table>", "hi": "<table><tr><th>Cell 1</th></tr><tr><th>Cell 2</th></tr></table>"},
+        "d": {"en": "<tr><table><td>Cell 1</td><td>Cell 2</td></table></tr>", "hi": "<tr><table><td>Cell 1</td><td>Cell 2</td></table></tr>"}
+      },
+      "correct_option": "a",
+      "hint": {
+        "en": "TR defines the row, and TD defines the data cells inside that row.",
+        "hi": "TR रो को परिभाषित करता है, और TD उस रो के अंदर डेटा सेल को परिभाषित करता है ।"
+      },
+      "explanation": {
+        "en": "A table structure requires <table>, inside which rows are defined by <tr>, and each cell inside a row is defined by <td>.",
+        "hi": "टेबल संरचना के लिए <table> की आवश्यकता होती है, जिसके अंदर <tr> द्वारा रो परिभाषित की जाती हैं, और रो के अंदर प्रत्येक सेल को <td> द्वारा परिभाषित किया जाता है ।"
+      },
+      "key_takeaway": {
+        "en": "Nesting order for tables: TABLE > TR > TD/TH.",
+        "hi": "टेबल के लिए नेस्टिंग क्रम: TABLE > TR > TD/TH ।"
+      }
+    },
+    {
+      "question_id": 8,
+      "question": {
+        "en": "How would you create an internal link to a section of the same page named 'contact'?",
+        "hi": "आप उसी पेज के 'contact' नामक सेक्शन के लिए इंटरनल लिंक कैसे बनाएंगे?"
+      },
+      "options": {
+        "a": {"en": "<a href = 'contact'> Contact Us </a>", "hi": "<a href = 'contact'> Contact Us </a>"},
+        "b": {"en": "<a href = '#contact'> Contact Us </a>", "hi": "<a href = '#contact'> Contact Us </a>"},
+        "c": {"en": "<a link = '#contact'> Contact Us </a>", "hi": "<a link = '#contact'> Contact Us </a>"},
+        "d": {"en": "<a target = 'contact'> Contact Us </a>", "hi": "<a target = 'contact'> Contact Us </a>"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "Internal links use a '#' symbol before the name in the href attribute.",
+        "hi": "इंटरनल लिंक href एट्रिब्यूट में नाम से पहले '#' चिह्न का उपयोग करते हैं ।"
+      },
+      "explanation": {
+        "en": "Internal linking is used to display another part of the same page. The syntax <a href = '#name'> links to an anchor created with <a name = 'name'>.",
+        "hi": "इंटरनल लिंकिंग का उपयोग उसी पेज के दूसरे भाग को प्रदर्शित करने के लिए किया जाता है। <a href = '#name'> सिंटैक्स <a name = 'name'> के साथ बनाए गए एंकर से लिंक करता है ।"
+      },
+      "key_takeaway": {
+        "en": "'#' in href indicates an internal destination on the same page.",
+        "hi": "href में '#' उसी पेज पर एक इंटरनल गंतव्य को इंगित करता है ।"
+      }
+    },
+    {
+      "question_id": 9,
+      "question": {
+        "en": "Which of the following creates a bulleted list with square bullets?",
+        "hi": "निम्नलिखित में से कौन सा स्क्वायर बुलेट्स के साथ एक बुलेटेड लिस्ट बनाता है?"
+      },
+      "options": {
+        "a": {"en": "<OL type = 'square'>", "hi": "<OL type = 'square'>"},
+        "b": {"en": "<UL type = 'square'>", "hi": "<UL type = 'square'>"},
+        "c": {"en": "<LIST type = 'square'>", "hi": "<LIST type = 'square'>"},
+        "d": {"en": "<DL type = 'square'>", "hi": "<DL type = 'square'>"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "Bullet points are used in Un-ordered Lists (UL).",
+        "hi": "बुलेट पॉइंट्स का उपयोग अन-ऑर्डर्ड लिस्ट (UL) में किया जाता है ।"
+      },
+      "explanation": {
+        "en": "The 'type' attribute of the <UL> tag is used to change bullet styles to square or circle.",
+        "hi": "<UL> टैग के 'type' एट्रिब्यूट का उपयोग बुलेट स्टाइल को स्क्वायर या सर्कल में बदलने के लिए किया जाता है ।"
+      },
+      "key_takeaway": {
+        "en": "UL + type='square' = list with square bullets.",
+        "hi": "UL + type='square' = स्क्वायर बुलेट्स वाली लिस्ट ।"
+      }
+    },
+    {
+      "question_id": 10,
+      "question": {
+        "en": "To underline and bold a text at the same time, which syntax is correct?",
+        "hi": "किसी टेक्स्ट को एक ही समय में अंडरलाइन और बोल्ड करने के लिए कौन सा सिंटैक्स सही है?"
+      },
+      "options": {
+        "a": {"en": "<B><U> Hello </B></U>", "hi": "<B><U> Hello </B></U>"},
+        "b": {"en": "<B><U> Hello </U></B>", "hi": "<B><U> Hello </U></B>"},
+        "c": {"en": "<BOLD><UNDERLINE> Hello </UNDERLINE></BOLD>", "hi": "<BOLD><UNDERLINE> Hello </UNDERLINE></BOLD>"},
+        "d": {"en": "<B><U> Hello </B>", "hi": "<B><U> Hello </B>"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "HTML style tags should be properly nested (last opened, first closed).",
+        "hi": "HTML स्टाइल टैग को ठीक से नेस्ट किया जाना चाहिए (जो आखिरी में खुला, वो पहले बंद होगा) ।"
+      },
+      "explanation": {
+        "en": "Tags like <B> for bold and <U> for underline can be used together, but they must be closed in reverse order of how they were opened.",
+        "hi": "बोल्ड के लिए <B> और अंडरलाइन के लिए <U> जैसे टैग का एक साथ उपयोग किया जा सकता है, लेकिन उन्हें उसी क्रम के विपरीत बंद किया जाना चाहिए जिसमें उन्हें खोला गया था ।"
+      },
+      "key_takeaway": {
+        "en": "Style tags are paired/container tags and require proper nesting.",
+        "hi": "स्टाइल टैग पेयर्ड/कंटेनर टैग होते हैं और इनमें उचित नेस्टिंग की आवश्यकता होती है ।"
+      }
+    },
+    {
+      "question_id": 11,
+      "question": {
+        "en": "Which code will correctly create a red horizontal line covering 50% of the screen width?",
+        "hi": "कौन सा कोड स्क्रीन की चौड़ाई के 50% हिस्से को कवर करने वाली एक लाल क्षैतिज रेखा (horizontal line) सही ढंग से बनाएगा?"
+      },
+      "options": {
+        "a": {"en": "<HR size = '50%' color = 'red'>", "hi": "<HR size = '50%' color = 'red'>"},
+        "b": {"en": "<HR width = '50%' color = 'red'>", "hi": "<HR width = '50%' color = 'red'>"},
+        "c": {"en": "<LINE width = '50%' color = 'red'>", "hi": "<LINE width = '50%' color = 'red'>"},
+        "d": {"en": "<HR distance = '50%' color = 'red'>", "hi": "<HR distance = '50%' color = 'red'>"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "The 'width' attribute sets the length of the HR line.",
+        "hi": "'width' एट्रिब्यूट HR रेखा की लंबाई सेट करता है ।"
+      },
+      "explanation": {
+        "en": "The <HR> tag attributes include 'width' for length and 'color' for the line's appearance.",
+        "hi": "<HR> टैग एट्रिब्यूट्स में लंबाई के लिए 'width' और रेखा के स्वरूप के लिए 'color' शामिल हैं ।"
+      },
+      "key_takeaway": {
+        "en": "HR width can be in pixels or percentage.",
+        "hi": "HR की चौड़ाई पिक्सेल या प्रतिशत में हो सकती है ।"
+      }
+    },
+    {
+      "question_id": 12,
+      "question": {
+        "en": "Which of these shows the correct placement of the TITLE tag?",
+        "hi": "इनमें से कौन सा TITLE टैग का सही स्थान दिखाता है?"
+      },
+      "options": {
+        "a": {"en": "<html><title> My Page </title></html>", "hi": "<html><title> My Page </title></html>"},
+        "b": {"en": "<html><head><title> My Page </title></head></html>", "hi": "<html><head><title> My Page </title></head></html>"},
+        "c": {"en": "<html><body><title> My Page </title></body></html>", "hi": "<html><body><title> My Page </title></body></html>"},
+        "d": {"en": "<head><html><title> My Page </title></html></head>", "hi": "<head><html><title> My Page </title></html></head>"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "The title tag is always placed within the head section.",
+        "hi": "टाइटल टैग हमेशा हेड (head) सेक्शन के भीतर रखा जाता है ।"
+      },
+      "explanation": {
+        "en": "The <title> tag specifies the title of the web page and is nested inside the <head> section.",
+        "hi": "<title> टैग वेब पेज के शीर्षक को निर्दिष्ट करता है और <head> सेक्शन के अंदर नेस्टेड होता है ।"
+      },
+      "key_takeaway": {
+        "en": "HEAD contains metadata and the page TITLE.",
+        "hi": "HEAD में मेटाडेटा और पेज का TITLE होता है ।"
+      }
+    },
+    {
+      "question_id": 13,
+      "question": {
+        "en": "To change text to 'Broadway' font style with size 20, which is correct?",
+        "hi": "टेक्स्ट को 'Broadway' फ़ॉन्ट स्टाइल और साइज़ 20 में बदलने के लिए, कौन सा सही है?"
+      },
+      "options": {
+        "a": {"en": "<FONT face = 'broadway' size = '20'>", "hi": "<FONT face = 'broadway' size = '20'>"},
+        "b": {"en": "<FONT style = 'broadway' height = '20'>", "hi": "<FONT style = 'broadway' height = '20'>"},
+        "c": {"en": "<FONT typeface = 'broadway' size = '20'>", "hi": "<FONT typeface = 'broadway' size = '20'>"},
+        "d": {"en": "<TEXT face = 'broadway' size = '20'>", "hi": "<TEXT face = 'broadway' size = '20'>"}
+      },
+      "correct_option": "a",
+      "hint": {
+        "en": "The attributes for font are 'face' and 'size'.",
+        "hi": "फ़ॉन्ट के लिए एट्रिब्यूट 'face' और 'size' हैं ।"
+      },
+      "explanation": {
+        "en": "The <FONT> tag uses 'face' to define the typeface and 'size' to define the font size.",
+        "hi": "<FONT> टैग टाइपफेस को परिभाषित करने के लिए 'face' और फ़ॉन्ट आकार को परिभाषित करने के लिए 'size' का उपयोग करता है ।"
+      },
+      "key_takeaway": {
+        "en": "face = Font name; size = Font number.",
+        "hi": "face = फ़ॉन्ट का नाम; size = फ़ॉन्ट नंबर ।"
+      }
+    },
+    {
+      "question_id": 14,
+      "question": {
+        "en": "Which tag is used to create a definition list item for the word being defined?",
+        "hi": "परिभाषित किए जा रहे शब्द के लिए डेफिनेशन लिस्ट आइटम बनाने के लिए किस टैग का उपयोग किया जाता है?"
+      },
+      "options": {
+        "a": {"en": "<DD>", "hi": "<DD>"},
+        "b": {"en": "<DT>", "hi": "<DT>"},
+        "c": {"en": "<DL>", "hi": "<DL>"},
+        "d": {"en": "<LI>", "hi": "<LI>"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "It stands for Definition Term.",
+        "hi": "इसका मतलब डेफिनेशन टर्म (Definition Term) है ।"
+      },
+      "explanation": {
+        "en": "In a <DL> (Definition List), <DT> is used for the term and <DD> for its description.",
+        "hi": "<DL> (डेफिनेशन लिस्ट) में, <DT> का उपयोग शब्द (term) के लिए और <DD> उसके विवरण के लिए किया जाता है ।"
+      },
+      "key_takeaway": {
+        "en": "<DT> = Definition Term; <DD> = Definition Description.",
+        "hi": "<DT> = डेफिनेशन टर्म; <DD> = डेफिनेशन डिस्क्रिप्शन ।"
+      }
+    },
+    {
+      "question_id": 15,
+      "question": {
+        "en": "In an HTML table, which tag is used for normal data cells?",
+        "hi": "एक HTML टेबल में, सामान्य डेटा सेल के लिए किस टैग का उपयोग किया जाता है?"
+      },
+      "options": {
+        "a": {"en": "<th>", "hi": "<th>"},
+        "b": {"en": "<td>", "hi": "<td>"},
+        "c": {"en": "<tr>", "hi": "<tr>"},
+        "d": {"en": "<tc>", "hi": "<tc>"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "It stands for Table Data.",
+        "hi": "इसका मतलब टेबल डेटा (Table Data) है ।"
+      },
+      "explanation": {
+        "en": "Each cell of a table row is defined by the <td> ... </td> tag.",
+        "hi": "टेबल रो के प्रत्येक सेल को <td> ... </td> टैग द्वारा परिभाषित किया जाता है ।"
+      },
+      "key_takeaway": {
+        "en": "TD = standard table cell content.",
+        "hi": "TD = मानक टेबल सेल सामग्री ।"
+      }
+    },
+    {
+      "question_id": 16,
+      "question": {
+        "en": "Which code sets the margin from the top of the browser to the web page content?",
+        "hi": "कौन सा कोड ब्राउज़र के टॉप से वेब पेज की सामग्री तक का मार्जिन सेट करता है?"
+      },
+      "options": {
+        "a": {"en": "<BODY topspace = '150px'>", "hi": "<BODY topspace = '150px'>"},
+        "b": {"en": "<BODY topmargin = '150px'>", "hi": "<BODY topmargin = '150px'>"},
+        "c": {"en": "<BODY padding-top = '150px'>", "hi": "<BODY padding-top = '150px'>"},
+        "d": {"en": "<HEAD topmargin = '150px'>", "hi": "<HEAD topmargin = '150px'>"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "It is an attribute of the BODY tag.",
+        "hi": "यह BODY टैग का एक एट्रिब्यूट है ।"
+      },
+      "explanation": {
+        "en": "The 'topmargin' attribute of the BODY tag defines the distance between the top of the content and the browser window edge.",
+        "hi": "BODY टैग का 'topmargin' एट्रिब्यूट सामग्री के टॉप और ब्राउज़र विंडो किनारे के बीच की दूरी को परिभाषित करता है ।"
+      },
+      "key_takeaway": {
+        "en": "topmargin/leftmargin are used for page offsets in BODY tag.",
+        "hi": "BODY टैग में पेज ऑफसेट के लिए topmargin/leftmargin का उपयोग किया जाता है ।"
+      }
+    },
+    {
+      "question_id": 17,
+      "question": {
+        "en": "How would you create a table that is horizontally centered in the browser?",
+        "hi": "आप ऐसी टेबल कैसे बनाएंगे जो ब्राउज़र में हॉरिजॉन्टल रूप से केंद्रित (centered) हो?"
+      },
+      "options": {
+        "a": {"en": "<table position = 'center'>", "hi": "<table position = 'center'>"},
+        "b": {"en": "<table align = 'center'>", "hi": "<table align = 'center'>"},
+        "c": {"en": "<table valign = 'center'>", "hi": "<table valign = 'center'>"},
+        "d": {"en": "<table center = 'true'>", "hi": "<table center = 'true'>"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "The 'align' attribute specifies the position of the table itself.",
+        "hi": "'align' एट्रिब्यूट स्वयं टेबल की स्थिति निर्दिष्ट करता है ।"
+      },
+      "explanation": {
+        "en": "When used in the <table> tag, the 'align' attribute specifies the alignment of the table on the web page.",
+        "hi": "जब <table> टैग में उपयोग किया जाता है, तो 'align' एट्रिब्यूट वेब पेज पर टेबल के अलाइनमेंट को निर्दिष्ट करता है ।"
+      },
+      "key_takeaway": {
+        "en": "align='center' works for tables, headings, and paragraphs.",
+        "hi": "align='center' टेबल, हेडिंग और पैराग्राफ के लिए काम करता है ।"
+      }
+    },
+    {
+      "question_id": 18,
+      "question": {
+        "en": "If an image 'photo.jpg' is missing, which attribute shows text in its place?",
+        "hi": "यदि कोई इमेज 'photo.jpg' गायब है, तो कौन सा एट्रिब्यूट उसके स्थान पर टेक्स्ट दिखाता है?"
+      },
+      "options": {
+        "a": {"en": "title", "hi": "title"},
+        "b": {"en": "alt", "hi": "alt"},
+        "c": {"en": "text", "hi": "text"},
+        "d": {"en": "desc", "hi": "desc"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "It stands for Alternate.",
+        "hi": "इसका मतलब अल्टरनेट (Alternate) है ।"
+      },
+      "explanation": {
+        "en": "The 'alt' attribute provides alternate text for the image if it becomes unavailable.",
+        "hi": "'alt' एट्रिब्यूट इमेज के लिए वैकल्पिक टेक्स्ट प्रदान करता है यदि वह अनुपलब्ध हो जाती है ।"
+      },
+      "key_takeaway": {
+        "en": "alt = accessibility and error fallback.",
+        "hi": "alt = सुगमता और एरर फॉलबैक ।"
+      }
+    },
+    {
+      "question_id": 19,
+      "question": {
+        "en": "Which of these is the correct way to start a Roman numeral ordered list (i, ii, iii...)?",
+        "hi": "इनमें से कौन सा रोमन अंक वाली ऑर्डर्ड लिस्ट (i, ii, iii...) शुरू करने का सही तरीका है?"
+      },
+      "options": {
+        "a": {"en": "<OL style = 'roman'>", "hi": "<OL style = 'roman'>"},
+        "b": {"en": "<OL type = 'i'>", "hi": "<OL type = 'i'>"},
+        "c": {"en": "<OL number = 'i'>", "hi": "<OL number = 'i'>"},
+        "d": {"en": "<OL format = 'roman'>", "hi": "<OL format = 'roman'>"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "The 'type' attribute changes the numbering style.",
+        "hi": "'type' एट्रिब्यूट नंबरिंग स्टाइल को बदलता है ।"
+      },
+      "explanation": {
+        "en": "The 'type' attribute of <OL> allows for letters (a, A) or Roman numerals (i, I).",
+        "hi": "<OL> का 'type' एट्रिब्यूट अक्षरों (a, A) या रोमन अंकों (i, I) की अनुमति देता है ।"
+      },
+      "key_takeaway": {
+        "en": "type='i' for lowercase roman; type='I' for uppercase roman.",
+        "hi": "लोअरकेस रोमन के लिए type='i'; अपरकेस रोमन के लिए type='I' ।"
+      }
+    },
+    {
+      "question_id": 20,
+      "question": {
+        "en": "To move text to the next line without starting a new paragraph, use ______.",
+        "hi": "नया पैराग्राफ शुरू किए बिना टेक्स्ट को अगली लाइन पर ले जाने के लिए, ______ का उपयोग करें।"
+      },
+      "options": {
+        "a": {"en": "<P>", "hi": "<P>"},
+        "b": {"en": "<BR>", "hi": "<BR>"},
+        "c": {"en": "<HR>", "hi": "<HR>"},
+        "d": {"en": "<NEXT>", "hi": "<NEXT>"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "It is an empty tag used for a single-line break.",
+        "hi": "यह एक एम्प्टी टैग है जिसका उपयोग सिंगल-लाइन ब्रेक के लिए किया जाता है ।"
+      },
+      "explanation": {
+        "en": "The <BR> tag is used to insert a single-line break in text. Unlike <P>, it does not add a blank line.",
+        "hi": "<BR> टैग का उपयोग टेक्स्ट में सिंगल-लाइन ब्रेक डालने के लिए किया जाता है। <P> के विपरीत, यह खाली लाइन नहीं जोड़ता है ।"
+      },
+      "key_takeaway": {
+        "en": "<BR> = forced line break.",
+        "hi": "<BR> = जबरन लाइन ब्रेक ।"
+      }
+    },
+    {
+      "question_id": 21,
+      "question": {
+        "en": "Which code creates an anchor point at the top of a page to allow for internal linking?",
+        "hi": "कौन सा कोड इंटरनल लिंकिंग की अनुमति देने के लिए पेज के टॉप पर एक एंकर पॉइंट बनाता है?"
+      },
+      "options": {
+        "a": {"en": "<a href = 'top'> Top </a>", "hi": "<a href = 'top'> Top </a>"},
+        "b": {"en": "<a name = 'top'> Top </a>", "hi": "<a name = 'top'> Top </a>"},
+        "c": {"en": "<a id = 'top'> Top </a>", "hi": "<a id = 'top'> Top </a>"},
+        "d": {"en": "<a target = 'top'> Top </a>", "hi": "<a target = 'top'> Top </a>"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "The 'name' attribute is used to create a named anchor.",
+        "hi": "नाम वाला एंकर बनाने के लिए 'name' एट्रिब्यूट का उपयोग किया जाता है ।"
+      },
+      "explanation": {
+        "en": "A named anchor is created using <a name = 'anchor_name'>, which can then be linked to using #anchor_name in href.",
+        "hi": "<a name = 'anchor_name'> का उपयोग करके एक नाम वाला एंकर बनाया जाता है, जिसे फिर href में #anchor_name का उपयोग करके लिंक किया जा सकता है ।"
+      },
+      "key_takeaway": {
+        "en": "Named anchors act as destinations for internal page links.",
+        "hi": "नाम वाले एंकर इंटरनल पेज लिंक के लिए गंतव्य के रूप में कार्य करते हैं ।"
+      }
+    },
+    {
+      "question_id": 22,
+      "question": {
+        "en": "What is the correct tag for making text appear thicker and darker?",
+        "hi": "टेक्स्ट को मोटा और गहरा (thicker and darker) दिखाने के लिए सही टैग कौन सा है?"
+      },
+      "options": {
+        "a": {"en": "<STRONG>", "hi": "<STRONG>"},
+        "b": {"en": "<B>", "hi": "<B>"},
+        "c": {"en": "<DARK>", "hi": "<DARK>"},
+        "d": {"en": "<H1>", "hi": "<H1>"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "It stands for Bold.",
+        "hi": "इसका मतलब बोल्ड (Bold) है ।"
+      },
+      "explanation": {
+        "en": "The <B> ... </B> tag is used specifically to make text bold in HTML.",
+        "hi": "HTML में टेक्स्ट को बोल्ड करने के लिए विशेष रूप से <B> ... </B> टैग का उपयोग किया जाता है ।"
+      },
+      "key_takeaway": {
+        "en": "<B> = Bold.",
+        "hi": "<B> = बोल्ड ।"
+      }
+    },
+    {
+      "question_id": 23,
+      "language": "en",
+      "question": {
+        "en": "If you use <table bgcolor = 'yellow'>, what part of the table will be yellow?",
+        "hi": "यदि आप <table bgcolor = 'yellow'> का उपयोग करते हैं, तो टेबल का कौन सा हिस्सा पीला होगा?"
+      },
+      "options": {
+        "a": {"en": "Only the first row", "hi": "केवल पहली रो"},
+        "b": {"en": "The entire table background", "hi": "पूरी टेबल का बैकग्राउंड (Entire table)"},
+        "c": {"en": "Only the table borders", "hi": "केवल टेबल बॉर्डर"},
+        "d": {"en": "Only the header cells", "hi": "केवल हेडर सेल"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "Bgcolor in the table tag applies to the whole table.",
+        "hi": "टेबल टैग में Bgcolor पूरी टेबल पर लागू होता है ।"
+      },
+      "explanation": {
+        "en": "The 'bgcolor' attribute specifies the background color of the table when used within the <table> tag.",
+        "hi": "<table> टैग के भीतर उपयोग किए जाने पर 'bgcolor' एट्रिब्यूट टेबल के बैकग्राउंड रंग को निर्दिष्ट करता है ।"
+      },
+      "key_takeaway": {
+        "en": "Bgcolor can style the background of a single tag's area.",
+        "hi": "Bgcolor एकल टैग के क्षेत्र के बैकग्राउंड को स्टाइल कर सकता है ।"
+      }
+    },
+    {
+      "question_id": 24,
+      "question": {
+        "en": "Which of these is used to justify the text alignment of a paragraph?",
+        "hi": "इनमें से किसका उपयोग पैराग्राफ के टेक्स्ट अलाइनमेंट को जस्टिफाई (justify) करने के लिए किया जाता है?"
+      },
+      "options": {
+        "a": {"en": "<P align = 'center'>", "hi": "<P align = 'center'>"},
+        "b": {"en": "<P align = 'justify'>", "hi": "<P align = 'justify'>"},
+        "c": {"en": "<P justify = 'true'>", "hi": "<P justify = 'true'>"},
+        "d": {"en": "<P position = 'justify'>", "hi": "<P position = 'justify'>"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "Use the 'align' attribute with the value 'justify'.",
+        "hi": "'align' एट्रिब्यूट का उपयोग 'justify' मान के साथ करें ।"
+      },
+      "explanation": {
+        "en": "The Paragraph tag supports the 'align' attribute which can take values like 'justify' to align text on both sides.",
+        "hi": "पैराग्राफ टैग 'align' एट्रिब्यूट को सपोर्ट करता है जो दोनों तरफ टेक्स्ट को अलाइन करने के लिए 'justify' जैसे मान ले सकता है ।"
+      },
+      "key_takeaway": {
+        "en": "align='justify' makes edges of text even.",
+        "hi": "align='justify' टेक्स्ट के किनारों को एक समान बनाता है ।"
+      }
+    },
+    {
+      "question_id": 25,
+      "question": {
+        "en": "Which attribute defines the color of the text for the whole web page?",
+        "hi": "कौन सा एट्रिब्यूट पूरे वेब पेज के लिए टेक्स्ट का रंग परिभाषित करता है?"
+      },
+      "options": {
+        "a": {"en": "<BODY bgcolor = 'blue'>", "hi": "<BODY bgcolor = 'blue'>"},
+        "b": {"en": "<BODY text = 'blue'>", "hi": "<BODY text = 'blue'>"},
+        "c": {"en": "<BODY color = 'blue'>", "hi": "<BODY color = 'blue'>"},
+        "d": {"en": "<HTML text = 'blue'>", "hi": "<HTML text = 'blue'>"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "It is a specific attribute of the BODY tag.",
+        "hi": "यह BODY टैग का एक विशिष्ट एट्रिब्यूट है ।"
+      },
+      "explanation": {
+        "en": "The 'text' attribute of the BODY tag is used to define the color of all text displayed on the web page.",
+        "hi": "BODY टैग के 'text' एट्रिब्यूट का उपयोग वेब पेज पर प्रदर्शित होने वाले सभी टेक्स्ट के रंग को परिभाषित करने के लिए किया जाता है ।"
+      },
+      "key_takeaway": {
+        "en": "text attribute in BODY sets the global page font color.",
+        "hi": "BODY में text एट्रिब्यूट वैश्विक पेज फ़ॉन्ट रंग सेट करता है ।"
+      }
+    },
+    {
+      "question_id": 26,
+      "question": {
+        "en": "What is the correct code to make a level 3 heading right-aligned?",
+        "hi": "लेवल 3 हेडिंग को राइट-अलाइन (दाएं अलाइन) करने के लिए सही कोड क्या है?"
+      },
+      "options": {
+        "a": {"en": "<H3 style = 'right'>", "hi": "<H3 style = 'right'>"},
+        "b": {"en": "<H3 align = 'right'>", "hi": "<H3 align = 'right'>"},
+        "c": {"en": "<HEAD3 align = 'right'>", "hi": "<HEAD3 align = 'right'>"},
+        "d": {"en": "<H3 right = 'true'>", "hi": "<H3 right = 'true'>"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "Use the heading tag H3 with the 'align' attribute.",
+        "hi": "'align' एट्रिब्यूट के साथ हेडिंग टैग H3 का उपयोग करें ।"
+      },
+      "explanation": {
+        "en": "The 'align' attribute can be used in heading tags like <H3> to define the alignment of the heading text.",
+        "hi": "'align' एट्रिब्यूट का उपयोग हेडिंग टेक्स्ट के अलाइनमेंट को परिभाषित करने के लिए <H3> जैसे हेडिंग टैग में किया जा सकता है ।"
+      },
+      "key_takeaway": {
+        "en": "Headings support alignment attributes.",
+        "hi": "हेडिंग्स अलाइनमेंट एट्रिब्यूट्स को सपोर्ट करती हैं ।"
+      }
+    },
+    {
+      "question_id": 27,
+      "question": {
+        "en": "Which tag is used for the smallest possible heading in HTML?",
+        "hi": "HTML में सबसे छोटी संभव हेडिंग के लिए किस टैग का उपयोग किया जाता है?"
+      },
+      "options": {
+        "a": {"en": "<h1>", "hi": "<h1>"},
+        "b": {"en": "<h6>", "hi": "<h6>"},
+        "c": {"en": "<h10>", "hi": "<h10>"},
+        "d": {"en": "<small>", "hi": "<small>"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "There are only 6 levels of headings.",
+        "hi": "हेडिंग के केवल 6 स्तर हैं ।"
+      },
+      "explanation": {
+        "en": "Heading tags range from <H1> to <H6>. H1 is the largest and H6 is the smallest.",
+        "hi": "हेडिंग टैग <H1> से <H6> तक होते हैं। H1 सबसे बड़ा और H6 सबसे छोटा है ।"
+      },
+      "key_takeaway": {
+        "en": "Higher number in heading tag means smaller text size.",
+        "hi": "हेडिंग टैग में बड़ी संख्या का मतलब छोटा टेक्स्ट साइज है ।"
+      }
+    },
+    {
+      "question_id": 28,
+      "question": {
+        "en": "In the code <BODY bgcolor = 'yellow' text = 'blue'>, what is the 'bgcolor'?",
+        "hi": "कोड <BODY bgcolor = 'yellow' text = 'blue'> में 'bgcolor' क्या है?"
+      },
+      "options": {
+        "a": {"en": "A tag", "hi": "एक टैग"},
+        "b": {"en": "An attribute", "hi": "एक एट्रिब्यूट (An attribute)"},
+        "c": {"en": "An element", "hi": "एक एलिमेंट"},
+        "d": {"en": "A browser", "hi": "एक ब्राउज़र"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "It is a special word providing features inside a tag.",
+        "hi": "यह एक टैग के अंदर सुविधाएँ प्रदान करने वाला एक विशेष शब्द है ।"
+      },
+      "explanation": {
+        "en": "Attributes are special words used to provide additional features to HTML tags and are written inside the starting tag.",
+        "hi": "एट्रिब्यूट विशेष शब्द हैं जिनका उपयोग HTML टैग को अतिरिक्त सुविधाएँ प्रदान करने के लिए किया जाता है और वे शुरुआती टैग के अंदर लिखे जाते हैं ।"
+      },
+      "key_takeaway": {
+        "en": "Attributes qualify or describe how a tag behaves.",
+        "hi": "एट्रिब्यूट यह बताते हैं कि एक टैग कैसे व्यवहार करता है ।"
+      }
+    },
+    {
+      "question_id": 29,
+      "question": {
+        "en": "Which attribute is used with <img> to provide the path of the picture?",
+        "hi": "चित्र का पथ (path) प्रदान करने के लिए <img> के साथ किस एट्रिब्यूट का उपयोग किया जाता है?"
+      },
+      "options": {
+        "a": {"en": "url", "hi": "url"},
+        "b": {"en": "src", "hi": "src"},
+        "c": {"en": "link", "hi": "link"},
+        "d": {"en": "path", "hi": "path"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "It stands for Source.",
+        "hi": "इसका मतलब सोर्स (Source) है ।"
+      },
+      "explanation": {
+        "en": "The 'src' attribute is used to provide the source (URL) of the image file.",
+        "hi": "'src' एट्रिब्यूट का उपयोग इमेज फ़ाइल का स्रोत (URL) प्रदान करने के लिए किया जाता है ।"
+      },
+      "key_takeaway": {
+        "en": "src = mandatory for displaying images.",
+        "hi": "src = इमेज प्रदर्शित करने के लिए अनिवार्य ।"
+      }
+    },
+    {
+      "question_id": 30,
+      "question": {
+        "en": "What is the correct extension to save a web page made in Notepad?",
+        "hi": "नोटपैड में बने वेब पेज को सेव करने के लिए सही एक्सटेंशन क्या है?"
+      },
+      "options": {
+        "a": {"en": ".notep", "hi": ".notep"},
+        "b": {"en": ".html", "hi": ".html"},
+        "c": {"en": ".txt", "hi": ".txt"},
+        "d": {"en": ".web", "hi": ".web"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "The document mentions two specific extensions.",
+        "hi": "दस्तावेज़ में दो विशिष्ट एक्सटेंशन का उल्लेख है ।"
+      },
+      "explanation": {
+        "en": "An HTML document must be saved with the .html or .htm extension to be viewed correctly in a web browser.",
+        "hi": "एक HTML दस्तावेज़ को वेब ब्राउज़र में सही ढंग से देखने के लिए .html या .htm एक्सटेंशन के साथ सेव किया जाना चाहिए ।"
+      },
+      "key_takeaway": {
+        "en": ".html = Standard web file extension.",
+        "hi": ".html = मानक वेब फ़ाइल एक्सटेंशन ।"
+      }
+    }
+  ]
+}
