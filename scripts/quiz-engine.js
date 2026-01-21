@@ -46,18 +46,30 @@ class QuizEngine {
         let marks = 0;
         let finalAttempts = attemptNumber;
 
-        // --- UPDATED LOGIC FOR TEST MODE ---
+        // --- MANAGE SELECTION HISTORY ---
+        // Initialize history if this is the first click for this question
+        if (!this.userAnswers[questionId]) {
+            this.userAnswers[questionId] = {
+                history: [], // Stores all clicked options
+                attempts: 0,
+                isCorrect: false,
+                marks: 0,
+                hintUsed: hintUsed
+            };
+        }
+
+        const currentData = this.userAnswers[questionId];
+        
+        // Add current selection to history if not already there
+        if (!currentData.history.includes(selectedOption)) {
+            currentData.history.push(selectedOption);
+        }
+
         if (this.mode === 'test') {
-            if (isCorrect) {
-                marks = hintUsed ? 2 : 4;
-            } else {
-                marks = 0;
-            }
-            // Test mode always locks after 1 click
+            if (isCorrect) marks = hintUsed ? 2 : 4;
+            else marks = 0;
             finalAttempts = 3; 
-        } 
-        // --- UPDATED LOGIC FOR PRACTICE MODE ---
-        else {
+        } else {
             if (isCorrect) {
                 switch (attemptNumber) {
                     case 1: marks = hintUsed ? 3 : 4; break;
@@ -65,38 +77,22 @@ class QuizEngine {
                     case 3: marks = hintUsed ? 1 : 2; break;
                 }
             } else if (attemptNumber === 3) {
-                // Only provide 1 baseline mark if they fail 3 times
                 marks = hintUsed ? 0 : 1;
             } else {
-                // If wrong and attempts < 3, we don't save final marks yet
-                // This prevents the UI from locking
                 marks = 0;
             }
         }
 
-        // Only save to userAnswers if it's correct OR if it's the final attempt
-        // This prevents the "answered" status from revealing spoilers too early
-        if (isCorrect || finalAttempts >= 3) {
-            this.userAnswers[questionId] = {
-                selectedOption,
-                attempts: finalAttempts,
-                isCorrect,
-                marks,
-                hintUsed,
-                answeredAt: new Date().toISOString()
-            };
-        } else {
-            // In Practice Mode, record the partial attempt but don't "finalize" the answer
-            // This allows the UI to show 'wrong' without showing the 'correct' spoiler
-            this.userAnswers[questionId] = {
-                selectedOption,
-                attempts: attemptNumber,
-                isCorrect: false,
-                marks: 0,
-                hintUsed,
-                isPartial: true // Custom flag to indicate it's not locked yet
-            };
-        }
+        // --- UPDATE PERSISTENT STATE ---
+        currentData.selectedOption = selectedOption; // Last selected
+        currentData.attempts = (this.mode === 'test') ? 3 : attemptNumber;
+        currentData.isCorrect = isCorrect;
+        currentData.marks = marks;
+        currentData.hintUsed = hintUsed;
+        currentData.answeredAt = new Date().toISOString();
+        
+        // Flag to prevent UI spoilers until finished
+        currentData.isPartial = (this.mode === 'practice' && !isCorrect && attemptNumber < 3);
 
         this.calculateScore();
         this.saveProgress();
@@ -106,19 +102,20 @@ class QuizEngine {
     recordTimeout(questionId, hintUsed = false) {
         this.userAnswers[questionId] = {
             selectedOption: null,
+            history: [],
             attempts: 3,
             isCorrect: false,
             marks: 0,
             hintUsed: hintUsed,
             answeredAt: new Date().toISOString(),
-            isTimeout: true
+            isTimeout: true,
+            isPartial: false
         };
         this.calculateScore();
         this.saveProgress();
     }
 
     calculateScore() {
-        // Only count scores from non-partial answers
         this.score = Object.values(this.userAnswers)
             .filter(ans => !ans.isPartial)
             .reduce((total, answer) => total + answer.marks, 0);
@@ -134,7 +131,6 @@ class QuizEngine {
 
     isQuestionDisabled(questionId) {
         const answer = this.userAnswers[questionId];
-        // Question is only disabled (locked) if it is correct OR all attempts are gone
         return answer && !answer.isPartial && (answer.isCorrect || answer.attempts >= 3);
     }
 
@@ -146,7 +142,6 @@ class QuizEngine {
 
     getQuestionMarks(questionId) {
         const answer = this.userAnswers[questionId];
-        // Don't show marks until the question is finalized
         if (!answer || answer.isPartial) return null;
         return {
             obtained: answer.marks,
