@@ -1,0 +1,924 @@
+{
+  "metadata": {
+    "chapter_number": 6,
+    "chapter_title": "JavaScript Practical Syntax & Logic",
+    "chapter_title_hindi": "जावास्क्रिप्ट प्रैक्टिकल सिंटैक्स और लॉजिक",
+    "subject": "Computer Science - Class 11",
+    "board": "HPBOSE",
+    "total_questions": 35,
+    "version": "1.0",
+    "naming_convention": "11_CS_CH06_JS_Practical.json"
+  },
+  "questions": [
+    {
+      "question_id": 1,
+      "question": {
+        "en": "What will be the output of the following code snippet?\n\nvar S1 = 'I love';\nvar S2 = ' my country ';\nvar S3 = S1 + S2;\ndocument.write(S3 + 'India');",
+        "hi": "निम्नलिखित कोड स्निपेट का आउटपुट क्या होगा?\n\nvar S1 = 'I love';\nvar S2 = ' my country ';\nvar S3 = S1 + S2;\ndocument.write(S3 + 'India');"
+      },
+      "options": {
+        "a": {"en": "I love my countryIndia", "hi": "I love my countryIndia"},
+        "b": {"en": "I love my country India", "hi": "I love my country India"},
+        "c": {"en": "I lovemy country India", "hi": "I lovemy country India"},
+        "d": {"en": "I love India", "hi": "I love India"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "Pay attention to the spaces inside the strings S2 and the final addition.",
+        "hi": "स्ट्रिंग्स S2 और अंतिम जोड़ के अंदर के स्पेस (खाली जगह) पर ध्यान दें।"
+      },
+      "explanation": {
+        "en": "The '+' operator concatenates (joins) the strings. S1 + S2 results in 'I love my country '. Adding 'India' results in 'I love my country India'.",
+        "hi": "'+' ऑपरेटर स्ट्रिंग्स को आपस में जोड़ता है। S1 + S2 का परिणाम 'I love my country ' है। इसमें 'India' जोड़ने पर 'I love my country India' प्राप्त होता है।"
+      },
+      "key_takeaway": {
+        "en": "The '+' operator performs concatenation when used with strings.",
+        "hi": "स्ट्रिंग्स के साथ उपयोग किए जाने पर '+' ऑपरेटर कॉन्केटनेशन (जोड़ने का कार्य) करता है।"
+      }
+    },
+    {
+      "question_id": 2,
+      "question": {
+        "en": "Predict the output of this mathematical operation in JS:\n\nvar a = 5;\nvar b = 2;\ndocument.write(a % b);",
+        "hi": "JS में इस गणितीय संक्रिया (operation) के आउटपुट का अनुमान लगाएं:\n\nvar a = 5;\nvar b = 2;\ndocument.write(a % b);"
+      },
+      "options": {
+        "a": {"en": "2.5", "hi": "2.5"},
+        "b": {"en": "2", "hi": "2"},
+        "c": {"en": "1", "hi": "1"},
+        "d": {"en": "0", "hi": "0"}
+      },
+      "correct_option": "c",
+      "hint": {
+        "en": "The '%' symbol is the Modulus operator, which returns the remainder.",
+        "hi": "'%' प्रतीक मॉड्यूलस (Modulus) ऑपरेटर है, जो शेषफल लौटाता है।"
+      },
+      "explanation": {
+        "en": "In the operation 5 % 2, 2 goes into 5 twice (2*2=4) with a remainder of 1. The modulus operator returns that remainder.",
+        "hi": "5 % 2 की संक्रिया में, 2 का भाग 5 में दो बार जाता है (2*2=4) और शेषफल 1 बचता है। मॉड्यूलस ऑपरेटर वही शेषफल लौटाता है।"
+      },
+      "key_takeaway": {
+        "en": "% (Modulus) = Remainder of a division.",
+        "hi": "% (Modulus) = विभाजन का शेषफल।"
+      }
+    },
+    {
+      "question_id": 3,
+      "question": {
+        "en": "What does the following code calculate?\n\nvar L = 50;\nvar W = 20;\nvar A = L * W;\ndocument.write(A);",
+        "hi": "निम्नलिखित कोड क्या गणना करता है?\n\nvar L = 50;\nvar W = 20;\nvar A = L * W;\ndocument.write(A);"
+      },
+      "options": {
+        "a": {"en": "Area of a Square", "hi": "वर्ग (Square) का क्षेत्रफल"},
+        "b": {"en": "Area of a Triangle", "hi": "त्रिभुज (Triangle) का क्षेत्रफल"},
+        "c": {"en": "Area of a Rectangle", "hi": "आयत (Rectangle) का क्षेत्रफल"},
+        "d": {"en": "Perimeter of a Rectangle", "hi": "आयत का परिमाप"}
+      },
+      "correct_option": "c",
+      "hint": {
+        "en": "The formula is Length multiplied by Width.",
+        "hi": "फॉर्मूला लंबाई गुना चौड़ाई (Length * Width) है।"
+      },
+      "explanation": {
+        "en": "Multiplying Length (L) and Width (W) is the standard formula to find the Area of a Rectangle.",
+        "hi": "लंबाई (L) और चौड़ाई (W) को गुणा करना आयत का क्षेत्रफल ज्ञात करने का मानक सूत्र है।"
+      },
+      "key_takeaway": {
+        "en": "Area of Rectangle = Length * Width.",
+        "hi": "आयत का क्षेत्रफल = लंबाई * चौड़ाई।"
+      }
+    },
+    {
+      "question_id": 4,
+      "question": {
+        "en": "What will be the output of this code?\n\nvar age = 22;\nif (age >= 18)\n{\n  document.write('Yes, you can vote');\n}\nelse\n{\n  document.write('No, you cannot vote');\n}",
+        "hi": "इस कोड का आउटपुट क्या होगा?\n\nvar age = 22;\nif (age >= 18)\n{\n  document.write('Yes, you can vote');\n}\nelse\n{\n  document.write('No, you cannot vote');\n}"
+      },
+      "options": {
+        "a": {"en": "No, you cannot vote", "hi": "No, you cannot vote"},
+        "b": {"en": "Yes, you can vote", "hi": "Yes, you can vote"},
+        "c": {"en": "Error", "hi": "Error"},
+        "d": {"en": "No output", "hi": "कोई आउटपुट नहीं"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "Check if 22 is greater than or equal to 18.",
+        "hi": "जाँचें कि क्या 22, 18 से बड़ा या उसके बराबर है।"
+      },
+      "explanation": {
+        "en": "Since the variable 'age' is 22, the condition (age >= 18) is TRUE. Therefore, the code inside the 'if' block executes.",
+        "hi": "चूंकि वेरिएबल 'age' 22 है, इसलिए शर्त (age >= 18) TRUE (सत्य) है। इसलिए, 'if' ब्लॉक के अंदर का कोड निष्पादित होता है।"
+      },
+      "key_takeaway": {
+        "en": "If-else statements choose a path based on a boolean condition.",
+        "hi": "If-else स्टेटमेंट बूलियन शर्त के आधार पर एक रास्ता चुनते हैं।"
+      }
+    },
+    {
+      "question_id": 5,
+      "question": {
+        "en": "Predict the result of the Exponentiation operator in this snippet:\n\nvar a = 5;\nvar b = 2;\ndocument.write(a ** b);",
+        "hi": "इस स्निपेट में एक्सपोनेंटियशन (Exponentiation) ऑपरेटर के परिणाम का अनुमान लगाएं:\n\nvar a = 5;\nvar b = 2;\ndocument.write(a ** b);"
+      },
+      "options": {
+        "a": {"en": "10", "hi": "10"},
+        "b": {"en": "25", "hi": "25"},
+        "c": {"en": "7", "hi": "7"},
+        "d": {"en": "3", "hi": "3"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "The '**' operator calculates the power (a raised to the power of b).",
+        "hi": "'**' ऑपरेटर शक्ति या पावर (a की घात b) की गणना करता है।"
+      },
+      "explanation": {
+        "en": "5 ** 2 means 5 squared (5 * 5), which equals 25.",
+        "hi": "5 ** 2 का अर्थ है 5 का वर्ग (5 * 5), जो 25 के बराबर होता है।"
+      },
+      "key_takeaway": {
+        "en": "** = Power/Exponential operator.",
+        "hi": "** = पावर/एक्सपोनेंशियल ऑपरेटर।"
+      }
+    },
+    {
+      "question_id": 6,
+      "question": {
+        "en": "What will be the output if 'a' is 31 in the following code?\n\nif (a % 2 == 0)\n{\n  document.write('Even');\n}\nelse\n{\n  document.write('Odd');\n}",
+        "hi": "यदि निम्नलिखित कोड में 'a', 31 है तो आउटपुट क्या होगा?\n\nif (a % 2 == 0)\n{\n  document.write('Even');\n}\nelse\n{\n  document.write('Odd');\n}"
+      },
+      "options": {
+        "a": {"en": "Even", "hi": "Even"},
+        "b": {"en": "Odd", "hi": "Odd"},
+        "c": {"en": "31", "hi": "31"},
+        "d": {"en": "0", "hi": "0"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "Divide 31 by 2 and check the remainder.",
+        "hi": "31 को 2 से विभाजित करें और शेषफल की जाँच करें।"
+      },
+      "explanation": {
+        "en": "31 divided by 2 leaves a remainder of 1. Since 1 is not equal to 0, the 'else' block executes, printing 'Odd'.",
+        "hi": "31 को 2 से विभाजित करने पर शेषफल 1 बचता है। चूंकि 1, 0 के बराबर नहीं है, इसलिए 'else' ब्लॉक निष्पादित होता है और 'Odd' प्रिंट करता है।"
+      },
+      "key_takeaway": {
+        "en": "n % 2 == 0 is the standard logic to identify even numbers.",
+        "hi": "सम संख्याओं की पहचान करने के लिए n % 2 == 0 मानक लॉजिक है।"
+      }
+    },
+    {
+      "question_id": 7,
+      "question": {
+        "en": "Calculate the output for the Area of a Circle with Rad = 10:\n\nvar Rad = 10;\nvar A = 3.14 * Rad ** 2;\ndocument.write(A);",
+        "hi": "Rad = 10 के साथ वृत्त के क्षेत्रफल (Area of a Circle) के आउटपुट की गणना करें:\n\nvar Rad = 10;\nvar A = 3.14 * Rad ** 2;\ndocument.write(A);"
+      },
+      "options": {
+        "a": {"en": "31.4", "hi": "31.4"},
+        "b": {"en": "314", "hi": "314"},
+        "c": {"en": "100", "hi": "100"},
+        "d": {"en": "62.8", "hi": "62.8"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "Square the radius first (10*10), then multiply by 3.14.",
+        "hi": "पहले त्रिज्या का वर्ग (10*10) करें, फिर 3.14 से गुणा करें।"
+      },
+      "explanation": {
+        "en": "Rad ** 2 = 100. Then 3.14 * 100 = 314. This follows the formula πr².",
+        "hi": "Rad ** 2 = 100. फिर 3.14 * 100 = 314. यह सूत्र πr² का अनुसरण करता है।"
+      },
+      "key_takeaway": {
+        "en": "Area of Circle = 3.14 * (Radius ** 2).",
+        "hi": "वृत्त का क्षेत्रफल = 3.14 * (त्रिज्या ** 2)।"
+      }
+    },
+    {
+      "question_id": 8,
+      "question": {
+        "en": "In a 'switch' statement, if var D = 5, which case will execute?\n\nswitch (D) {\n  case 1: ... break;\n  case 5: document.write('Friday'); break;\n  default: ...\n}",
+        "hi": "एक 'switch' स्टेटमेंट में, यदि var D = 5 है, तो कौन सा केस (case) निष्पादित होगा?\n\nswitch (D) {\n  case 1: ... break;\n  case 5: document.write('Friday'); break;\n  default: ...\n}"
+      },
+      "options": {
+        "a": {"en": "Monday", "hi": "Monday"},
+        "b": {"en": "Friday", "hi": "Friday"},
+        "c": {"en": "Invalid Number", "hi": "Invalid Number"},
+        "d": {"en": "Thursday", "hi": "Thursday"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "The value of D is compared directly to the case numbers.",
+        "hi": "D के मान की तुलना सीधे केस नंबरों से की जाती है।"
+      },
+      "explanation": {
+        "en": "Since D equals 5, the switch jumps directly to 'case 5' and executes the associated code.",
+        "hi": "चूंकि D, 5 के बराबर है, इसलिए स्विच सीधे 'case 5' पर जाता है और उससे संबंधित कोड को निष्पादित करता है।"
+      },
+      "key_takeaway": {
+        "en": "Switch cases provide an efficient way to check a single variable against multiple values.",
+        "hi": "स्विच केस एक वेरिएबल की कई मानों के साथ तुलना करने का एक कुशल तरीका प्रदान करते हैं।"
+      }
+    },
+    {
+      "question_id": 9,
+      "question": {
+        "en": "What will be the final value of SUM in this loop?\n\nvar N = 1;\nvar SUM = 0;\nwhile (N <= 3)\n{\n  SUM = SUM + N;\n  N++;\n}",
+        "hi": "इस लूप में SUM का अंतिम मान क्या होगा?\n\nvar N = 1;\nvar SUM = 0;\nwhile (N <= 3)\n{\n  SUM = SUM + N;\n  N++;\n}"
+      },
+      "options": {
+        "a": {"en": "3", "hi": "3"},
+        "b": {"en": "6", "hi": "6"},
+        "c": {"en": "1", "hi": "1"},
+        "d": {"en": "10", "hi": "10"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "Trace the loop: Iteration 1 (0+1=1), Iteration 2 (1+2=3), Iteration 3 (3+3=6).",
+        "hi": "लूप को फॉलो करें: पहला राउंड (0+1=1), दूसरा राउंड (1+2=3), तीसरा राउंड (3+3=6)।"
+      },
+      "explanation": {
+        "en": "The loop runs for N=1, 2, and 3. SUM adds these values sequentially: 0+1+2+3 = 6.",
+        "hi": "लूप N=1, 2 और 3 के लिए चलता है। SUM इन मानों को क्रमिक रूप से जोड़ता है: 0+1+2+3 = 6।"
+      },
+      "key_takeaway": {
+        "en": "Loops can be used to calculate cumulative totals (summations).",
+        "hi": "लूप का उपयोग संचयी योग (cumulative totals) की गणना के लिए किया जा सकता है।"
+      }
+    },
+    {
+      "question_id": 10,
+      "question": {
+        "en": "Which logic is used to check for a Leap Year in the provided programs?",
+        "hi": "प्रदान किए गए प्रोग्रामों में लीप वर्ष (Leap Year) की जाँच करने के लिए किस लॉजिक का उपयोग किया गया है?"
+      },
+      "options": {
+        "a": {"en": "if (y % 4 == 0)", "hi": "if (y % 4 == 0)"},
+        "b": {"en": "if (y / 4 == 0)", "hi": "if (y / 4 == 0)"},
+        "c": {"en": "if (y + 4 == 0)", "hi": "if (y + 4 == 0)"},
+        "d": {"en": "if (y % 2 == 0)", "hi": "if (y % 2 == 0)"}
+      },
+      "correct_option": "a",
+      "hint": {
+        "en": "A leap year occurs every 4 years and must be divisible by 4.",
+        "hi": "लीप वर्ष हर 4 साल में आता है और 4 से विभाज्य होना चाहिए।"
+      },
+      "explanation": {
+        "en": "The program uses (y % 4 == 0) to check if the year 'y' is perfectly divisible by 4 with no remainder.",
+        "hi": "प्रोग्राम (y % 4 == 0) का उपयोग यह जाँचने के लिए करता है कि क्या वर्ष 'y' 4 से पूरी तरह विभाज्य है और कोई शेषफल नहीं बचता है।"
+      },
+      "key_takeaway": {
+        "en": "Modulus 4 is the simplest check for a leap year in basic JS exercises.",
+        "hi": "बुनियादी JS अभ्यासों में लीप वर्ष के लिए मॉड्यूलस 4 सबसे सरल जाँच है।"
+      }
+    },
+    {
+      "question_id": 11,
+      "question": {
+        "en": "What is the output for a student with marks m = 75 based on this code?\n\nif (m >= 85) { document.write('Distinction'); }\nelse if (m >= 33) { document.write('Pass'); }\nelse { document.write('Fail'); }",
+        "hi": "इस कोड के आधार पर m = 75 अंक वाले छात्र के लिए आउटपुट क्या होगा?\n\nif (m >= 85) { document.write('Distinction'); }\nelse if (m >= 33) { document.write('Pass'); }\nelse { document.write('Fail'); }"
+      },
+      "options": {
+        "a": {"en": "Distinction", "hi": "Distinction"},
+        "b": {"en": "Pass", "hi": "Pass"},
+        "c": {"en": "Fail", "hi": "Fail"},
+        "d": {"en": "Pass Distinction", "hi": "Pass Distinction"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "Is 75 greater than 85? No. Is 75 greater than 33? Yes.",
+        "hi": "क्या 75, 85 से बड़ा है? नहीं। क्या 75, 33 से बड़ा है? हाँ।"
+      },
+      "explanation": {
+        "en": "The first condition (m >= 85) fails, so it checks the next condition (m >= 33). Since 75 is >= 33, it prints 'Pass'.",
+        "hi": "पहली शर्त (m >= 85) विफल हो जाती है, इसलिए यह अगली शर्त (m >= 33) की जाँच करता है। चूंकि 75 >= 33 है, इसलिए यह 'Pass' प्रिंट करता है।"
+      },
+      "key_takeaway": {
+        "en": "Else-if allows for multiple specific conditions in sequence.",
+        "hi": "Else-if क्रम में कई विशिष्ट शर्तों की अनुमति देता है।"
+      }
+    },
+    {
+      "question_id": 12,
+      "question": {
+        "en": "Identify the output for the Area of a Triangle with B = 20 and H = 40:\n\nvar AR = 0.5 * B * H;",
+        "hi": "B = 20 और H = 40 के साथ त्रिभुज के क्षेत्रफल (Area of a Triangle) के आउटपुट को पहचानें:\n\nvar AR = 0.5 * B * H;"
+      },
+      "options": {
+        "a": {"en": "800", "hi": "800"},
+        "b": {"en": "400", "hi": "400"},
+        "c": {"en": "200", "hi": "200"},
+        "d": {"en": "1000", "hi": "1000"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "Multiply Base and Height, then take half (multiply by 0.5).",
+        "hi": "आधार (Base) और ऊँचाई (Height) को गुणा करें, फिर उसका आधा करें (0.5 से गुणा करें)।"
+      },
+      "explanation": {
+        "en": "0.5 * 20 * 40 calculation: 20 * 40 = 800. Half of 800 is 400.",
+        "hi": "0.5 * 20 * 40 की गणना: 20 * 40 = 800. 800 का आधा 400 है।"
+      },
+      "key_takeaway": {
+        "en": "Area of Triangle = 1/2 * base * height.",
+        "hi": "त्रिभुज का क्षेत्रफल = 1/2 * आधार * ऊँचाई।"
+      }
+    },
+    {
+      "question_id": 13,
+      "question": {
+        "en": "In the Fibonacci Series program, if PRV=0 and NXT=1, what is the value of SUM after the first addition?",
+        "hi": "फाइबोनैचि सीरीज (Fibonacci Series) प्रोग्राम में, यदि PRV=0 और NXT=1 है, तो पहले जोड़ के बाद SUM का मान क्या होगा?"
+      },
+      "options": {
+        "a": {"en": "0", "hi": "0"},
+        "b": {"en": "1", "hi": "1"},
+        "c": {"en": "2", "hi": "2"},
+        "d": {"en": "3", "hi": "3"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "SUM = PRV + NXT.",
+        "hi": "SUM = PRV + NXT."
+      },
+      "explanation": {
+        "en": "The series starts by adding the two previous numbers. 0 + 1 = 1.",
+        "hi": "सीरीज पिछले दो नंबरों को जोड़ने से शुरू होती है। 0 + 1 = 1।"
+      },
+      "key_takeaway": {
+        "en": "Fibonacci sequence: each number is the sum of the two preceding ones.",
+        "hi": "फाइबोनैचि अनुक्रम: प्रत्येक संख्या पिछले दो के योग के बराबर होती है।"
+      }
+    },
+    {
+      "question_id": 14,
+      "question": {
+        "en": "Which of the following creates a 'do-while' loop that counts from 1 to 20?",
+        "hi": "निम्नलिखित में से कौन सा एक 'do-while' लूप बनाता है जो 1 से 20 तक गिनता है?"
+      },
+      "options": {
+        "a": {"en": "do { ... } while (N <= 20);", "hi": "do { ... } while (N <= 20);"},
+        "b": {"en": "while (N <= 20) { do ... }", "hi": "while (N <= 20) { do ... }"},
+        "c": {"en": "do { while (N <= 20) }", "hi": "do { while (N <= 20) }"},
+        "d": {"en": "while (do N <= 20)", "hi": "while (do N <= 20)"}
+      },
+      "correct_option": "a",
+      "hint": {
+        "en": "The 'while' condition comes at the very end of the 'do' block.",
+        "hi": "'while' शर्त 'do' ब्लॉक के बिल्कुल अंत में आती है।"
+      },
+      "explanation": {
+        "en": "The syntax for do-while is 'do { code } while (condition);'. This ensures the code runs at least once.",
+        "hi": "do-while का सिंटैक्स 'do { code } while (condition);' है। यह सुनिश्चित करता है कि कोड कम से कम एक बार चले।"
+      },
+      "key_takeaway": {
+        "en": "Do-while loops always execute the first iteration unconditionally.",
+        "hi": "Do-while लूप हमेशा पहला राउंड बिना शर्त के निष्पादित करते हैं।"
+      }
+    },
+    {
+      "question_id": 15,
+      "question": {
+        "en": "What is the output of this code snippet?\n\nvar N1 = 1000;\nvar N2 = 2000;\nif (N1 > N2) { document.write('N1 is greater'); }\nelse { document.write('N2 is greater'); }",
+        "hi": "इस कोड स्निपेट का आउटपुट क्या है?\n\nvar N1 = 1000;\nvar N2 = 2000;\nif (N1 > N2) { document.write('N1 is greater'); }\nelse { document.write('N2 is greater'); }"
+      },
+      "options": {
+        "a": {"en": "N1 is greater", "hi": "N1 is greater"},
+        "b": {"en": "N2 is greater", "hi": "N2 is greater"},
+        "c": {"en": "1000", "hi": "1000"},
+        "d": {"en": "Error", "hi": "Error"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "Compare 1000 and 2000.",
+        "hi": "1000 और 2000 की तुलना करें।"
+      },
+      "explanation": {
+        "en": "1000 is not greater than 2000, so the 'if' condition is FALSE. The control moves to the 'else' block.",
+        "hi": "1000, 2000 से बड़ा नहीं है, इसलिए 'if' की शर्त FALSE है। कंट्रोल 'else' ब्लॉक पर चला जाता है।"
+      },
+      "key_takeaway": {
+        "en": "Else executes when the if-condition fails.",
+        "hi": "जब if-कंडीशन विफल होती है तो else निष्पादित होता है।"
+      }
+    },
+    {
+      "question_id": 16,
+      "question": {
+        "en": "In the series of numbers (3, 8, 13 ... 48), what is the increment value for N?",
+        "hi": "संख्याओं की सीरीज (3, 8, 13 ... 48) में, N के लिए इंक्रीमेंट (बढ़त) मान क्या है?"
+      },
+      "options": {
+        "a": {"en": "N = N + 1", "hi": "N = N + 1"},
+        "b": {"en": "N = N + 5", "hi": "N = N + 5"},
+        "c": {"en": "N = N + 3", "hi": "N = N + 3"},
+        "d": {"en": "N = N + 10", "hi": "N = N + 10"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "Look at the difference between 3 and 8.",
+        "hi": "3 और 8 के बीच का अंतर देखें।"
+      },
+      "explanation": {
+        "en": "The difference between consecutive numbers (8-3=5, 13-8=5) is 5. So N increases by 5 in each step.",
+        "hi": "लगातार आने वाली संख्याओं के बीच का अंतर (8-3=5, 13-8=5) 5 है। इसलिए हर कदम पर N, 5 से बढ़ता है।"
+      },
+      "key_takeaway": {
+        "en": "The update expression (N=N+5) determines the interval of a series.",
+        "hi": "अपडेट एक्सप्रेशन (N=N+5) किसी सीरीज के अंतराल को निर्धारित करता है।"
+      }
+    },
+    {
+      "question_id": 17,
+      "question": {
+        "en": "What will be printed if a student has m = 45 in this Grading system?\n\nif (m >= 50) { document.write('Grade - C'); }\nelse if (m >= 40) { document.write('Grade - D'); }\nelse { document.write('Grade - E'); }",
+        "hi": "यदि इस ग्रेडिंग सिस्टम में किसी छात्र के m = 45 अंक हैं तो क्या प्रिंट होगा?\n\nif (m >= 50) { document.write('Grade - C'); }\nelse if (m >= 40) { document.write('Grade - D'); }\nelse { document.write('Grade - E'); }"
+      },
+      "options": {
+        "a": {"en": "Grade - C", "hi": "Grade - C"},
+        "b": {"en": "Grade - D", "hi": "Grade - D"},
+        "c": {"en": "Grade - E", "hi": "Grade - E"},
+        "d": {"en": "Fail", "hi": "Fail"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "Check the ranges. 45 is between 40 and 50.",
+        "hi": "रेंज की जाँच करें। 45, 40 और 50 के बीच है।"
+      },
+      "explanation": {
+        "en": "45 is not >= 50, but it is >= 40. The condition (m >= 40) is met first.",
+        "hi": "45 >= 50 नहीं है, लेकिन यह >= 40 है। शर्त (m >= 40) पहले पूरी हो जाती है।"
+      },
+      "key_takeaway": {
+        "en": "Hierarchical if-else blocks handle different score brackets.",
+        "hi": "पदानुक्रमित (Hierarchical) if-else ब्लॉक अलग-अलग स्कोर ब्रैकेट को संभालते हैं।"
+      }
+    },
+    {
+      "question_id": 18,
+      "question": {
+        "en": "Predict the result of this decrement operation:\n\nvar n = 2;\nn--;\ndocument.write(n);",
+        "hi": "इस डिक्रीमेंट (decrement) संक्रिया के परिणाम का अनुमान लगाएं:\n\nvar n = 2;\nn--;\ndocument.write(n);"
+      },
+      "options": {
+        "a": {"en": "2", "hi": "2"},
+        "b": {"en": "1", "hi": "1"},
+        "c": {"en": "0", "hi": "0"},
+        "d": {"en": "3", "hi": "3"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "The '--' operator subtracts 1 from the variable.",
+        "hi": "'--' ऑपरेटर वेरिएबल से 1 घटाता है।"
+      },
+      "explanation": {
+        "en": "n-- is equivalent to n = n - 1. So 2 - 1 equals 1.",
+        "hi": "n-- का अर्थ n = n - 1 के बराबर है। इसलिए 2 - 1 बराबर 1 होता है।"
+      },
+      "key_takeaway": {
+        "en": "-- = Decrement by 1.",
+        "hi": "-- = 1 से कमी (डिक्रीमेंट)।"
+      }
+    },
+    {
+      "question_id": 19,
+      "question": {
+        "en": "Which loop will correctly print the multiplication table of 11 (11, 22 ... 110)?",
+        "hi": "कौन सा लूप 11 का पहाड़ा (11, 22 ... 110) सही ढंग से प्रिंट करेगा?"
+      },
+      "options": {
+        "a": {"en": "for (N=11; N<=110; N=N+11)", "hi": "for (N=11; N<=110; N=N+11)"},
+        "b": {"en": "for (N=1; N<=10; N++)", "hi": "for (N=1; N<=10; N++)"},
+        "c": {"en": "for (N=11; N<=110; N++)", "hi": "for (N=11; N<=110; N++)"},
+        "d": {"en": "while (N < 110)", "hi": "while (N < 110)"}
+      },
+      "correct_option": "a",
+      "hint": {
+        "en": "The initial value is 11 and it increases by 11 in each iteration.",
+        "hi": "प्रारंभिक मान 11 है और यह प्रत्येक राउंड में 11 से बढ़ता है।"
+      },
+      "explanation": {
+        "en": "To get the table of 11, start at 11, end at or before 110, and increment by 11 each time.",
+        "hi": "11 का पहाड़ा प्राप्त करने के लिए, 11 से शुरू करें, 110 पर या उससे पहले समाप्त करें, और हर बार 11 से बढ़ाएँ।"
+      },
+      "key_takeaway": {
+        "en": "Table logic: Start = Number; Condition <= Number * 10; Step = Number.",
+        "hi": "पहाड़ा लॉजिक: Start = संख्या; Condition <= संख्या * 10; Step = संख्या।"
+      }
+    },
+    {
+      "question_id": 20,
+      "question": {
+        "en": "In a 'switch' statement, what happens if no matching case is found?",
+        "hi": "एक 'switch' स्टेटमेंट में क्या होता है यदि कोई मैचिंग केस नहीं मिलता है?"
+      },
+      "options": {
+        "a": {"en": "The first case executes", "hi": "पहला केस निष्पादित होता है"},
+        "b": {"en": "The default case executes", "hi": "डिफ़ॉल्ट (default) केस निष्पादित होता है"},
+        "c": {"en": "The program crashes", "hi": "प्रोग्राम क्रैश हो जाता है"},
+        "d": {"en": "It skips everything and does nothing", "hi": "यह सब कुछ छोड़ देता है और कुछ नहीं करता"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "Look for the keyword used for 'none of the above'.",
+        "hi": "'उपरोक्त में से कोई नहीं' के लिए उपयोग किए जाने वाले कीवर्ड को देखें।"
+      },
+      "explanation": {
+        "en": "The 'default' label identifies code to run if there is no case match for the variable value.",
+        "hi": "'default' लेबल उस कोड की पहचान करता है जिसे तब चलाया जाना है जब वेरिएबल के मान के लिए कोई केस मैच नहीं मिलता है।"
+      },
+      "key_takeaway": {
+        "en": "default = fallback option in switch.",
+        "hi": "default = स्विच में फॉलबैक विकल्प।"
+      }
+    },
+    {
+      "question_id": 21,
+      "question": {
+        "en": "What is the output of the logical check: (TRUE && FALSE)?",
+        "hi": "लॉजिकल चेक (TRUE && FALSE) का आउटपुट क्या है?"
+      },
+      "options": {
+        "a": {"en": "TRUE", "hi": "TRUE"},
+        "b": {"en": "FALSE", "hi": "FALSE"},
+        "c": {"en": "Undefined", "hi": "Undefined"},
+        "d": {"en": "1", "hi": "1"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "For && (AND), BOTH sides must be true.",
+        "hi": "&& (AND) के लिए, दोनों पक्ष सत्य होने चाहिए।"
+      },
+      "explanation": {
+        "en": "The logical AND (&&) operator only returns TRUE if both operands are TRUE. Here, one is FALSE.",
+        "hi": "लॉजिकल AND (&&) ऑपरेटर केवल तभी TRUE लौटाता है जब दोनों ऑपरेंड TRUE हों। यहाँ, एक FALSE है।"
+      },
+      "key_takeaway": {
+        "en": "&& requires both conditions to be satisfied.",
+        "hi": "&& के लिए दोनों शर्तों का पूरा होना आवश्यक है।"
+      }
+    },
+    {
+      "question_id": 22,
+      "question": {
+        "en": "In the series of numbers (50, 45, 40 ... 5), what logic is used in the FOR loop?",
+        "hi": "संख्याओं की सीरीज (50, 45, 40 ... 5) में, FOR लूप में किस लॉजिक का उपयोग किया गया है?"
+      },
+      "options": {
+        "a": {"en": "for (N=50; N>=5; N=N-5)", "hi": "for (N=50; N>=5; N=N-5)"},
+        "b": {"en": "for (N=5; N<=50; N=N+5)", "hi": "for (N=5; N<=50; N=N+5)"},
+        "c": {"en": "for (N=50; N<=5; N=N-5)", "hi": "for (N=50; N<=5; N=N-5)"},
+        "d": {"en": "for (N=50; N>0; N++)", "hi": "for (N=50; N>0; N++)"}
+      },
+      "correct_option": "a",
+      "hint": {
+        "en": "The loop starts at 50 and goes downwards to 5.",
+        "hi": "लूप 50 से शुरू होता है और नीचे 5 तक जाता है।"
+      },
+      "explanation": {
+        "en": "To count down, the condition should use '>=' or '>' and the update expression should use subtraction (N=N-5).",
+        "hi": "नीचे की ओर गिनने के लिए, शर्त में '>=' या '>' का उपयोग किया जाना चाहिए और अपडेट एक्सप्रेशन में घटाव (N=N-5) का उपयोग किया जाना चाहिए।"
+      },
+      "key_takeaway": {
+        "en": "Negative step (N=N-5) is used for descending series.",
+        "hi": "अवरोही सीरीज (descending series) के लिए नेगेटिव स्टेप (N=N-5) का उपयोग किया जाता है।"
+      }
+    },
+    {
+      "question_id": 23,
+      "question": {
+        "en": "Which operator is used to compare if two values are NOT equal?",
+        "hi": "यह तुलना करने के लिए कि क्या दो मान बराबर नहीं हैं, किस ऑपरेटर का उपयोग किया जाता है?"
+      },
+      "options": {
+        "a": {"en": "==", "hi": "=="},
+        "b": {"en": "!=", "hi": "!="},
+        "c": {"en": "!", "hi": "!"},
+        "d": {"en": "=", "hi": "="}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "It uses an exclamation mark followed by an equals sign.",
+        "hi": "यह एक विस्मयादिबोधक चिह्न और उसके बाद बराबर के चिह्न का उपयोग करता है।"
+      },
+      "explanation": {
+        "en": "The '!=' operator checks for non-equality. 5 != 2 would return TRUE.",
+        "hi": "'!=' ऑपरेटर गैर-समानता की जाँच करता है। 5 != 2 TRUE लौटाएगा।"
+      },
+      "key_takeaway": {
+        "en": "!= = Non-equality operator.",
+        "hi": "!= = गैर-समानता ऑपरेटर।"
+      }
+    },
+    {
+      "question_id": 24,
+      "question": {
+        "en": "What will be the output of the following Logical NOT operation: !FALSE?",
+        "hi": "निम्नलिखित लॉजिकल NOT संक्रिया का आउटपुट क्या होगा: !FALSE?"
+      },
+      "options": {
+        "a": {"en": "FALSE", "hi": "FALSE"},
+        "b": {"en": "TRUE", "hi": "TRUE"},
+        "c": {"en": "0", "hi": "0"},
+        "d": {"en": "Null", "hi": "Null"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "The '!' operator reverses the boolean value.",
+        "hi": "'!' ऑपरेटर बूलियन मान को उल्टा कर देता है।"
+      },
+      "explanation": {
+        "en": "Logical NOT (!) turns true to false and false to true.",
+        "hi": "लॉजिकल NOT (!) true को false और false को true में बदल देता है।"
+      },
+      "key_takeaway": {
+        "en": "! = Logical inversion.",
+        "hi": "! = लॉजिकल इनवर्जन (उल्टा करना)।"
+      }
+    },
+    {
+      "question_id": 25,
+      "question": {
+        "en": "Predict the value of SUM after this loop executes:\n\nvar SUM = 0;\nfor (N=1; N<=5; N++) { SUM = SUM + N; }",
+        "hi": "इस लूप के निष्पादित होने के बाद SUM के मान का अनुमान लगाएं:\n\nvar SUM = 0;\nfor (N=1; N<=5; N++) { SUM = SUM + N; }"
+      },
+      "options": {
+        "a": {"en": "5", "hi": "5"},
+        "b": {"en": "10", "hi": "10"},
+        "c": {"en": "15", "hi": "15"},
+        "d": {"en": "20", "hi": "20"}
+      },
+      "correct_option": "c",
+      "hint": {
+        "en": "Add numbers: 1+2+3+4+5.",
+        "hi": "संख्याओं को जोड़ें: 1+2+3+4+5।"
+      },
+      "explanation": {
+        "en": "The sum of the first five natural numbers is 1 + 2 + 3 + 4 + 5 = 15.",
+        "hi": "पहली पाँच प्राकृतिक संख्याओं का योग 1 + 2 + 3 + 4 + 5 = 15 है।"
+      },
+      "key_takeaway": {
+        "en": "For loops are efficient for range-based calculations.",
+        "hi": "रेंज-आधारित गणनाओं के लिए For लूप कुशल होते हैं।"
+      }
+    },
+    {
+      "question_id": 26,
+      "question": {
+        "en": "Which logical operator is represented by '||'?",
+        "hi": "'||' द्वारा किस लॉजिकल ऑपरेटर को दर्शाया जाता है?"
+      },
+      "options": {
+        "a": {"en": "AND", "hi": "AND"},
+        "b": {"en": "OR", "hi": "OR"},
+        "c": {"en": "NOT", "hi": "NOT"},
+        "d": {"en": "Equality", "hi": "Equality"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "It is called 'Double Pipe' and returns TRUE if either side is TRUE.",
+        "hi": "इसे 'डबल पाइप' कहा जाता है और यदि कोई भी पक्ष TRUE है तो यह TRUE लौटाता है।"
+      },
+      "explanation": {
+        "en": "The '||' symbol represents Logical OR. (TRUE || FALSE) results in TRUE.",
+        "hi": "'||' प्रतीक लॉजिकल OR का प्रतिनिधित्व करता है। (TRUE || FALSE) का परिणाम TRUE होता है।"
+      },
+      "key_takeaway": {
+        "en": "|| = Logical OR (at least one must be TRUE).",
+        "hi": "|| = लॉजिकल OR (कम से कम एक TRUE होना चाहिए)।"
+      }
+    },
+    {
+      "question_id": 27,
+      "question": {
+        "en": "Calculate the output of (5 + 2 * 3) in JavaScript.",
+        "hi": "जावास्क्रिप्ट में (5 + 2 * 3) के आउटपुट की गणना करें।"
+      },
+      "options": {
+        "a": {"en": "21", "hi": "21"},
+        "b": {"en": "11", "hi": "11"},
+        "c": {"en": "10", "hi": "10"},
+        "d": {"en": "13", "hi": "13"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "Multiplication takes precedence over addition (BODMAS).",
+        "hi": "गुणा को जोड़ से पहले प्राथमिकता दी जाती है (BODMAS नियम)।"
+      },
+      "explanation": {
+        "en": "First multiply: 2 * 3 = 6. Then add: 5 + 6 = 11.",
+        "hi": "पहले गुणा करें: 2 * 3 = 6. फिर जोड़ें: 5 + 6 = 11।"
+      },
+      "key_takeaway": {
+        "en": "Math precedence rules apply in JS calculations.",
+        "hi": "JS गणनाओं में गणित के प्राथमिकता नियम लागू होते हैं।"
+      }
+    },
+    {
+      "question_id": 28,
+      "question": {
+        "en": "What will happen in a loop if the condition is never FALSE?",
+        "hi": "यदि लूप में शर्त कभी भी FALSE नहीं होती है, तो क्या होगा?"
+      },
+      "options": {
+        "a": {"en": "The loop will run once", "hi": "लूप एक बार चलेगा"},
+        "b": {"en": "The loop will become an infinite loop", "hi": "लूप एक इनफिनिट (अनंत) लूप बन जाएगा"},
+        "c": {"en": "The program will skip the loop", "hi": "प्रोग्राम लूप को छोड़ देगा"},
+        "d": {"en": "The computer will shut down", "hi": "कंप्यूटर बंद हो जाएगा"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "The word 'infinite' means something that never ends.",
+        "hi": "'अनंत' (infinite) शब्द का अर्थ है कुछ ऐसा जो कभी समाप्त न हो।"
+      },
+      "explanation": {
+        "en": "If the condition always remains TRUE, the loop continues to execute indefinitely, leading to an infinite loop.",
+        "hi": "यदि शर्त हमेशा TRUE रहती है, तो लूप अनिश्चित काल तक निष्पादित होता रहता है, जिससे एक अनंत लूप बन जाता है।"
+      },
+      "key_takeaway": {
+        "en": "Loops must have a terminating condition to avoid hanging the browser.",
+        "hi": "ब्राउज़र को हैंग होने से बचाने के लिए लूप में एक समापन शर्त (terminating condition) होनी चाहिए।"
+      }
+    },
+    {
+      "question_id": 29,
+      "question": {
+        "en": "How do you correctly write 'Greater than or Equal to' in JS code?",
+        "hi": "JS कोड में 'Greater than or Equal to' (बड़ा या बराबर) को सही ढंग से कैसे लिखा जाता है?"
+      },
+      "options": {
+        "a": {"en": "=>", "hi": "=>"},
+        "b": {"en": ">=", "hi": ">="},
+        "c": {"en": "=>=", "hi": "=>="},
+        "d": {"en": ">", "hi": ">"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "The angled bracket comes before the equals sign.",
+        "hi": "कोण-कोष्ठक (angled bracket) बराबर के चिह्न से पहले आता है।"
+      },
+      "explanation": {
+        "en": "The greater-than symbol (>) followed by equals (=) forms the comparison operator >=.",
+        "hi": "ग्रेटर-देन प्रतीक (>) और उसके बाद बराबर (=) मिलकर तुलना ऑपरेटर >= बनाते हैं।"
+      },
+      "key_takeaway": {
+        "en": ">= is a single relational operator.",
+        "hi": ">= एक एकल रिलेशनल ऑपरेटर है।"
+      }
+    },
+    {
+      "question_id": 30,
+      "question": {
+        "en": "Which code snippet correctly uses a 'while' loop to count from 1 to 10?",
+        "hi": "कौन सा कोड स्निपेट 1 से 10 तक गिनने के लिए 'while' लूप का सही ढंग से उपयोग करता है?"
+      },
+      "options": {
+        "a": {"en": "while (n <= 10) { document.write(n); n++; }", "hi": "while (n <= 10) { document.write(n); n++; }"},
+        "b": {"en": "while (n = 10) { ... }", "hi": "while (n = 10) { ... }"},
+        "c": {"en": "while (n < 10) { n--; }", "hi": "while (n < 10) { n--; }"},
+        "d": {"en": "while { n++ } (n <= 10)", "hi": "while { n++ } (n <= 10)"}
+      },
+      "correct_option": "a",
+      "hint": {
+        "en": "You need to check the condition first, then print, then increment.",
+        "hi": "आपको पहले शर्त की जाँच करनी होगी, फिर प्रिंट करना होगा, फिर बढ़ाना होगा।"
+      },
+      "explanation": {
+        "en": "A standard while loop starts with 'while (condition)' and includes an update expression (n++) inside the block to eventually end the loop.",
+        "hi": "एक मानक while लूप 'while (condition)' से शुरू होता है और लूप को समाप्त करने के लिए ब्लॉक के अंदर एक अपडेट एक्सप्रेशन (n++) शामिल करता है।"
+      },
+      "key_takeaway": {
+        "en": "While loops require condition checking at the entry.",
+        "hi": "While लूप को एंट्री पर शर्त जाँच की आवश्यकता होती है।"
+      }
+    },
+    {
+      "question_id": 31,
+      "question": {
+        "en": "What is the output for N1=10, N2=20, N3=30 in this code?\n\nif (N1 > N2 && N1 > N3) { write(N1); }\nelse if (N2 > N1 && N2 > N3) { write(N2); }\nelse { write(N3); }",
+        "hi": "इस कोड में N1=10, N2=20, N3=30 के लिए आउटपुट क्या है?\n\nif (N1 > N2 && N1 > N3) { write(N1); }\nelse if (N2 > N1 && N2 > N3) { write(N2); }\nelse { write(N3); }"
+      },
+      "options": {
+        "a": {"en": "10", "hi": "10"},
+        "b": {"en": "20", "hi": "20"},
+        "c": {"en": "30", "hi": "30"},
+        "d": {"en": "Error", "hi": "Error"}
+      },
+      "correct_option": "c",
+      "hint": {
+        "en": "Which of these numbers is the Greatest?",
+        "hi": "इनमें से कौन सी संख्या सबसे बड़ी (Greatest) है?"
+      },
+      "explanation": {
+        "en": "The code checks for the greatest of three numbers. Since 30 is larger than 10 and 20, the final 'else' block executes.",
+        "hi": "कोड तीन नंबरों में से सबसे बड़े नंबर की जाँच करता है। चूंकि 30, 10 और 20 से बड़ा है, इसलिए अंतिम 'else' ब्लॉक निष्पादित होता है।"
+      },
+      "key_takeaway": {
+        "en": "Logical AND (&&) combines multiple comparison checks.",
+        "hi": "लॉजिकल AND (&&) कई तुलनात्मक जाँचों को जोड़ता है।"
+      }
+    },
+    {
+      "question_id": 32,
+      "question": {
+        "en": "Predict the result of this addition: 'Result = ' + (5 + 2);",
+        "hi": "इस जोड़ के परिणाम का अनुमान लगाएं: 'Result = ' + (5 + 2);"
+      },
+      "options": {
+        "a": {"en": "Result = 52", "hi": "Result = 52"},
+        "b": {"en": "Result = 7", "hi": "Result = 7"},
+        "c": {"en": "Result = 5+2", "hi": "Result = 5+2"},
+        "d": {"en": "Error", "hi": "Error"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "Parentheses ( ) force the math to happen before the concatenation.",
+        "hi": "कोष्ठक ( ) गणितीय प्रक्रिया को कॉन्केटनेशन से पहले होने के लिए मजबूर करते हैं।"
+      },
+      "explanation": {
+        "en": "In JavaScript, the math inside (5 + 2) happens first (7). Then it is joined with the string 'Result = '.",
+        "hi": "जावास्क्रिप्ट में, (5 + 2) के अंदर का गणित पहले होता है (7)। फिर इसे स्ट्रिंग 'Result = ' के साथ जोड़ा जाता है।"
+      },
+      "key_takeaway": {
+        "en": "( ) changes the order of operations in JS.",
+        "hi": "( ) JS में संक्रियाओं के क्रम को बदल देता है।"
+      }
+    },
+    {
+      "question_id": 33,
+      "question": {
+        "en": "In a 'for' loop: (counter initialisation; condition; update), which part runs ONLY ONCE?",
+        "hi": "एक 'for' लूप में: (counter initialisation; condition; update), कौन सा भाग केवल एक बार (ONLY ONCE) चलता है?"
+      },
+      "options": {
+        "a": {"en": "Condition", "hi": "Condition (शर्त)"},
+        "b": {"en": "Counter initialisation", "hi": "Counter initialisation (प्रारंभिक मान)"},
+        "c": {"en": "Increment/Decrement", "hi": "Increment/Decrement (अपडेट)"},
+        "d": {"en": "The block of code", "hi": "कोड का ब्लॉक"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "It happens at the very beginning of the loop cycle.",
+        "hi": "यह लूप चक्र के बिल्कुल शुरुआत में होता है।"
+      },
+      "explanation": {
+        "en": "Counter initialization executes only once at the beginning of the loop. Condition and Update run in every iteration.",
+        "hi": "काउंटर इनिशियलाइजेशन लूप की शुरुआत में केवल एक बार निष्पादित होता है। शर्त और अपडेट हर राउंड में चलते हैं।"
+      },
+      "key_takeaway": {
+        "en": "Initialisation = one-time setup.",
+        "hi": "Initialisation = एक बार सेटअप।"
+      }
+    },
+    {
+      "question_id": 34,
+      "question": {
+        "en": "What will be the output if D = 9 in the Day of the Week Switch statement?",
+        "hi": "यदि 'Day of the Week' स्विच स्टेटमेंट में D = 9 है तो आउटपुट क्या होगा?"
+      },
+      "options": {
+        "a": {"en": "Friday", "hi": "Friday"},
+        "b": {"en": "Sunday", "hi": "Sunday"},
+        "c": {"en": "Invalid Number", "hi": "Invalid Number"},
+        "d": {"en": "No output", "hi": "कोई आउटपुट नहीं"}
+      },
+      "correct_option": "c",
+      "hint": {
+        "en": "The cases only range from 1 to 7. 9 is outside this range.",
+        "hi": "केस केवल 1 से 7 तक हैं। 9 इस रेंज से बाहर है।"
+      },
+      "explanation": {
+        "en": "Since there is no 'case 9', the program executes the 'default' block, which prints 'Invalid Number'.",
+        "hi": "चूंकि कोई 'case 9' नहीं है, इसलिए प्रोग्राम 'default' ब्लॉक को निष्पादित करता है, जो 'Invalid Number' प्रिंट करता है।"
+      },
+      "key_takeaway": {
+        "en": "Default case handles unexpected or out-of-range inputs.",
+        "hi": "Default केस अप्रत्याशित या सीमा से बाहर के इनपुट को संभालता है।"
+      }
+    },
+    {
+      "question_id": 35,
+      "question": {
+        "en": "Which statement correctly uses the Increment operator inside a loop?",
+        "hi": "कौन सा स्टेटमेंट लूप के अंदर इंक्रीमेंट (Increment) ऑपरेटर का सही ढंग से उपयोग करता है?"
+      },
+      "options": {
+        "a": {"en": "N++", "hi": "N++"},
+        "b": {"en": "N = N + 1", "hi": "N = N + 1"},
+        "c": {"en": "Both a and b", "hi": "a और b दोनों"},
+        "d": {"en": "N + 1", "hi": "N + 1"}
+      },
+      "correct_option": "c",
+      "hint": {
+        "en": "Both syntaxes add 1 to the current value of N and save it.",
+        "hi": "दोनों सिंटैक्स N के वर्तमान मान में 1 जोड़ते हैं और उसे सेव करते हैं।"
+      },
+      "explanation": {
+        "en": "In JS, N++ is a shorthand version of N = N + 1. Both are functionally identical in a loop update.",
+        "hi": "JS में, N++ , N = N + 1 का शॉर्टहैंड संस्करण है। लूप अपडेट में दोनों कार्यात्मक रूप से समान हैं।"
+      },
+      "key_takeaway": {
+        "en": "N++ is widely used in loops for incrementing by 1.",
+        "hi": "लूप में 1 से बढ़ाने के लिए N++ का व्यापक रूप से उपयोग किया जाता है।"
+      }
+    }
+  ]
+}
