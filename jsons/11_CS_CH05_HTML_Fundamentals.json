@@ -6,8 +6,8 @@
     "subject": "Computer Science - Class 11",
     "board": "HPBOSE",
     "total_questions": 50,
-    "version": "1.1",
-    "notes": "Full set with HTML entities to ensure tag visibility in web-based browsers."
+    "version": "1.2",
+    "notes": "Full set with HTML entities to ensure tag visibility in web-based browsers. Question 32 updated."
   },
   "questions": [
     {
@@ -28,8 +28,8 @@
         "hi": "यह वेब पेज बनाने के लिए उपयोग की जाने वाली मानक भाषा है।"
       },
       "explanation": {
-        "en": "The full form of HTML is Hypertext Markup Language. It is used to make web-pages.",
-        "hi": "HTML का फुल फॉर्म हाइपरटेक्स्ट मार्कअप लैंग्वेज है। इसका उपयोग वेब-पेज बनाने के लिए किया जाता है।"
+        "en": "The full form of HTML is Hypertext Markup Language. It is the language used to design web-pages.",
+        "hi": "HTML का फुल फॉर्म हाइपरटेक्स्ट मार्कअप लैंग्वेज है। इसका उपयोग वेब-पेज डिजाइन करने के लिए किया जाता है।"
       },
       "key_takeaway": {
         "en": "HTML = Hypertext Markup Language.",
@@ -50,16 +50,16 @@
       },
       "correct_option": "b",
       "hint": {
-        "en": "Examples include Google Chrome or Notepad is NOT the answer.",
-        "hi": "उदाहरणों में गूगल क्रोम शामिल है; नोटपैड इसका उत्तर नहीं है।"
+        "en": "It is the software used to view websites like Chrome or Firefox.",
+        "hi": "यह क्रोम या फ़ायरफ़ॉक्स जैसी वेबसाइटों को देखने के लिए उपयोग किया जाने वाला सॉफ़्टवेयर है।"
       },
       "explanation": {
-        "en": "HTML tags are coded commands that tells the web-browser how to display a web-page.",
-        "hi": "HTML टैग कोडित कमांड हैं जो वेब-ब्राउज़र को बताते हैं कि वेब-पेज कैसे प्रदर्शित किया जाए।"
+        "en": "HTML tags act as instructions for the web-browser, which interprets them to display text and media.",
+        "hi": "HTML टैग वेब-ब्राउज़र के लिए निर्देशों के रूप में कार्य करते हैं, जो टेक्स्ट और मीडिया प्रदर्शित करने के लिए उनकी व्याख्या करता है।"
       },
       "key_takeaway": {
-        "en": "The browser interprets HTML tags to render the page.",
-        "hi": "ब्राउज़र पेज को रेंडर करने के लिए HTML टैग की व्याख्या करता है।"
+        "en": "Browser = Interpreter of HTML tags.",
+        "hi": "ब्राउज़र = HTML टैग का इंटरप्रेटर।"
       }
     },
     {
@@ -76,16 +76,16 @@
       },
       "correct_option": "b",
       "hint": {
-        "en": "This tag is used for a line break.",
-        "hi": "इस टैग का उपयोग लाइन ब्रेक के लिए किया जाता है।"
+        "en": "This tag is used for a line break and does not have a closing counterpart.",
+        "hi": "इस टैग का उपयोग लाइन ब्रेक के लिए किया जाता है और इसका कोई क्लोजिंग टैग नहीं होता है।"
       },
       "explanation": {
-        "en": "Those HTML tags that require only starting tag are called as Empty tags. &lt;BR&gt; is an example.",
-        "hi": "वे HTML टैग जिनमें केवल आरंभिक टैग की आवश्यकता होती है, एम्प्टी टैग कहलाते हैं। &lt;BR&gt; एक उदाहरण है।"
+        "en": "Empty tags, like &lt;BR&gt;, require only a starting tag to function.",
+        "hi": "&lt;BR&gt; जैसे एम्प्टी टैग को काम करने के लिए केवल आरंभिक टैग की आवश्यकता होती है।"
       },
       "key_takeaway": {
-        "en": "Empty tags do not require a closing tag.",
-        "hi": "एम्प्टी टैग को क्लोजिंग टैग की आवश्यकता नहीं होती है।"
+        "en": "Empty tags do not enclose content and don't need &lt;/tag&gt;.",
+        "hi": "एम्प्टी टैग सामग्री को नहीं घेरते हैं और उन्हें &lt;/tag&gt; की आवश्यकता नहीं होती है।"
       }
     },
     {
@@ -102,12 +102,12 @@
       },
       "correct_option": "b",
       "hint": {
-        "en": "It stands for Background Color.",
-        "hi": "इसका मतलब बैकग्राउंड कलर है।"
+        "en": "Short for Background Color.",
+        "hi": "बैकग्राउंड कलर का संक्षिप्त रूप।"
       },
       "explanation": {
-        "en": "The bgcolor attribute defines the background-color of the web page.",
-        "hi": "bgcolor एट्रिब्यूट वेब पेज के बैकग्राउंड-रंग को परिभाषित करता है।"
+        "en": "The 'bgcolor' attribute of the &lt;BODY&gt; tag sets the solid background color of the document.",
+        "hi": "&lt;BODY&gt; टैग का 'bgcolor' एट्रिब्यूट दस्तावेज़ का ठोस बैकग्राउंड रंग सेट करता है।"
       },
       "key_takeaway": {
         "en": "bgcolor = background color.",
@@ -128,16 +128,16 @@
       },
       "correct_option": "b",
       "hint": {
-        "en": "It is called the Anchor tag.",
-        "hi": "इसे एंकर टैग कहा जाता है।"
+        "en": "It stands for Anchor.",
+        "hi": "इसका मतलब एंकर है।"
       },
       "explanation": {
-        "en": "Anchor tag, i.e. &lt;a&gt; ... &lt;/a&gt; is used to create hyperlinks.",
-        "hi": "हाइपरलिंक बनाने के लिए एंकर टैग, यानी &lt;a&gt; ... &lt;/a&gt; का उपयोग किया जाता है।"
+        "en": "The Anchor tag &lt;A&gt; ... &lt;/A&gt; is used to link one web-page to another.",
+        "hi": "एंकर टैग &lt;A&gt; ... &lt;/A&gt; का उपयोग एक वेब-पेज को दूसरे से जोड़ने के लिए किया जाता है।"
       },
       "key_takeaway": {
-        "en": "&lt;A&gt; = Anchor tag for links.",
-        "hi": "&lt;A&gt; = लिंक के लिए एंकर टैग।"
+        "en": "&lt;A&gt; = Anchor tag for navigation.",
+        "hi": "&lt;A&gt; = नेविगेशन के लिए एंकर टैग।"
       }
     },
     {
@@ -154,16 +154,16 @@
       },
       "correct_option": "b",
       "hint": {
-        "en": "It stands for Horizontal Rule.",
-        "hi": "इसका मतलब हॉरिजॉन्टल रूल है।"
+        "en": "Short for Horizontal Rule.",
+        "hi": "हॉरिजॉन्टल रूल का संक्षिप्त रूप।"
       },
       "explanation": {
-        "en": "The horizontal-rule tag &lt;HR&gt; is used to display a horizontal-line in a web-page.",
-        "hi": "हॉरिजॉन्टल-रूल टैग &lt;HR&gt; का उपयोग वेब-पेज में क्षैतिज-रेखा प्रदर्शित करने के लिए किया जाता है।"
+        "en": "The &lt;HR&gt; tag creates a horizontal line across the page to separate content segments.",
+        "hi": "&lt;HR&gt; टैग सामग्री खंडों को अलग करने के लिए पेज पर एक क्षैतिज रेखा बनाता है।"
       },
       "key_takeaway": {
-        "en": "&lt;HR&gt; creates a thematic break or line.",
-        "hi": "&lt;HR&gt; एक विषयगत ब्रेक या रेखा बनाता है।"
+        "en": "&lt;HR&gt; = Thematic break line.",
+        "hi": "&lt;HR&gt; = विषयगत ब्रेक लाइन।"
       }
     },
     {
@@ -180,16 +180,16 @@
       },
       "correct_option": "b",
       "hint": {
-        "en": "They range from &lt;H1&gt; to &lt;H6&gt;.",
-        "hi": "वे &lt;H1&gt; से &lt;H6&gt; तक होते हैं।"
+        "en": "The largest is level 1 and the smallest is level 6.",
+        "hi": "सबसे बड़ा स्तर 1 है और सबसे छोटा स्तर 6 है।"
       },
       "explanation": {
-        "en": "There are six-levels of heading tag, from &lt;H1&gt;...&lt;/H1&gt; to &lt;H6&gt;...&lt;/H6&gt;.",
-        "hi": "हेडिंग टैग के छह स्तर होते हैं, &lt;H1&gt;...&lt;/H1&gt; से &lt;H6&gt;...&lt;/H6&gt; तक।"
+        "en": "HTML provides six levels of headings to define the hierarchy of content.",
+        "hi": "HTML सामग्री के पदानुक्रम को परिभाषित करने के लिए हेडिंग के छह स्तर प्रदान करता है।"
       },
       "key_takeaway": {
-        "en": "&lt;H1&gt; is the largest and &lt;H6&gt; is the smallest heading.",
-        "hi": "&lt;H1&gt; सबसे बड़ी और &lt;H6&gt; सबसे छोटी हेडिंग है।"
+        "en": "&lt;H1&gt; to &lt;H6&gt; are the standard heading tags.",
+        "hi": "&lt;H1&gt; से &lt;H6&gt; मानक हेडिंग टैग हैं।"
       }
     },
     {
@@ -206,42 +206,42 @@
       },
       "correct_option": "b",
       "hint": {
-        "en": "It is a container tag starting with B.",
-        "hi": "यह B से शुरू होने वाला एक कंटेनर टैग है।"
+        "en": "Single letter tag representing 'Bold'.",
+        "hi": "'Bold' का प्रतिनिधित्व करने वाला एक अक्षर का टैग।"
       },
       "explanation": {
-        "en": "Bold tag: &lt;B&gt; ... &lt;/B&gt; tag is used to make text bold.",
-        "hi": "बोल्ड टैग: &lt;B&gt; ... &lt;/B&gt; टैग का उपयोग टेक्स्ट को बोल्ड करने के लिए किया जाता है।"
+        "en": "The &lt;B&gt; tag makes the enclosed text appear thicker and darker.",
+        "hi": "&lt;B&gt; टैग इसके अंदर के टेक्स्ट को मोटा और गहरा दिखाता है।"
       },
       "key_takeaway": {
-        "en": "&lt;B&gt; highlights text by making it bold.",
-        "hi": "&lt;B&gt; टेक्स्ट को बोल्ड करके हाइलाइट करता है।"
+        "en": "&lt;B&gt; = Bold text style.",
+        "hi": "&lt;B&gt; = बोल्ड टेक्स्ट स्टाइल।"
       }
     },
     {
       "question_id": 9,
       "question": {
-        "en": "What is the extension of an HTML document?",
-        "hi": "HTML दस्तावेज़ का एक्सटेंशन क्या होता है?"
+        "en": "What is the standard extension of an HTML document?",
+        "hi": "HTML दस्तावेज़ का मानक एक्सटेंशन क्या होता है?"
       },
       "options": {
         "a": {"en": ".txt", "hi": ".txt"},
         "b": {"en": ".html or .htm", "hi": ".html या .htm"},
         "c": {"en": ".doc", "hi": ".doc"},
-        "d": {"en": ".xls", "hi": ".xls"}
+        "d": {"en": ".xml", "hi": ".xml"}
       },
       "correct_option": "b",
       "hint": {
-        "en": "Example: MY_WEB_PAGE.HTML.",
-        "hi": "उदाहरण: MY_WEB_PAGE.HTML।"
+        "en": "It allows browsers to recognize the file as a web page.",
+        "hi": "यह ब्राउज़र को फ़ाइल को वेब पेज के रूप में पहचानने की अनुमति देता है।"
       },
       "explanation": {
-        "en": "HTML document is a plain-text file with .html or .htm as extension.",
-        "hi": "HTML दस्तावेज़ एक सादा-टेक्स्ट फ़ाइल है जिसमें एक्सटेंशन के रूप में .html या .htm होता है।"
+        "en": "HTML files must be saved with .html or .htm extensions to be rendered by browsers.",
+        "hi": "ब्राउज़र द्वारा रेंडर किए जाने के लिए HTML फ़ाइलों को .html या .htm एक्सटेंशन के साथ सेव किया जाना चाहिए।"
       },
       "key_takeaway": {
-        "en": "Always save web pages with .html or .htm.",
-        "hi": "वेब पेज को हमेशा .html या .htm के साथ सेव करें।"
+        "en": ".html = Web document extension.",
+        "hi": ".html = वेब दस्तावेज़ एक्सटेंशन।"
       }
     },
     {
@@ -254,72 +254,72 @@
         "a": {"en": "&lt;HEAD&gt;", "hi": "&lt;HEAD&gt;"},
         "b": {"en": "&lt;HTML&gt;", "hi": "&lt;HTML&gt;"},
         "c": {"en": "&lt;BODY&gt;", "hi": "&lt;BODY&gt;"},
-        "d": {"en": "&lt;TITLE&gt;", "hi": "&lt;TITLE&gt;"}
+        "d": {"en": "&lt;MAIN&gt;", "hi": "&lt;MAIN&gt;"}
       },
       "correct_option": "b",
       "hint": {
-        "en": "All other tags are written inside this tag.",
-        "hi": "अन्य सभी टैग इसी टैग के अंदर लिखे जाते हैं।"
+        "en": "The entire document is enclosed within this tag pair.",
+        "hi": "पूरा दस्तावेज़ इसी टैग जोड़ी के भीतर संलग्न है।"
       },
       "explanation": {
-        "en": "The &lt;html&gt; ... &lt;/html&gt; tag is the root section of HTML document.",
-        "hi": "&lt;html&gt; ... &lt;/html&gt; टैग HTML दस्तावेज़ का मूल भाग है।"
+        "en": "The &lt;HTML&gt; tag serves as the root of the document, containing all other tags.",
+        "hi": "&lt;HTML&gt; टैग दस्तावेज़ के रूट के रूप में कार्य करता है, जिसमें अन्य सभी टैग होते हैं।"
       },
       "key_takeaway": {
-        "en": "&lt;html&gt; encloses the entire document.",
-        "hi": "&lt;html&gt; पूरे दस्तावेज़ को घेरता है।"
+        "en": "HTML documents must start with &lt;HTML&gt; and end with &lt;/HTML&gt;.",
+        "hi": "HTML दस्तावेज़ &lt;HTML&gt; से शुरू और &lt;/HTML&gt; के साथ समाप्त होने चाहिए।"
       }
     },
     {
       "question_id": 11,
       "question": {
-        "en": "Which attribute is used with &lt;IMG&gt; to provide the source URL of the image?",
-        "hi": "&lt;IMG&gt; के साथ इमेज का स्रोत URL प्रदान करने के लिए किस एट्रिब्यूट का उपयोग किया जाता है?"
+        "en": "Which attribute is used with &lt;IMG&gt; to provide the path of the image?",
+        "hi": "&lt;IMG&gt; के साथ इमेज का पथ प्रदान करने के लिए किस एट्रिब्यूट का उपयोग किया जाता है?"
       },
       "options": {
         "a": {"en": "url", "hi": "url"},
         "b": {"en": "src", "hi": "src"},
         "c": {"en": "href", "hi": "href"},
-        "d": {"en": "alt", "hi": "alt"}
+        "d": {"en": "link", "hi": "link"}
       },
       "correct_option": "b",
       "hint": {
-        "en": "It stands for Source.",
-        "hi": "इसका मतलब सोर्स है।"
+        "en": "Short for Source.",
+        "hi": "सोर्स का संक्षिप्त रूप।"
       },
       "explanation": {
-        "en": "The src attribute is used to provide the source (URL) of the image file.",
-        "hi": "src एट्रिब्यूट का उपयोग इमेज फ़ाइल का स्रोत (URL) प्रदान करने के लिए किया जाता है।"
+        "en": "The 'src' attribute points to the exact location or filename of the image to be displayed.",
+        "hi": "'src' एट्रिब्यूट प्रदर्शित की जाने वाली इमेज के सटीक स्थान या फ़ाइल नाम की ओर इशारा करता है।"
       },
       "key_takeaway": {
-        "en": "src = Source path of the image.",
-        "hi": "src = इमेज का स्रोत पथ।"
+        "en": "src = image file source.",
+        "hi": "src = इमेज फ़ाइल सोर्स।"
       }
     },
     {
       "question_id": 12,
       "question": {
-        "en": "What tag is used for the largest heading?",
-        "hi": "सबसे बड़ी हेडिंग के लिए किस टैग का उपयोग किया जाता है?"
+        "en": "Which heading tag produces the largest text?",
+        "hi": "कौन सा हेडिंग टैग सबसे बड़ा टेक्स्ट उत्पन्न करता है?"
       },
       "options": {
         "a": {"en": "&lt;H6&gt;", "hi": "&lt;H6&gt;"},
         "b": {"en": "&lt;H1&gt;", "hi": "&lt;H1&gt;"},
-        "c": {"en": "&lt;HEAD&gt;", "hi": "&lt;HEAD&gt;"},
-        "d": {"en": "&lt;BIG&gt;", "hi": "&lt;BIG&gt;"}
+        "c": {"en": "&lt;H3&gt;", "hi": "&lt;H3&gt;"},
+        "d": {"en": "&lt;H5&gt;", "hi": "&lt;H5&gt;"}
       },
       "correct_option": "b",
       "hint": {
-        "en": "It is the level 1 heading.",
-        "hi": "यह स्तर 1 की हेडिंग है।"
+        "en": "It is the primary heading used for main titles.",
+        "hi": "यह मुख्य शीर्षकों के लिए उपयोग की जाने वाली प्राथमिक हेडिंग है।"
       },
       "explanation": {
-        "en": "H1 is the largest heading and H6 is the smallest heading.",
-        "hi": "H1 सबसे बड़ी हेडिंग है और H6 सबसे छोटी हेडिंग है।"
+        "en": "H1 is defined as the top-level heading with the largest default font size.",
+        "hi": "H1 को सबसे बड़े डिफ़ॉल्ट फ़ॉन्ट आकार के साथ शीर्ष-स्तरीय हेडिंग के रूप में परिभाषित किया गया है।"
       },
       "key_takeaway": {
-        "en": "H1 = Largest Heading size.",
-        "hi": "H1 = सबसे बड़ा हेडिंग आकार।"
+        "en": "Lower number = Larger heading size.",
+        "hi": "कम संख्या = बड़ा हेडिंग आकार।"
       }
     },
     {
@@ -336,42 +336,42 @@
       },
       "correct_option": "c",
       "hint": {
-        "en": "It requires an ending tag.",
-        "hi": "इसे अंतिम टैग की आवश्यकता होती है।"
+        "en": "It requires an opening tag and a closing tag to define a paragraph.",
+        "hi": "पैराग्राफ को परिभाषित करने के लिए इसे ओपनिंग टैग और क्लोजिंग टैग की आवश्यकता होती है।"
       },
       "explanation": {
-        "en": "Paragraph tag &lt;P&gt; ... &lt;/P&gt; is a paired or container tag.",
-        "hi": "पैराग्राफ टैग &lt;P&gt; ... &lt;/P&gt; एक पेयर्ड या कंटेनर टैग है।"
+        "en": "The &lt;P&gt; tag is a container tag because it must be closed with &lt;/P&gt;.",
+        "hi": "&lt;P&gt; टैग एक कंटेनर टैग है क्योंकि इसे &lt;/P&gt; के साथ बंद किया जाना चाहिए।"
       },
       "key_takeaway": {
-        "en": "Container tags have both start and end tags.",
-        "hi": "कंटेनर टैग में आरंभिक और अंतिम दोनों टैग होते हैं।"
+        "en": "Paired tags = Container tags.",
+        "hi": "पेयर्ड टैग = कंटेनर टैग।"
       }
     },
     {
       "question_id": 14,
       "question": {
-        "en": "Which attribute of &lt;FONT&gt; tag defines the font style?",
-        "hi": "&lt;FONT&gt; टैग का कौन सा एट्रिब्यूट फ़ॉन्ट स्टाइल को परिभाषित करता है?"
+        "en": "Which attribute of &lt;FONT&gt; tag defines the font-face (typeface)?",
+        "hi": "&lt;FONT&gt; टैग का कौन सा एट्रिब्यूट फ़ॉन्ट-फेस (टाइपफेस) को परिभाषित करता है?"
       },
       "options": {
         "a": {"en": "style", "hi": "style"},
         "b": {"en": "face", "hi": "face"},
         "c": {"en": "type", "hi": "type"},
-        "d": {"en": "font", "hi": "font"}
+        "d": {"en": "family", "hi": "family"}
       },
       "correct_option": "b",
       "hint": {
-        "en": "Example: &lt;FONT face = 'broadway'&gt;.",
-        "hi": "उदाहरण: &lt;FONT face = 'broadway'&gt;।"
+        "en": "Used to select specific fonts like Arial or Times New Roman.",
+        "hi": "एरियल या टाइम्स न्यू रोमन जैसे विशिष्ट फ़ॉन्ट्स का चयन करने के लिए उपयोग किया जाता है।"
       },
       "explanation": {
-        "en": "The face attribute defines the font-face of the text.",
-        "hi": "face एट्रिब्यूट टेक्स्ट के फ़ॉन्ट-फेस को परिभाषित करता है।"
+        "en": "The 'face' attribute allows developers to specify the exact font style for text.",
+        "hi": "'face' एट्रिब्यूट डेवलपर्स को टेक्स्ट के लिए सटीक फ़ॉन्ट स्टाइल निर्दिष्ट करने की अनुमति देता है।"
       },
       "key_takeaway": {
-        "en": "face attribute sets the font family.",
-        "hi": "face एट्रिब्यूट फ़ॉन्ट फैमिली सेट करता है।"
+        "en": "face attribute = font family choice.",
+        "hi": "face एट्रिब्यूट = फ़ॉन्ट फैमिली का चुनाव।"
       }
     },
     {
@@ -384,852 +384,852 @@
         "a": {"en": "&lt;TD&gt;", "hi": "&lt;TD&gt;"},
         "b": {"en": "&lt;TH&gt;", "hi": "&lt;TH&gt;"},
         "c": {"en": "&lt;TR&gt;", "hi": "&lt;TR&gt;"},
-        "d": {"en": "&lt;TABLE&gt;", "hi": "&lt;TABLE&gt;"}
+        "d": {"en": "&lt;HEADER&gt;", "hi": "&lt;HEADER&gt;"}
       },
       "correct_option": "b",
       "hint": {
-        "en": "It stands for Table Heading.",
-        "hi": "इसका मतलब टेबल हेडिंग है।"
+        "en": "Stands for Table Heading.",
+        "hi": "टेबल हेडिंग का संक्षिप्त रूप।"
       },
       "explanation": {
-        "en": "Table heading tag &lt;TH&gt; ... &lt;/TH&gt; defines the header cells in a table.",
-        "hi": "टेबल हेडिंग टैग &lt;TH&gt; ... &lt;/TH&gt; टेबल में हेडर सेल को परिभाषित करता है।"
+        "en": "The &lt;TH&gt; tag is used to create cells that represent headings, often displayed in bold and centered.",
+        "hi": "&lt;TH&gt; टैग का उपयोग उन सेल को बनाने के लिए किया जाता है जो हेडिंग का प्रतिनिधित्व करते हैं, जिन्हें अक्सर बोल्ड और केंद्रित दिखाया जाता है।"
       },
       "key_takeaway": {
-        "en": "&lt;TH&gt; is used for table titles or headers.",
-        "hi": "&lt;TH&gt; का उपयोग टेबल टाइटल या हेडर के लिए किया जाता है।"
+        "en": "&lt;TH&gt; = Table Header cell.",
+        "hi": "&lt;TH&gt; = टेबल हेडर सेल।"
       }
     },
     {
       "question_id": 16,
       "question": {
-        "en": "Which attribute is used to provide alternate-text if the image is unavailable?",
-        "hi": "यदि इमेज उपलब्ध न हो तो वैकल्पिक टेक्स्ट प्रदान करने के लिए किस एट्रिब्यूट का उपयोग किया जाता है?"
+        "en": "Which attribute provides alternate text for an image?",
+        "hi": "इमेज के लिए वैकल्पिक टेक्स्ट कौन सा एट्रिब्यूट प्रदान करता है?"
       },
       "options": {
-        "a": {"en": "text", "hi": "text"},
+        "a": {"en": "title", "hi": "title"},
         "b": {"en": "alt", "hi": "alt"},
         "c": {"en": "src", "hi": "src"},
         "d": {"en": "desc", "hi": "desc"}
       },
       "correct_option": "b",
       "hint": {
-        "en": "It stands for Alternate.",
-        "hi": "इसका मतलब अल्टरनेट है।"
+        "en": "Used if the image fails to load.",
+        "hi": "यदि इमेज लोड होने में विफल रहती है तो उपयोग किया जाता है।"
       },
       "explanation": {
-        "en": "The alt attribute is used to provide the alternate-text for the image if it becomes unavailable.",
-        "hi": "alt एट्रिब्यूट का उपयोग इमेज के लिए वैकल्पिक टेक्स्ट प्रदान करने के लिए किया जाता है यदि वह अनुपलब्ध हो जाती है।"
+        "en": "The 'alt' attribute displays a text description if the browser cannot display the image file.",
+        "hi": "यदि ब्राउज़र इमेज फ़ाइल को प्रदर्शित नहीं कर सकता है, तो 'alt' एट्रिब्यूट एक टेक्स्ट विवरण प्रदर्शित करता है।"
       },
       "key_takeaway": {
-        "en": "alt is essential for web accessibility.",
-        "hi": "वेब एक्सेसिबिलिटी के लिए alt आवश्यक है।"
+        "en": "alt = fallback description.",
+        "hi": "alt = फॉलबैक विवरण।"
       }
     },
     {
       "question_id": 17,
       "question": {
-        "en": "Which tag starts an un-ordered list?",
-        "hi": "कौन सा टैग अन-ऑर्डर्ड लिस्ट शुरू करता है?"
+        "en": "Which tag is used to start an un-ordered list?",
+        "hi": "अन-ऑर्डर्ड लिस्ट शुरू करने के लिए किस टैग का उपयोग किया जाता है?"
       },
       "options": {
         "a": {"en": "&lt;OL&gt;", "hi": "&lt;OL&gt;"},
         "b": {"en": "&lt;UL&gt;", "hi": "&lt;UL&gt;"},
         "c": {"en": "&lt;LI&gt;", "hi": "&lt;LI&gt;"},
-        "d": {"en": "&lt;DL&gt;", "hi": "&lt;DL&gt;"}
+        "d": {"en": "&lt;LIST&gt;", "hi": "&lt;LIST&gt;"}
       },
       "correct_option": "b",
       "hint": {
-        "en": "It stands for Un-ordered List.",
-        "hi": "इसका मतलब अन-ऑर्डर्ड लिस्ट है।"
+        "en": "Stands for Un-ordered List.",
+        "hi": "अन-ऑर्डर्ड लिस्ट का संक्षिप्त रूप।"
       },
       "explanation": {
-        "en": "An un-ordered list starts with &lt;UL&gt; tag and ends with &lt;/UL&gt; tag.",
-        "hi": "एक अन-ऑर्डर्ड लिस्ट &lt;UL&gt; टैग से शुरू होती है और &lt;/UL&gt; टैग पर समाप्त होती है।"
+        "en": "The &lt;UL&gt; tag creates a bulleted list where the order of items is not numerically specific.",
+        "hi": "&lt;UL&gt; टैग एक बुलेटेड लिस्ट बनाता है जहाँ वस्तुओं का क्रम संख्यात्मक रूप से विशिष्ट नहीं होता है।"
       },
       "key_takeaway": {
-        "en": "&lt;UL&gt; creates bulleted lists.",
-        "hi": "&lt;UL&gt; बुलेटेड लिस्ट बनाता है।"
+        "en": "&lt;UL&gt; = Bulleted list container.",
+        "hi": "&lt;UL&gt; = बुलेटेड लिस्ट कंटेनर।"
       }
     },
     {
       "question_id": 18,
       "question": {
-        "en": "Which attribute defines the starting value for the numbering in an ordered list?",
-        "hi": "कौन सा एट्रिब्यूट ऑर्डर्ड लिस्ट में नंबरिंग के लिए प्रारंभिक मान को परिभाषित करता है?"
+        "en": "Which attribute defines the starting value for the numbering in &lt;OL&gt;?",
+        "hi": "&lt;OL&gt; में नंबरिंग के लिए प्रारंभिक मान कौन सा एट्रिब्यूट परिभाषित करता है?"
       },
       "options": {
         "a": {"en": "begin", "hi": "begin"},
         "b": {"en": "start", "hi": "start"},
         "c": {"en": "value", "hi": "value"},
-        "d": {"en": "type", "hi": "type"}
+        "d": {"en": "first", "hi": "first"}
       },
       "correct_option": "b",
       "hint": {
-        "en": "Example: &lt;OL start = '5'&gt;.",
-        "hi": "उदाहरण: &lt;OL start = '5'&gt;।"
+        "en": "Sets the numeric beginning of the list.",
+        "hi": "लिस्ट की संख्यात्मक शुरुआत सेट करता है।"
       },
       "explanation": {
-        "en": "The start attribute used to change the starting value for the numbering in an ordered list.",
-        "hi": "start एट्रिब्यूट का उपयोग ऑर्डर्ड लिस्ट में नंबरिंग के लिए प्रारंभिक मान बदलने के लिए किया जाता है।"
+        "en": "The 'start' attribute allows you to begin an ordered list from a specific number (e.g., start='5').",
+        "hi": "'start' एट्रिब्यूट आपको एक विशिष्ट संख्या (जैसे, start='5') से ऑर्डर्ड लिस्ट शुरू करने की अनुमति देता है।"
       },
       "key_takeaway": {
-        "en": "Use 'start' to begin lists from any number.",
-        "hi": "किसी भी नंबर से लिस्ट शुरू करने के लिए 'start' का उपयोग करें।"
+        "en": "start attribute = sequence offset.",
+        "hi": "start एट्रिब्यूट = सीक्वेंस ऑफसेट।"
       }
     },
     {
       "question_id": 19,
       "question": {
-        "en": "Where is the &lt;title&gt; tag placed in an HTML document?",
-        "hi": "HTML दस्तावेज़ में &lt;title&gt; टैग कहाँ रखा जाता है?"
+        "en": "Where must the &lt;TITLE&gt; tag be located?",
+        "hi": "&lt;TITLE&gt; टैग कहाँ स्थित होना चाहिए?"
       },
       "options": {
         "a": {"en": "Inside &lt;BODY&gt;", "hi": "Inside &lt;BODY&gt;"},
         "b": {"en": "Inside &lt;HEAD&gt;", "hi": "Inside &lt;HEAD&gt;"},
-        "c": {"en": "After &lt;/HTML&gt;", "hi": "After &lt;/HTML&gt;"},
+        "c": {"en": "Before &lt;HTML&gt;", "hi": "Before &lt;HTML&gt;"},
         "d": {"en": "Inside &lt;P&gt;", "hi": "Inside &lt;P&gt;"}
       },
       "correct_option": "b",
       "hint": {
-        "en": "It is placed within the head section.",
-        "hi": "यह हेड सेक्शन के भीतर रखा जाता है।"
+        "en": "It is part of the header information of a web document.",
+        "hi": "यह वेब दस्तावेज़ की हेडर जानकारी का हिस्सा है।"
       },
       "explanation": {
-        "en": "The &lt;title&gt; ... &lt;/title&gt; tag is placed within the &lt;head&gt; ... &lt;/head&gt; section.",
-        "hi": "&lt;title&gt; ... &lt;/title&gt; टैग को &lt;head&gt; ... &lt;/head&gt; सेक्शन के भीतर रखा जाता है।"
+        "en": "The title of a web-page is specified within the &lt;HEAD&gt; section.",
+        "hi": "वेब-पेज का शीर्षक &lt;HEAD&gt; सेक्शन के भीतर निर्दिष्ट किया जाता है।"
       },
       "key_takeaway": {
-        "en": "The title defines the page name on the browser tab.",
-        "hi": "टाइटल ब्राउज़र टैब पर पेज का नाम परिभाषित करता है।"
+        "en": "HEAD contains TITLE.",
+        "hi": "HEAD में TITLE होता है।"
       }
     },
     {
       "question_id": 20,
       "question": {
-        "en": "Which tag is used to italicise the text?",
+        "en": "Which tag is used to italicise text?",
         "hi": "टेक्स्ट को इटैलिक करने के लिए किस टैग का उपयोग किया जाता है?"
       },
       "options": {
         "a": {"en": "&lt;B&gt;", "hi": "&lt;B&gt;"},
         "b": {"en": "&lt;I&gt;", "hi": "&lt;I&gt;"},
         "c": {"en": "&lt;U&gt;", "hi": "&lt;U&gt;"},
-        "d": {"en": "&lt;IT&gt;", "hi": "&lt;IT&gt;"}
+        "d": {"en": "&lt;EM&gt;", "hi": "&lt;EM&gt;"}
       },
       "correct_option": "b",
       "hint": {
-        "en": "It stands for Italics.",
-        "hi": "इसका मतलब इटैलिक है।"
+        "en": "Short for Italics.",
+        "hi": "इटैलिक का संक्षिप्त रूप।"
       },
       "explanation": {
-        "en": "Italics tag: &lt;i&gt; ... &lt;/i&gt; tag is used to italicise the text.",
-        "hi": "इटैलिक टैग: &lt;i&gt; ... &lt;/i&gt; टैग का उपयोग टेक्स्ट को इटैलिक करने के लिए किया जाता है।"
+        "en": "The &lt;I&gt; tag renders text in italics style.",
+        "hi": "&lt;I&gt; टैग टेक्स्ट को इटैलिक स्टाइल में रेंडर करता है।"
       },
       "key_takeaway": {
-        "en": "&lt;I&gt; makes text slanted.",
-        "hi": "&lt;I&gt; टेक्स्ट को तिरछा बनाता है।"
+        "en": "&lt;I&gt; = Italics.",
+        "hi": "&lt;I&gt; = इटैलिक।"
       }
     },
     {
       "question_id": 21,
       "question": {
-        "en": "What is the default type for un-ordered list bullets?",
-        "hi": "अन-ऑर्डर्ड लिस्ट बुलेट्स के लिए डिफ़ॉल्ट प्रकार क्या है?"
+        "en": "What is the default marking for &lt;UL&gt; items?",
+        "hi": "&lt;UL&gt; वस्तुओं के लिए डिफ़ॉल्ट मार्किंग क्या है?"
       },
       "options": {
         "a": {"en": "square", "hi": "square"},
         "b": {"en": "circle", "hi": "circle"},
         "c": {"en": "solid bullets", "hi": "solid bullets"},
-        "d": {"en": "number", "hi": "number"}
+        "d": {"en": "roman numbers", "hi": "roman numbers"}
       },
       "correct_option": "c",
       "hint": {
-        "en": "It's the standard filled circle.",
-        "hi": "यह मानक भरा हुआ सर्कल है।"
+        "en": "A standard filled circle marker.",
+        "hi": "एक मानक भरा हुआ सर्कल मार्कर।"
       },
       "explanation": {
-        "en": "By default, un-ordered list-items are marked with solid bullets.",
-        "hi": "डिफ़ॉल्ट रूप से, अन-ऑर्डर्ड लिस्ट-आइटम ठोस बुलेट्स के साथ चिह्नित होते हैं।"
+        "en": "Unordered lists use solid bullets by default unless the type attribute is used.",
+        "hi": "जब तक टाइप एट्रिब्यूट का उपयोग नहीं किया जाता, तब तक अन-ऑर्डर्ड लिस्ट डिफ़ॉल्ट रूप से सॉलिड बुलेट्स का उपयोग करती हैं।"
       },
       "key_takeaway": {
-        "en": "Default UL bullet is a solid disc.",
-        "hi": "डिफ़ॉल्ट UL बुलेट एक ठोस डिस्क है।"
+        "en": "UL default = solid disc/bullet.",
+        "hi": "UL डिफ़ॉल्ट = सॉलिड डिस्क/बुलेट।"
       }
     },
     {
       "question_id": 22,
       "question": {
-        "en": "Which tag is used to define a row in a table?",
-        "hi": "टेबल में एक रो (पंक्ति) को परिभाषित करने के लिए किस टैग का उपयोग किया जाता है?"
+        "en": "Which tag defines a row in an HTML table?",
+        "hi": "HTML टेबल में एक रो (row) को कौन सा टैग परिभाषित करता है?"
       },
       "options": {
         "a": {"en": "&lt;TD&gt;", "hi": "&lt;TD&gt;"},
         "b": {"en": "&lt;TR&gt;", "hi": "&lt;TR&gt;"},
-        "c": {"en": "&lt;TABLE&gt;", "hi": "&lt;TABLE&gt;"},
+        "c": {"en": "&lt;ROW&gt;", "hi": "&lt;ROW&gt;"},
         "d": {"en": "&lt;TH&gt;", "hi": "&lt;TH&gt;"}
       },
       "correct_option": "b",
       "hint": {
-        "en": "It stands for Table Row.",
-        "hi": "इसका मतलब टेबल रो है।"
+        "en": "Stands for Table Row.",
+        "hi": "टेबल रो का संक्षिप्त रूप।"
       },
       "explanation": {
-        "en": "Each row of the table is defined by &lt;tr&gt; ... &lt;/tr&gt; tag.",
-        "hi": "टेबल की प्रत्येक पंक्ति को &lt;tr&gt; ... &lt;/tr&gt; टैग द्वारा परिभाषित किया गया है।"
+        "en": "Table structures are built row by row using the &lt;TR&gt; tag.",
+        "hi": "टेबल संरचनाएं &lt;TR&gt; टैग का उपयोग करके रो दर रो बनाई जाती हैं।"
       },
       "key_takeaway": {
-        "en": "&lt;TR&gt; is the container for table cells.",
-        "hi": "&lt;TR&gt; टेबल सेल के लिए कंटेनर है।"
+        "en": "&lt;TR&gt; = horizontal container in tables.",
+        "hi": "&lt;TR&gt; = टेबल में हॉरिजॉन्टल कंटेनर।"
       }
     },
     {
       "question_id": 23,
       "question": {
-        "en": "Which attribute of anchor tag specifies the URL of the linked page?",
-        "hi": "एंकर टैग का कौन सा एट्रिब्यूट लिंक किए गए पेज का URL निर्दिष्ट करता है?"
+        "en": "Which attribute in &lt;A&gt; tag specifies the destination URL?",
+        "hi": "&lt;A&gt; टैग में कौन सा एट्रिब्यूट गंतव्य URL निर्दिष्ट करता है?"
       },
       "options": {
         "a": {"en": "src", "hi": "src"},
         "b": {"en": "href", "hi": "href"},
-        "c": {"en": "name", "hi": "name"},
+        "c": {"en": "url", "hi": "url"},
         "d": {"en": "link", "hi": "link"}
       },
       "correct_option": "b",
       "hint": {
-        "en": "It stands for Hypertext Reference.",
-        "hi": "इसका मतलब हाइपरटेक्स्ट रेफरेंस है।"
+        "en": "Stands for Hypertext Reference.",
+        "hi": "हाइपरटेक्स्ट रेफरेंस का संक्षिप्त रूप।"
       },
       "explanation": {
-        "en": "The href attribute is used to specify the URL of web-page that will be opened by the hyperlink.",
-        "hi": "href एट्रिब्यूट का उपयोग उस वेब-पेज के URL को निर्दिष्ट करने के लिए किया जाता है जिसे हाइपरलिंक द्वारा खोला जाएगा।"
+        "en": "The 'href' attribute identifies the address of the resource being linked.",
+        "hi": "'href' एट्रिब्यूट लिंक किए जा रहे रिसोर्स के पते की पहचान करता है।"
       },
       "key_takeaway": {
-        "en": "href = mandatory for clickable links.",
-        "hi": "href = क्लिक करने योग्य लिंक के लिए अनिवार्य।"
+        "en": "href = mandatory link source.",
+        "hi": "href = अनिवार्य लिंक सोर्स।"
       }
     },
     {
       "question_id": 24,
       "question": {
-        "en": "Which tag is used to insert a single-line-break?",
-        "hi": "सिंगल-लाइन-ब्रेक डालने के लिए किस टैग का उपयोग किया जाता है?"
+        "en": "Which tag provides a single line break?",
+        "hi": "कौन सा टैग सिंगल लाइन ब्रेक प्रदान करता है?"
       },
       "options": {
         "a": {"en": "&lt;P&gt;", "hi": "&lt;P&gt;"},
         "b": {"en": "&lt;BR&gt;", "hi": "&lt;BR&gt;"},
-        "c": {"en": "&lt;HR&gt;", "hi": "&lt;HR&gt;"},
-        "d": {"en": "&lt;ENTER&gt;", "hi": "&lt;ENTER&gt;"}
+        "c": {"en": "&lt;LB&gt;", "hi": "&lt;LB&gt;"},
+        "d": {"en": "&lt;HR&gt;", "hi": "&lt;HR&gt;"}
       },
       "correct_option": "b",
       "hint": {
-        "en": "It is an empty tag.",
-        "hi": "यह एक एम्प्टी टैग है।"
+        "en": "An empty tag for line separation.",
+        "hi": "लाइन अलग करने के लिए एक एम्प्टी टैग।"
       },
       "explanation": {
-        "en": "The line-break tag &lt;BR&gt; is used to insert a single-line-break in text.",
-        "hi": "लाइन-ब्रेक टैग &lt;BR&gt; का उपयोग टेक्स्ट में सिंगल-लाइन-ब्रेक डालने के लिए किया जाता है।"
+        "en": "The &lt;BR&gt; tag shifts the following text to the next line immediately.",
+        "hi": "&lt;BR&gt; टैग अगले टेक्स्ट को तुरंत अगली लाइन में स्थानांतरित कर देता है।"
       },
       "key_takeaway": {
-        "en": "&lt;BR&gt; is used for simple line separation.",
-        "hi": "&lt;BR&gt; का उपयोग सरल लाइन अलगाव के लिए किया जाता है।"
+        "en": "&lt;BR&gt; = manual line shift.",
+        "hi": "&lt;BR&gt; = मैन्युअल लाइन शिफ्ट।"
       }
     },
     {
       "question_id": 25,
       "question": {
-        "en": "Which attribute of BODY tag specifies a background image?",
-        "hi": "BODY टैग का कौन सा एट्रिब्यूट बैकग्राउंड इमेज निर्दिष्ट करता है?"
+        "en": "Which &lt;BODY&gt; attribute allows setting an image as the background?",
+        "hi": "कौन सा &lt;BODY&gt; एट्रिब्यूट बैकग्राउंड के रूप में इमेज सेट करने की अनुमति देता है?"
       },
       "options": {
         "a": {"en": "bgcolor", "hi": "bgcolor"},
         "b": {"en": "background", "hi": "background"},
-        "c": {"en": "img", "hi": "img"},
-        "d": {"en": "src", "hi": "src"}
+        "c": {"en": "src", "hi": "src"},
+        "d": {"en": "img-source", "hi": "img-source"}
       },
       "correct_option": "b",
       "hint": {
-        "en": "Use this for using a picture like flower.jpg as background.",
-        "hi": "बैकग्राउंड के रूप में flower.jpg जैसी तस्वीर का उपयोग करने के लिए इसका उपयोग करें।"
+        "en": "Different from the attribute used for solid colors.",
+        "hi": "ठोस रंगों के लिए उपयोग किए जाने वाले एट्रिब्यूट से अलग।"
       },
       "explanation": {
-        "en": "The background attribute defines the background image of the web page.",
-        "hi": "background एट्रिब्यूट वेब पेज की बैकग्राउंड इमेज को परिभाषित करता है।"
+        "en": "While 'bgcolor' is for colors, 'background' is used to specify an image file path.",
+        "hi": "जहाँ 'bgcolor' रंगों के लिए है, वहीं 'background' का उपयोग इमेज फ़ाइल पथ निर्दिष्ट करने के लिए किया जाता है।"
       },
       "key_takeaway": {
-        "en": "background attribute = Image file path.",
-        "hi": "background एट्रिब्यूट = इमेज फ़ाइल पथ।"
+        "en": "background attribute = Image URL/Path.",
+        "hi": "background एट्रिब्यूट = इमेज URL/पथ।"
       }
     },
     {
       "question_id": 26,
       "question": {
-        "en": "HTML tags are written within angled-brackets, i.e. ______.",
-        "hi": "HTML टैग कोण-कोष्ठक (angled-brackets) के भीतर लिखे जाते हैं, यानी ______।"
+        "en": "What is the correct syntax for writing HTML tags?",
+        "hi": "HTML टैग लिखने का सही सिंटैक्स क्या है?"
       },
       "options": {
-        "a": {"en": "( and )", "hi": "( और )"},
-        "b": {"en": "&lt; and &gt;", "hi": "&lt; और &gt;"},
-        "c": {"en": "[ and ]", "hi": "[ और ]"},
-        "d": {"en": "{ and }", "hi": "{ और }"}
+        "a": {"en": "{tagname}", "hi": "{tagname}"},
+        "b": {"en": "&lt;tagname&gt;", "hi": "&lt;tagname&gt;"},
+        "c": {"en": "[tagname]", "hi": "[tagname]"},
+        "d": {"en": "(tagname)", "hi": "(tagname)"}
       },
       "correct_option": "b",
       "hint": {
-        "en": "These are less-than and greater-than symbols.",
-        "hi": "ये लेस-दैन और ग्रेटर-दैन चिह्न हैं।"
+        "en": "Uses less-than and greater-than symbols.",
+        "hi": "लेस-दैन और ग्रेटर-दैन चिह्नों का उपयोग करता है।"
       },
       "explanation": {
-        "en": "HTML tags are written within angled-brackets, i.e. '<' and '>'.",
-        "hi": "HTML टैग कोण-कोष्ठक, अर्थात '<' और '>' के भीतर लिखे जाते हैं।"
+        "en": "HTML instructions are always enclosed in angled brackets &lt; &gt;.",
+        "hi": "HTML निर्देश हमेशा कोण-कोष्ठक &lt; &gt; में संलग्न होते हैं।"
       },
       "key_takeaway": {
-        "en": "Correct tag syntax requires &lt; &gt;.",
-        "hi": "सही टैग सिंटैक्स के लिए &lt; &gt; आवश्यक है।"
+        "en": "Angled brackets identify tags.",
+        "hi": "कोण-कोष्ठक टैग की पहचान करते हैं।"
       }
     },
     {
       "question_id": 27,
       "question": {
-        "en": "Which software is used as a text editor for creating HTML code?",
-        "hi": "HTML कोड बनाने के लिए टेक्स्ट एडिटर के रूप में किस सॉफ़्टवेयर का उपयोग किया जाता है?"
+        "en": "Which Windows application is commonly used to write HTML code?",
+        "hi": "HTML कोड लिखने के लिए आमतौर पर किस विंडोज एप्लिकेशन का उपयोग किया जाता है?"
       },
       "options": {
-        "a": {"en": "Google Chrome", "hi": "गूगल क्रोम"},
-        "b": {"en": "Notepad", "hi": "नोटपैड (Notepad)"},
-        "c": {"en": "Photoshop", "hi": "फोटोशॉप"},
-        "d": {"en": "Excel", "hi": "एक्सेल"}
+        "a": {"en": "Notepad", "hi": "नोटपैड"},
+        "b": {"en": "Excel", "hi": "एक्सेल"},
+        "c": {"en": "Windows Media Player", "hi": "विंडोज मीडिया प्लेयर"},
+        "d": {"en": "Photos", "hi": "फोटो"}
       },
-      "correct_option": "b",
+      "correct_option": "a",
       "hint": {
-        "en": "It is a basic text editing program in Windows.",
-        "hi": "यह विंडोज में एक बुनियादी टेक्स्ट एडिटिंग प्रोग्राम है।"
+        "en": "A simple text editor included with Windows.",
+        "hi": "विंडोज के साथ शामिल एक सरल टेक्स्ट एडिटर।"
       },
       "explanation": {
-        "en": "HTML file is created and edited using a text editor such as Notepad.",
-        "hi": "HTML फ़ाइल नोटपैड जैसे टेक्स्ट एडिटर का उपयोग करके बनाई और संपादित की जाती है।"
+        "en": "Notepad is the primary tool for creating plain-text HTML source files.",
+        "hi": "नोटपैड सादा-टेक्स्ट HTML सोर्स फ़ाइलें बनाने के लिए प्राथमिक उपकरण है।"
       },
       "key_takeaway": {
-        "en": "Notepad is a standard tool for manual HTML coding.",
-        "hi": "नोटपैड मैनुअल HTML कोडिंग के लिए एक मानक उपकरण है।"
+        "en": "HTML requires a plain-text editor.",
+        "hi": "HTML के लिए सादा-टेक्स्ट एडिटर की आवश्यकता होती है।"
       }
     },
     {
       "question_id": 28,
       "question": {
-        "en": "Which attribute specifies the distance between the left side of content and the left edge of browser?",
-        "hi": "कौन सा एट्रिब्यूट सामग्री के बाईं ओर और ब्राउज़र के बाएं किनारे के बीच की दूरी निर्दिष्ट करता है?"
+        "en": "Which attribute sets the distance between content and the left edge of the window?",
+        "hi": "कौन सा एट्रिब्यूट सामग्री और विंडो के बाएं किनारे के बीच की दूरी सेट करता है?"
       },
       "options": {
-        "a": {"en": "leftpadding", "hi": "leftpadding"},
+        "a": {"en": "margin-left", "hi": "margin-left"},
         "b": {"en": "leftmargin", "hi": "leftmargin"},
-        "c": {"en": "topmargin", "hi": "topmargin"},
-        "d": {"en": "border", "hi": "border"}
+        "c": {"en": "indent", "hi": "indent"},
+        "d": {"en": "padding", "hi": "padding"}
       },
       "correct_option": "b",
       "hint": {
-        "en": "It is used in the BODY tag.",
-        "hi": "इसका उपयोग BODY टैग में किया जाता है।"
+        "en": "An attribute of the &lt;BODY&gt; tag.",
+        "hi": "&lt;BODY&gt; टैग का एक एट्रिब्यूट।"
       },
       "explanation": {
-        "en": "The leftmargin attribute is used to define the distance between the left side of the content and the left edge of the browser window.",
-        "hi": "leftmargin एट्रिब्यूट का उपयोग सामग्री के बाईं ओर और ब्राउज़र विंडो के बाएं किनारे के बीच की दूरी को परिभाषित करने के लिए किया जाता है।"
+        "en": "The 'leftmargin' attribute specifies the horizontal space on the left side of the page.",
+        "hi": "'leftmargin' एट्रिब्यूट पेज के बाईं ओर हॉरिजॉन्टल स्पेस निर्दिष्ट करता है।"
       },
       "key_takeaway": {
-        "en": "leftmargin defines horizontal page indentation.",
-        "hi": "leftmargin पेज के हॉरिजॉन्टल इंडेंटेशन को परिभाषित करता है।"
+        "en": "leftmargin = page's left white space.",
+        "hi": "leftmargin = पेज का बायां व्हाइट स्पेस।"
       }
     },
     {
       "question_id": 29,
       "question": {
-        "en": "Which tag is used for definition terms in a definition list?",
-        "hi": "डेफिनेशन लिस्ट में परिभाषा-शब्दों के लिए किस टैग का उपयोग किया जाता है?"
+        "en": "Which tag defines the terms within a Definition List?",
+        "hi": "डेफिनेशन लिस्ट के भीतर शब्दों (terms) को कौन सा टैग परिभाषित करता है?"
       },
       "options": {
         "a": {"en": "&lt;DL&gt;", "hi": "&lt;DL&gt;"},
         "b": {"en": "&lt;DT&gt;", "hi": "&lt;DT&gt;"},
         "c": {"en": "&lt;DD&gt;", "hi": "&lt;DD&gt;"},
-        "d": {"en": "&lt;LI&gt;", "hi": "&lt;LI&gt;"}
+        "d": {"en": "&lt;TERM&gt;", "hi": "&lt;TERM&gt;"}
       },
       "correct_option": "b",
       "hint": {
-        "en": "It stands for Definition Term.",
-        "hi": "इसका मतलब डेफिनेशन टर्म है।"
+        "en": "Stands for Definition Term.",
+        "hi": "डेफिनेशन टर्म का संक्षिप्त रूप।"
       },
       "explanation": {
-        "en": "Each definition-term is starts with &lt;DT&gt; tag and ends with &lt;/DT&gt; tag.",
-        "hi": "प्रत्येक परिभाषा-शब्द &lt;DT&gt; टैग से शुरू होता है और &lt;/DT&gt; टैग पर समाप्त होता है।"
+        "en": "In a &lt;DL&gt;, &lt;DT&gt; is used for the keyword or title of the definition entry.",
+        "hi": "&lt;DL&gt; में, &lt;DT&gt; का उपयोग कीवर्ड या परिभाषा प्रविष्टि के शीर्षक के लिए किया जाता है।"
       },
       "key_takeaway": {
-        "en": "&lt;DT&gt; = The word being defined.",
-        "hi": "&lt;DT&gt; = वह शब्द जिसे परिभाषित किया जा रहा है।"
+        "en": "&lt;DT&gt; = Item to be defined.",
+        "hi": "&lt;DT&gt; = वह वस्तु जिसे परिभाषित किया जाना है।"
       }
     },
     {
       "question_id": 30,
       "question": {
-        "en": "What is the purpose of the &lt;TITLE&gt; tag?",
-        "hi": "&lt;TITLE&gt; टैग का उद्देश्य क्या है?"
+        "en": "What is the function of the &lt;TITLE&gt; tag?",
+        "hi": "&lt;TITLE&gt; टैग का क्या कार्य है?"
       },
       "options": {
-        "a": {"en": "To write main text", "hi": "मुख्य टेक्स्ट लिखने के लिए"},
-        "b": {"en": "To specify the title of the web page in the browser bar", "hi": "ब्राउज़र बार में वेब पेज का शीर्षक निर्दिष्ट करने के लिए"},
-        "c": {"en": "To add images", "hi": "इमेज जोड़ने के लिए"},
-        "d": {"en": "To change colors", "hi": "रंग बदलने के लिए"}
+        "a": {"en": "Changes the background color", "hi": "बैकग्राउंड का रंग बदलता है"},
+        "b": {"en": "Defines the text shown in the browser's title bar", "hi": "ब्राउज़र के टाइटल बार में दिखाए जाने वाले टेक्स्ट को परिभाषित करता है"},
+        "c": {"en": "Adds a bold title to the top of the page content", "hi": "पेज सामग्री के शीर्ष पर एक बोल्ड शीर्षक जोड़ता है"},
+        "d": {"en": "Creates a hyperlink", "hi": "हाइपरलिंक बनाता है"}
       },
       "correct_option": "b",
       "hint": {
-        "en": "The text inside this tag is displayed in the title bar.",
-        "hi": "इस टैग के अंदर का टेक्स्ट टाइटल बार में प्रदर्शित होता है।"
+        "en": "It appears on the browser tab, not the page body.",
+        "hi": "यह ब्राउज़र टैब पर दिखाई देता है, पेज बॉडी में नहीं।"
       },
       "explanation": {
-        "en": "The &lt;title&gt; ... &lt;/title&gt; specifies the title of the web page. The text inside this tag is displayed in the title bar of the browser.",
-        "hi": "&lt;title&gt; ... &lt;/title&gt; वेब पेज का शीर्षक निर्दिष्ट करता है। इस टैग के अंदर का टेक्स्ट ब्राउज़र के टाइटल बार में प्रदर्शित होता है।"
+        "en": "The &lt;TITLE&gt; tag text appears on the tab or window label of the web browser.",
+        "hi": "&lt;TITLE&gt; टैग टेक्स्ट वेब ब्राउज़र के टैब या विंडो लेबल पर दिखाई देता है।"
       },
       "key_takeaway": {
-        "en": "TITLE tag = Browser tab label.",
-        "hi": "TITLE टैग = ब्राउज़र टैब लेबल।"
+        "en": "TITLE = Document identity in the browser UI.",
+        "hi": "TITLE = ब्राउज़र UI में दस्तावेज़ की पहचान।"
       }
     },
     {
       "question_id": 31,
       "question": {
-        "en": "Which attribute in &lt;FONT&gt; defines the size of text?",
-        "hi": "&lt;FONT&gt; में कौन सा एट्रिब्यूट टेक्स्ट के आकार को परिभाषित करता है?"
+        "en": "Which attribute is used to adjust the font size?",
+        "hi": "फ़ॉन्ट आकार को समायोजित करने के लिए किस एट्रिब्यूट का उपयोग किया जाता है?"
       },
       "options": {
-        "a": {"en": "length", "hi": "length"},
+        "a": {"en": "face", "hi": "face"},
         "b": {"en": "size", "hi": "size"},
-        "c": {"en": "width", "hi": "width"},
-        "d": {"en": "height", "hi": "height"}
+        "c": {"en": "height", "hi": "height"},
+        "d": {"en": "width", "hi": "width"}
       },
       "correct_option": "b",
       "hint": {
-        "en": "Example: &lt;FONT size = '18'&gt;.",
-        "hi": "उदाहरण: &lt;FONT size = '18'&gt;।"
+        "en": "A direct numeric attribute of the FONT tag.",
+        "hi": "फ़ॉन्ट टैग का एक सीधा संख्यात्मक एट्रिब्यूट।"
       },
       "explanation": {
-        "en": "The size attribute defines the font-size of the text.",
-        "hi": "size एट्रिब्यूट टेक्स्ट के फ़ॉन्ट-आकार को परिभाषित करता है।"
+        "en": "The 'size' attribute in &lt;FONT&gt; determines how big or small the characters appear.",
+        "hi": "&lt;FONT&gt; में 'size' एट्रिब्यूट यह निर्धारित करता है कि अक्षर कितने बड़े या छोटे दिखाई देंगे।"
       },
       "key_takeaway": {
-        "en": "Use size to make text bigger or smaller.",
-        "hi": "टेक्स्ट को बड़ा या छोटा करने के लिए size का उपयोग करें।"
+        "en": "size attribute = text magnitude.",
+        "hi": "size एट्रिब्यूट = टेक्स्ट मैग्नीट्यूड (आकार)।"
       }
     },
     {
       "question_id": 32,
       "question": {
-        "en": "The comment tag is an ______ tag.",
-        "hi": "कमेंट टैग एक ______ टैग है।"
+        "en": "What happens to the text that is written inside an HTML comment tag &lt;!-- ... --&gt;?",
+        "hi": "HTML कमेंट टैग &lt;!-- ... --&gt; के अंदर लिखे गए टेक्स्ट का क्या होता है?"
       },
       "options": {
-        "a": {"en": "Container", "hi": "Container"},
-        "b": {"en": "Empty", "hi": "Empty"},
-        "c": {"en": "Paired", "hi": "Paired"},
-        "d": {"en": "Bold", "hi": "Bold"}
+        "a": {"en": "It is displayed in bold letters", "hi": "यह बोल्ड अक्षरों में प्रदर्शित होता है"},
+        "b": {"en": "It is displayed in the browser's title bar", "hi": "यह ब्राउज़र के टाइटल बार में दिखाई देता है"},
+        "c": {"en": "It is not displayed in the web browser", "hi": "यह वेब ब्राउज़र में प्रदर्शित नहीं होता है"},
+        "d": {"en": "It appears at the very bottom of the page", "hi": "यह पेज के बिल्कुल निचले हिस्से में दिखाई देता है"}
       },
-      "correct_option": "b",
+      "correct_option": "c",
       "hint": {
-        "en": "It does not require a closing tag.",
-        "hi": "इसे क्लोजिंग टैग की आवश्यकता नहीं होती है।"
+        "en": "The browser treats it as a note for the developer.",
+        "hi": "ब्राउज़र इसे डेवलपर के लिए एक नोट के रूप में मानता है।"
       },
       "explanation": {
-        "en": "The comment tag is used to insert comments in HTML code. It is an empty tag.",
-        "hi": "कमेंट टैग का उपयोग HTML कोड में टिप्पणियाँ डालने के लिए किया जाता है। यह एक एम्प्टी टैग है।"
+        "en": "Text inside comment tags is ignored by the browser during rendering.",
+        "hi": "कमेंट टैग के अंदर के टेक्स्ट को रेंडरिंग के दौरान ब्राउज़र द्वारा नज़रअंदाज़ कर दिया जाता है।"
       },
       "key_takeaway": {
-        "en": "Comments are hidden from the user.",
-        "hi": "कमेंट उपयोगकर्ता से छिपे रहते हैं।"
+        "en": "Comments = Non-visible code notes.",
+        "hi": "कमेंट = कोड के वे नोट्स जो दिखाई नहीं देते।"
       }
     },
     {
       "question_id": 33,
       "question": {
-        "en": "Which tag is used for the description of a definition term?",
-        "hi": "परिभाषा-शब्द के विवरण के लिए किस टैग का उपयोग किया जाता है?"
+        "en": "Which tag provides the actual data or description in a &lt;DL&gt; list?",
+        "hi": "&lt;DL&gt; लिस्ट में वास्तविक डेटा या विवरण कौन सा टैग प्रदान करता है?"
       },
       "options": {
         "a": {"en": "&lt;DT&gt;", "hi": "&lt;DT&gt;"},
         "b": {"en": "&lt;DD&gt;", "hi": "&lt;DD&gt;"},
-        "c": {"en": "&lt;DL&gt;", "hi": "&lt;DL&gt;"},
-        "d": {"en": "&lt;DESC&gt;", "hi": "&lt;DESC&gt;"}
+        "c": {"en": "&lt;DESC&gt;", "hi": "&lt;DESC&gt;"},
+        "d": {"en": "&lt;LI&gt;", "hi": "&lt;LI&gt;"}
       },
       "correct_option": "b",
       "hint": {
-        "en": "It stands for Definition Description.",
-        "hi": "इसका मतलब डेफिनेशन डिस्क्रिप्शन है।"
+        "en": "Stands for Definition Description.",
+        "hi": "डेफिनेशन डिस्क्रिप्शन का संक्षिप्त रूप।"
       },
       "explanation": {
-        "en": "Description for each definition-term starts with &lt;DD&gt; tag and ends with &lt;/DD&gt;.",
-        "hi": "प्रत्येक परिभाषा-शब्द का विवरण &lt;DD&gt; टैग से शुरू होता है और &lt;/DD&gt; पर समाप्त होता है।"
+        "en": "In a Definition List, &lt;DD&gt; holds the descriptive text related to the term above it.",
+        "hi": "डेफिनेशन लिस्ट में, &lt;DD&gt; अपने ऊपर वाले शब्द से संबंधित विवरणात्मक टेक्स्ट रखता है।"
       },
       "key_takeaway": {
-        "en": "&lt;DD&gt; provides the actual explanation in DL.",
-        "hi": "&lt;DD&gt; DL में वास्तविक व्याख्या प्रदान करता है।"
+        "en": "&lt;DD&gt; = The explanation part of DL.",
+        "hi": "&lt;DD&gt; = DL का व्याख्या वाला भाग।"
       }
     },
     {
       "question_id": 34,
       "question": {
-        "en": "What does the 'text' attribute in &lt;BODY&gt; tag define?",
-        "hi": "&lt;BODY&gt; टैग में 'text' एट्रिब्यूट क्या परिभाषित करता है?"
+        "en": "What does the 'text' attribute in the &lt;BODY&gt; tag set?",
+        "hi": "&lt;BODY&gt; टैग में 'text' एट्रिब्यूट क्या सेट करता है?"
       },
       "options": {
-        "a": {"en": "Background color", "hi": "बैकग्राउंड रंग"},
-        "b": {"en": "The color of text displayed in the web page", "hi": "वेब पेज में प्रदर्शित टेक्स्ट का रंग"},
-        "c": {"en": "The size of text", "hi": "टेक्स्ट का आकार"},
-        "d": {"en": "The alignment of text", "hi": "टेक्स्ट का अलाइनमेंट"}
+        "a": {"en": "Background image", "hi": "बैकग्राउंड इमेज"},
+        "b": {"en": "Global text color for the page", "hi": "पेज के लिए वैश्विक टेक्स्ट रंग"},
+        "c": {"en": "Bold styling for titles", "hi": "शीर्षकों के लिए बोल्ड स्टाइलिंग"},
+        "d": {"en": "Link destinations", "hi": "लिंक गंतव्य (destinations)"}
       },
       "correct_option": "b",
       "hint": {
-        "en": "Example: &lt;BODY text = 'blue'&gt;.",
-        "hi": "उदाहरण: &lt;BODY text = 'blue'&gt;।"
+        "en": "Changes the color of all standard text on the page.",
+        "hi": "पेज के सभी मानक टेक्स्ट का रंग बदल देता है।"
       },
       "explanation": {
-        "en": "The text attribute is used to define the color of text displayed in the web page.",
-        "hi": "text एट्रिब्यूट का उपयोग वेब पेज में प्रदर्शित टेक्स्ट के रंग को परिभाषित करने के लिए किया जाता है।"
+        "en": "The 'text' attribute of the &lt;BODY&gt; tag defines the color for all visible text in the document body.",
+        "hi": "&lt;BODY&gt; टैग का 'text' एट्रिब्यूट दस्तावेज़ की बॉडी में सभी दृश्य टेक्स्ट के लिए रंग परिभाषित करता है।"
       },
       "key_takeaway": {
-        "en": "text attribute sets global font color for the page.",
-        "hi": "text एट्रिब्यूट पेज के लिए वैश्विक फ़ॉन्ट रंग सेट करता है।"
+        "en": "text attribute = Page-wide font color.",
+        "hi": "text एट्रिब्यूट = पेज-व्यापी फ़ॉन्ट रंग।"
       }
     },
     {
       "question_id": 35,
       "question": {
-        "en": "Which of these tags is used for table data (cell content)?",
-        "hi": "इनमें से कौन सा टैग टेबल डेटा (सेल सामग्री) के लिए उपयोग किया जाता है?"
+        "en": "Which tag holds individual data cells in a table row?",
+        "hi": "टेबल रो में व्यक्तिगत डेटा सेल को कौन सा टैग रखता है?"
       },
       "options": {
         "a": {"en": "&lt;TR&gt;", "hi": "&lt;TR&gt;"},
         "b": {"en": "&lt;TD&gt;", "hi": "&lt;TD&gt;"},
-        "c": {"en": "&lt;TH&gt;", "hi": "&lt;TH&gt;"},
+        "c": {"en": "&lt;DATA&gt;", "hi": "&lt;DATA&gt;"},
         "d": {"en": "&lt;TABLE&gt;", "hi": "&lt;TABLE&gt;"}
       },
       "correct_option": "b",
       "hint": {
-        "en": "It stands for Table Data.",
-        "hi": "इसका मतलब टेबल डेटा है।"
+        "en": "Stands for Table Data.",
+        "hi": "टेबल डेटा का संक्षिप्त रूप।"
       },
       "explanation": {
-        "en": "Each cell of the row is defined by &lt;td&gt; ... &lt;/td&gt; tag.",
-        "hi": "पंक्ति के प्रत्येक सेल को &lt;td&gt; ... &lt;/td&gt; टैग द्वारा परिभाषित किया गया है।"
+        "en": "Standard cells that contain the actual information of the table are created using &lt;TD&gt;.",
+        "hi": "टेबल की वास्तविक जानकारी रखने वाले मानक सेल &lt;TD&gt; का उपयोग करके बनाए जाते हैं।"
       },
       "key_takeaway": {
-        "en": "&lt;TD&gt; = Normal table cell.",
-        "hi": "&lt;TD&gt; = सामान्य टेबल सेल।"
+        "en": "&lt;TD&gt; = Content cell.",
+        "hi": "&lt;TD&gt; = सामग्री सेल।"
       }
     },
     {
       "question_id": 36,
       "question": {
-        "en": "To open Notepad, which keys are pressed together?",
-        "hi": "नोटपैड खोलने के लिए किन कुंजियों को एक साथ दबाया जाता है?"
+        "en": "What is the keyboard shortcut to bring up the Run menu to launch Notepad?",
+        "hi": "नोटपैड लॉन्च करने के लिए रन मेनू लाने का कीबोर्ड शॉर्टकट क्या है?"
       },
       "options": {
-        "a": {"en": "Windows + N", "hi": "Windows + N"},
+        "a": {"en": "Ctrl + R", "hi": "Ctrl + R"},
         "b": {"en": "Windows + R", "hi": "Windows + R"},
-        "c": {"en": "Ctrl + S", "hi": "Ctrl + S"},
-        "d": {"en": "Alt + F4", "hi": "Alt + F4"}
+        "c": {"en": "Alt + R", "hi": "Alt + R"},
+        "d": {"en": "Shift + R", "hi": "Shift + R"}
       },
       "correct_option": "b",
       "hint": {
-        "en": "This opens the Run dialogue box.",
-        "hi": "यह रन डायलॉग बॉक्स खोलता है।"
+        "en": "Uses the key with the Windows logo.",
+        "hi": "विंडोज लोगो वाली कुंजी का उपयोग करता है।"
       },
       "explanation": {
-        "en": "To open Notepad, press Windows+R keys on the keyboard to display the Run dialogue box.",
-        "hi": "नोटपैड खोलने के लिए, रन डायलॉग बॉक्स प्रदर्शित करने के लिए कीबोर्ड पर Windows+R कुंजियाँ दबाएँ।"
+        "en": "Pressing Windows+R opens the Run dialog box where you can type 'notepad'.",
+        "hi": "Windows+R दबाने से रन डायलॉग बॉक्स खुलता है जहाँ आप 'notepad' टाइप कर सकते हैं।"
       },
       "key_takeaway": {
-        "en": "Windows+R allows you to run commands like 'notepad'.",
-        "hi": "Windows+R आपको 'नोटपैड' जैसे कमांड चलाने की अनुमति देता है।"
+        "en": "Win+R = Shortcut for Run command.",
+        "hi": "Win+R = रन कमांड के लिए शॉर्टकट।"
       }
     },
     {
       "question_id": 37,
       "question": {
-        "en": "What is the default marking for ordered list items?",
-        "hi": "ऑर्डर्ड लिस्ट आइटम्स के लिए डिफ़ॉल्ट मार्किंग क्या है?"
+        "en": "Ordered lists use ______ by default.",
+        "hi": "ऑर्डर्ड लिस्ट डिफ़ॉल्ट रूप से ______ का उपयोग करती हैं।"
       },
       "options": {
-        "a": {"en": "Roman numerals", "hi": "रोमन अंक"},
-        "b": {"en": "Natural numbers", "hi": "प्राकृतिक संख्याएँ (Natural numbers)"},
-        "c": {"en": "Letters (a, b, c)", "hi": "अक्षर (a, b, c)"},
-        "d": {"en": "Bullets", "hi": "बुलेट्स"}
+        "a": {"en": "bullets", "hi": "बुलेट्स"},
+        "b": {"en": "natural numbers", "hi": "प्राकृतिक संख्याएँ"},
+        "c": {"en": "squares", "hi": "वर्ग (squares)"},
+        "d": {"en": "letters", "hi": "अक्षर (letters)"}
       },
       "correct_option": "b",
       "hint": {
-        "en": "It starts with 1, 2, 3...",
-        "hi": "यह 1, 2, 3... से शुरू होता है।"
+        "en": "Starts from 1, 2, 3...",
+        "hi": "1, 2, 3... से शुरू होता है।"
       },
       "explanation": {
-        "en": "In an ordered list, by default, list-items are marked with natural numbers.",
-        "hi": "एक ऑर्डर्ड लिस्ट में, डिफ़ॉल्ट रूप से, लिस्ट-आइटम प्राकृतिक संख्याओं के साथ चिह्नित होते हैं।"
+        "en": "By default, an &lt;OL&gt; starts numbering with natural numbers starting from 1.",
+        "hi": "डिफ़ॉल्ट रूप से, एक &lt;OL&gt; 1 से शुरू होने वाली प्राकृतिक संख्याओं के साथ नंबरिंग शुरू करता है।"
       },
       "key_takeaway": {
-        "en": "Default OL starts with 1, 2, 3.",
-        "hi": "डिफ़ॉल्ट OL 1, 2, 3 से शुरू होता है।"
+        "en": "OL default = 1, 2, 3.",
+        "hi": "OL डिफ़ॉल्ट = 1, 2, 3।"
       }
     },
     {
       "question_id": 38,
       "question": {
-        "en": "Which attribute sets the width of an image in pixels or percentage?",
-        "hi": "कौन सा एट्रिब्यूट पिक्सेल या प्रतिशत में इमेज की चौड़ाई सेट करता है?"
+        "en": "Which attribute sets the horizontal size of an image?",
+        "hi": "कौन सा एट्रिब्यूट इमेज का हॉरिजॉन्टल आकार सेट करता है?"
       },
       "options": {
         "a": {"en": "size", "hi": "size"},
         "b": {"en": "width", "hi": "width"},
-        "c": {"en": "height", "hi": "height"},
-        "d": {"en": "alt", "hi": "alt"}
+        "c": {"en": "length", "hi": "length"},
+        "d": {"en": "weight", "hi": "weight"}
       },
       "correct_option": "b",
       "hint": {
-        "en": "Example: width = '300'.",
-        "hi": "उदाहरण: width = '300'।"
+        "en": "Determines how wide the image appears.",
+        "hi": "यह निर्धारित करता है कि इमेज कितनी चौड़ी दिखाई देगी।"
       },
       "explanation": {
-        "en": "The width attribute is used to provide the width of the image in pixels or percentage.",
-        "hi": "width एट्रिब्यूट का उपयोग पिक्सेल या प्रतिशत में इमेज की चौड़ाई प्रदान करने के लिए किया जाता है।"
+        "en": "The 'width' attribute in the &lt;IMG&gt; tag adjusts the horizontal dimension of the picture.",
+        "hi": "&lt;IMG&gt; टैग में 'width' एट्रिब्यूट चित्र के हॉरिजॉन्टल आयाम को समायोजित करता है।"
       },
       "key_takeaway": {
-        "en": "width and height attributes control image dimensions.",
-        "hi": "width और height एट्रिब्यूट इमेज के आयामों को नियंत्रित करते हैं।"
+        "en": "width attribute = image width.",
+        "hi": "width एट्रिब्यूट = इमेज की चौड़ाई।"
       }
     },
     {
       "question_id": 39,
       "question": {
-        "en": "What is 'External Linking' in HTML?",
-        "hi": "HTML में 'एक्सटर्नल लिंकिंग' (External Linking) क्या है?"
+        "en": "What is the primary use of External Linking?",
+        "hi": "एक्सटर्नल लिंकिंग का प्राथमिक उपयोग क्या है?"
       },
       "options": {
-        "a": {"en": "Linking images", "hi": "इमेज को लिंक करना"},
-        "b": {"en": "Using links to open another web-page", "hi": "दूसरे वेब-पेज को खोलने के लिए लिंक का उपयोग करना"},
-        "c": {"en": "Linking same page", "hi": "उसी पेज को लिंक करना"},
-        "d": {"en": "Deleting links", "hi": "लिंक हटाना"}
+        "a": {"en": "Refreshing the current page", "hi": "वर्तमान पेज को रिफ्रेश करना"},
+        "b": {"en": "Opening a different web page or website", "hi": "एक अलग वेब पेज या वेबसाइट खोलना"},
+        "c": {"en": "Formatting text color", "hi": "टेक्स्ट का रंग फॉर्मेट करना"},
+        "d": {"en": "Adding comments to code", "hi": "कोड में कमेंट जोड़ना"}
       },
       "correct_option": "b",
       "hint": {
-        "en": "It takes the user to a different URL.",
-        "hi": "यह उपयोगकर्ता को एक अलग URL पर ले जाता है।"
+        "en": "Navigates outside of the current document.",
+        "hi": "वर्तमान दस्तावेज़ के बाहर नेविगेट करता है।"
       },
       "explanation": {
-        "en": "External links are used to open another web-page.",
-        "hi": "बाहरी लिंक का उपयोग दूसरे वेब-पेज को खोलने के लिए किया जाता है।"
+        "en": "External links allow users to jump to other pages by clicking on the defined anchor text.",
+        "hi": "एक्सटर्नल लिंक उपयोगकर्ताओं को परिभाषित एंकर टेक्स्ट पर क्लिक करके दूसरे पेजों पर जाने की अनुमति देते हैं।"
       },
       "key_takeaway": {
-        "en": "External Linking connects different websites/pages.",
-        "hi": "एक्सटर्नल लिंकिंग विभिन्न वेबसाइटों/पेजों को जोड़ती है।"
+        "en": "External Link = Link to another URL.",
+        "hi": "एक्सटर्नल लिंक = दूसरे URL का लिंक।"
       }
     },
     {
       "question_id": 40,
       "question": {
-        "en": "Which tag defines the title of a web page?",
-        "hi": "कौन सा टैग वेब पेज के शीर्षक (title) को परिभाषित करता है?"
+        "en": "Which tag encloses the title of the web-page?",
+        "hi": "कौन सा टैग वेब-पेज के शीर्षक को संलग्न करता है?"
       },
       "options": {
-        "a": {"en": "&lt;HTML&gt;", "hi": "&lt;HTML&gt;"},
+        "a": {"en": "&lt;H1&gt;", "hi": "&lt;H1&gt;"},
         "b": {"en": "&lt;TITLE&gt;", "hi": "&lt;TITLE&gt;"},
-        "c": {"en": "&lt;HEAD&gt;", "hi": "&lt;HEAD&gt;"},
-        "d": {"en": "&lt;H1&gt;", "hi": "&lt;H1&gt;"}
+        "c": {"en": "&lt;NAME&gt;", "hi": "&lt;NAME&gt;"},
+        "d": {"en": "&lt;HEAD&gt;", "hi": "&lt;HEAD&gt;"}
       },
       "correct_option": "b",
       "hint": {
-        "en": "The name is within the tag itself.",
-        "hi": "नाम टैग के भीतर ही है।"
+        "en": "Must be closed with &lt;/TITLE&gt;.",
+        "hi": "&lt;/TITLE&gt; के साथ बंद किया जाना चाहिए।"
       },
       "explanation": {
-        "en": "Title tag &lt;TITLE&gt; ... &lt;/TITLE&gt; specifies the title of the web page.",
-        "hi": "टाइटल टैग &lt;TITLE&gt; ... &lt;/TITLE&gt; वेब पेज के शीर्षक को निर्दिष्ट करता है।"
+        "en": "The &lt;TITLE&gt; tag provides the name shown in browser tabs and history.",
+        "hi": "&lt;TITLE&gt; टैग वह नाम प्रदान करता है जो ब्राउज़र टैब और इतिहास में दिखाया जाता है।"
       },
       "key_takeaway": {
-        "en": "&lt;TITLE&gt; is mandatory for a valid header.",
-        "hi": "&lt;TITLE&gt; एक वैध हेडर के लिए अनिवार्य है।"
+        "en": "&lt;TITLE&gt; defines page metadata.",
+        "hi": "&lt;TITLE&gt; पेज मेटाडेटा को परिभाषित करता है।"
       }
     },
     {
       "question_id": 41,
       "question": {
-        "en": "Which of these is an Empty tag used for inserting images?",
-        "hi": "इनमें से कौन सा एम्प्टी टैग है जिसका उपयोग इमेज डालने के लिए किया जाता है?"
+        "en": "The &lt;IMG&gt; tag is an ______ tag.",
+        "hi": "&lt;IMG&gt; टैग एक ______ टैग है।"
       },
       "options": {
-        "a": {"en": "&lt;IMAGE&gt;", "hi": "&lt;IMAGE&gt;"},
-        "b": {"en": "&lt;IMG&gt;", "hi": "&lt;IMG&gt;"},
-        "c": {"en": "&lt;PIC&gt;", "hi": "&lt;PIC&gt;"},
-        "d": {"en": "&lt;PHOTO&gt;", "hi": "&lt;PHOTO&gt;"}
+        "a": {"en": "Container", "hi": "Container"},
+        "b": {"en": "Empty", "hi": "Empty"},
+        "c": {"en": "Paired", "hi": "Paired"},
+        "d": {"en": "Closing", "hi": "Closing"}
       },
       "correct_option": "b",
       "hint": {
-        "en": "It stands for Image.",
-        "hi": "इसका मतलब इमेज है।"
+        "en": "It does not have a separate &lt;/IMG&gt; tag.",
+        "hi": "इसका कोई अलग &lt;/IMG&gt; टैग नहीं होता है।"
       },
       "explanation": {
-        "en": "&lt;IMG&gt; tag is used to insert (embed) images in HTML web pages. It is an un-paired (empty) tag.",
-        "hi": "&lt;IMG&gt; टैग का उपयोग HTML वेब पेजों में इमेज डालने (एम्बेड करने) के लिए किया जाता है। यह एक अन-पेयर्ड (एम्प्टी) टैग है।"
+        "en": "Since images are embedded directly and don't wrap around text, the tag is empty/un-paired.",
+        "hi": "चूंकि इमेज सीधे एम्बेड की जाती हैं और टेक्स्ट को नहीं घेरती हैं, इसलिए यह टैग एम्प्टी/अन-पेयर्ड है।"
       },
       "key_takeaway": {
-        "en": "&lt;IMG&gt; requires no closing tag.",
-        "hi": "&lt;IMG&gt; को किसी क्लोजिंग टैग की आवश्यकता नहीं होती है।"
+        "en": "IMG tag closes itself.",
+        "hi": "IMG टैग अपने आप बंद हो जाता है।"
       }
     },
     {
       "question_id": 42,
       "question": {
-        "en": "Which attribute of &lt;TABLE&gt; tag specifies the border?",
-        "hi": "&lt;TABLE&gt; टैग का कौन सा एट्रिब्यूट बॉर्डर निर्दिष्ट करता है?"
+        "en": "Which &lt;TABLE&gt; attribute specifies the visible outer line of the table?",
+        "hi": "टेबल की दिखाई देने वाली बाहरी रेखा को कौन सा &lt;TABLE&gt; एट्रिब्यूट निर्दिष्ट करता है?"
       },
       "options": {
-        "a": {"en": "outline", "hi": "outline"},
+        "a": {"en": "line", "hi": "line"},
         "b": {"en": "border", "hi": "border"},
-        "c": {"en": "line", "hi": "line"},
-        "d": {"en": "edge", "hi": "edge"}
+        "c": {"en": "outline", "hi": "outline"},
+        "d": {"en": "width", "hi": "width"}
       },
       "correct_option": "b",
       "hint": {
-        "en": "Example: &lt;table border='1'&gt;.",
-        "hi": "उदाहरण: &lt;table border='1'&gt;।"
+        "en": "Usually set to '1' to make it visible.",
+        "hi": "इसे दृश्यमान बनाने के लिए आमतौर पर '1' पर सेट किया जाता है।"
       },
       "explanation": {
-        "en": "The border attribute specifies the border of the table.",
-        "hi": "border एट्रिब्यूट टेबल की बॉर्डर को निर्दिष्ट करता है।"
+        "en": "The 'border' attribute defines the thickness and visibility of the table's grid lines.",
+        "hi": "'border' एट्रिब्यूट टेबल की ग्रिड लाइनों की मोटाई और दृश्यता को परिभाषित करता है।"
       },
       "key_takeaway": {
-        "en": "border attribute controls table line thickness.",
-        "hi": "border एट्रिब्यूट टेबल लाइन की मोटाई को नियंत्रित करता है।"
+        "en": "border attribute = visible grid.",
+        "hi": "border एट्रिब्यूट = दृश्य ग्रिड।"
       }
     },
     {
       "question_id": 43,
       "question": {
-        "en": "The 'vlink' attribute in &lt;BODY&gt; tag stands for ______.",
-        "hi": "&lt;BODY&gt; टैग में 'vlink' एट्रिब्यूट का अर्थ ______ है।"
+        "en": "The 'vlink' attribute in &lt;BODY&gt; tag allows changing the color of ______.",
+        "hi": "&lt;BODY&gt; टैग में 'vlink' एट्रिब्यूट ______ के रंग को बदलने की अनुमति देता है।"
       },
       "options": {
-        "a": {"en": "visible link", "hi": "visible link"},
-        "b": {"en": "visited links", "hi": "visited links"},
-        "c": {"en": "virtual link", "hi": "virtual link"},
-        "d": {"en": "valid link", "hi": "valid link"}
+        "a": {"en": "active links", "hi": "एक्टिव लिंक"},
+        "b": {"en": "visited links", "hi": "विज़िट किए गए लिंक"},
+        "c": {"en": "unvisited links", "hi": "अन-विज़िटेड लिंक"},
+        "d": {"en": "all text", "hi": "सभी टेक्स्ट"}
       },
       "correct_option": "b",
       "hint": {
-        "en": "Default color is purple.",
-        "hi": "डिफ़ॉल्ट रंग बैंगनी है।"
+        "en": "The 'v' stands for Visited.",
+        "hi": "'v' का अर्थ विज़िटेड है।"
       },
       "explanation": {
-        "en": "The vlink attribute is used to define the color of visited links displayed in the web page.",
-        "hi": "vlink एट्रिब्यूट का उपयोग वेब पेज में प्रदर्शित विज़िट किए गए लिंक के रंग को परिभाषित करने के लिए किया जाता है।"
+        "en": "vlink specifically styles links that the user has already clicked in the past.",
+        "hi": "vlink विशेष रूप से उन लिंक्स को स्टाइल करता है जिन पर उपयोगकर्ता पहले ही क्लिक कर चुका है।"
       },
       "key_takeaway": {
-        "en": "vlink = Visited Link color.",
-        "hi": "vlink = विज़िट किए गए लिंक का रंग।"
+        "en": "vlink = Visited link styling.",
+        "hi": "vlink = विज़िटेड लिंक स्टाइलिंग।"
       }
     },
     {
       "question_id": 44,
       "question": {
-        "en": "Which tag is used to create a list item in either ordered or un-ordered lists?",
-        "hi": "ऑर्डर्ड या अन-ऑर्डर्ड लिस्ट में लिस्ट आइटम बनाने के लिए किस टैग का उपयोग किया जाता है?"
+        "en": "Which tag is used for items inside a &lt;UL&gt; or &lt;OL&gt; list?",
+        "hi": "&lt;UL&gt; या &lt;OL&gt; लिस्ट के अंदर की वस्तुओं के लिए किस टैग का उपयोग किया जाता है?"
       },
       "options": {
-        "a": {"en": "&lt;OL&gt;", "hi": "&lt;OL&gt;"},
-        "b": {"en": "&lt;UL&gt;", "hi": "&lt;UL&gt;"},
+        "a": {"en": "&lt;ITEM&gt;", "hi": "&lt;ITEM&gt;"},
+        "b": {"en": "&lt;LIST&gt;", "hi": "&lt;LIST&gt;"},
         "c": {"en": "&lt;LI&gt;", "hi": "&lt;LI&gt;"},
-        "d": {"en": "&lt;ITEM&gt;", "hi": "&lt;ITEM&gt;"}
+        "d": {"en": "&lt;BULLET&gt;", "hi": "&lt;BULLET&gt;"}
       },
       "correct_option": "c",
       "hint": {
-        "en": "It stands for List Item.",
-        "hi": "इसका मतलब लिस्ट आइटम है।"
+        "en": "Stands for List Item.",
+        "hi": "लिस्ट आइटम का संक्षिप्त रूप।"
       },
       "explanation": {
-        "en": "Each list item starts with &lt;LI&gt; tag and ends with &lt;/LI&gt; tag.",
-        "hi": "प्रत्येक लिस्ट आइटम &lt;LI&gt; टैग से शुरू होता है और &lt;/LI&gt; टैग पर समाप्त होता है।"
+        "en": "Every specific entry in a list must be wrapped in &lt;LI&gt; ... &lt;/LI&gt; tags.",
+        "hi": "लिस्ट में प्रत्येक विशिष्ट प्रविष्टि को &lt;LI&gt; ... &lt;/LI&gt; टैग में लपेटा जाना चाहिए।"
       },
       "key_takeaway": {
-        "en": "&lt;LI&gt; defines an individual entry in a list.",
-        "hi": "&lt;LI&gt; लिस्ट में एक व्यक्तिगत प्रविष्टि को परिभाषित करता है।"
+        "en": "&lt;LI&gt; = single list entry.",
+        "hi": "&lt;LI&gt; = सिंगल लिस्ट प्रविष्टि।"
       }
     },
     {
       "question_id": 45,
       "question": {
-        "en": "When saving an HTML file, which 'Save as type' must be selected in Notepad?",
-        "hi": "HTML फ़ाइल सेव करते समय, नोटपैड में कौन सा 'Save as type' चुना जाना चाहिए?"
+        "en": "In Notepad, which 'Save as type' must be selected for HTML files?",
+        "hi": "नोटपैड में, HTML फ़ाइलों के लिए कौन सा 'Save as type' चुना जाना चाहिए?"
       },
       "options": {
-        "a": {"en": "Text Documents (*.txt)", "hi": "Text Documents (*.txt)"},
-        "b": {"en": "All files (*.*)", "hi": "All files (*.*)"},
-        "c": {"en": "Excel Workbook", "hi": "Excel Workbook"},
-        "d": {"en": "Word Document", "hi": "Word Document"}
+        "a": {"en": "Text Documents", "hi": "टेक्स्ट डॉक्यूमेंट"},
+        "b": {"en": "All files (*.*)", "hi": "सभी फ़ाइलें (*.*)"},
+        "c": {"en": "Notepad files", "hi": "नोटपैड फ़ाइलें"},
+        "d": {"en": "System files", "hi": "सिस्टम फ़ाइलें"}
       },
       "correct_option": "b",
       "hint": {
-        "en": "This allows you to use your own extension like .html.",
-        "hi": "यह आपको .html जैसा अपना स्वयं का एक्सटेंशन उपयोग करने की अनुमति देता है।"
+        "en": "Prevents the editor from adding a hidden .txt extension.",
+        "hi": "एडिटर को एक छिपा हुआ .txt एक्सटेंशन जोड़ने से रोकता है।"
       },
       "explanation": {
-        "en": "In the 'Save as type:', select 'All files (*.*)' from the drop-down menu to save the file correctly as HTML.",
-        "hi": "'Save as type:' में, फ़ाइल को HTML के रूप में सही ढंग से सेव करने के लिए ड्रॉप-डाउन मेनू से 'All files (*.*)' चुनें।"
+        "en": "Selecting 'All files' ensures the user-defined .html extension is strictly applied.",
+        "hi": "'सभी फ़ाइलें' चुनने से यह सुनिश्चित होता है कि उपयोगकर्ता द्वारा परिभाषित .html एक्सटेंशन कड़ाई से लागू किया गया है।"
       },
       "key_takeaway": {
-        "en": "Selecting 'All files' prevents the system from adding .txt.",
-        "hi": "'All files' चुनने से सिस्टम .txt जोड़ने से रुक जाता है।"
+        "en": "Save as 'All files' to avoid .txt extension errors.",
+        "hi": ".txt एक्सटेंशन त्रुटियों से बचने के लिए 'सभी फ़ाइलें' के रूप में सेव करें।"
       }
     },
     {
       "question_id": 46,
       "question": {
-        "en": "The 'alink' attribute specifies the color of ______.",
-        "hi": "'alink' एट्रिब्यूट ______ के रंग को निर्दिष्ट करता है।"
+        "en": "What does the 'alink' attribute in the &lt;BODY&gt; tag define?",
+        "hi": "&lt;BODY&gt; टैग में 'alink' एट्रिब्यूट क्या परिभाषित करता है?"
       },
       "options": {
-        "a": {"en": "all links", "hi": "all links"},
-        "b": {"en": "activated links", "hi": "activated links"},
-        "c": {"en": "ancient links", "hi": "ancient links"},
-        "d": {"en": "available links", "hi": "available links"}
+        "a": {"en": "all links", "hi": "सभी लिंक"},
+        "b": {"en": "activated link color", "hi": "सक्रिय (activated) लिंक का रंग"},
+        "c": {"en": "alignment of links", "hi": "लिंक्स का अलाइनमेंट"},
+        "d": {"en": "available links", "hi": "उपलब्ध लिंक"}
       },
       "correct_option": "b",
       "hint": {
-        "en": "Default color is red.",
-        "hi": "डिफ़ॉल्ट रंग लाल है।"
+        "en": "The color seen while the mouse button is pressed on a link.",
+        "hi": "लिंक पर माउस बटन दबाए जाने के दौरान दिखने वाला रंग।"
       },
       "explanation": {
-        "en": "The alink attribute is used to define the color of activated link displayed in the web page.",
-        "hi": "alink एट्रिब्यूट का उपयोग वेब पेज में प्रदर्शित सक्रिय (activated) लिंक के रंग को परिभाषित करने के लिए किया जाता है।"
+        "en": "alink stands for 'activated link', defining the color while the link is being clicked.",
+        "hi": "alink का अर्थ है 'एक्टिवेटेड लिंक', जो लिंक पर क्लिक किए जाने के दौरान रंग को परिभाषित करता है।"
       },
       "key_takeaway": {
-        "en": "alink = color while the link is being clicked.",
-        "hi": "alink = वह रंग जब लिंक पर क्लिक किया जा रहा हो।"
+        "en": "alink = temporary color during click.",
+        "hi": "alink = क्लिक के दौरान अस्थायी रंग।"
       }
     },
     {
       "question_id": 47,
       "question": {
-        "en": "Which tag is used for the smallest heading?",
-        "hi": "सबसे छोटी हेडिंग के लिए किस टैग का उपयोग किया जाता है?"
+        "en": "Which tag produces the smallest standard heading?",
+        "hi": "कौन सा टैग सबसे छोटी मानक हेडिंग उत्पन्न करता है?"
       },
       "options": {
         "a": {"en": "&lt;H1&gt;", "hi": "&lt;H1&gt;"},
         "b": {"en": "&lt;H6&gt;", "hi": "&lt;H6&gt;"},
         "c": {"en": "&lt;SMALL&gt;", "hi": "&lt;SMALL&gt;"},
-        "d": {"en": "&lt;HEAD&gt;", "hi": "&lt;HEAD&gt;"}
+        "d": {"en": "&lt;H5&gt;", "hi": "&lt;H5&gt;"}
       },
       "correct_option": "b",
       "hint": {
-        "en": "Heading tags are from 1 to 6.",
-        "hi": "हेडिंग टैग 1 से 6 तक होते हैं।"
+        "en": "The final level in the H-series hierarchy.",
+        "hi": "H-श्रृंखला पदानुक्रम में अंतिम स्तर।"
       },
       "explanation": {
-        "en": "H1 is the largest heading and H6 is the smallest heading.",
-        "hi": "H1 सबसे बड़ी हेडिंग है और H6 सबसे छोटी हेडिंग है।"
+        "en": "H6 is the smallest available heading level in standard HTML.",
+        "hi": "मानक HTML में H6 सबसे छोटा उपलब्ध हेडिंग स्तर है।"
       },
       "key_takeaway": {
-        "en": "H6 = Minimum heading size.",
-        "hi": "H6 = न्यूनतम हेडिंग आकार।"
+        "en": "H1 is largest; H6 is smallest.",
+        "hi": "H1 सबसे बड़ा है; H6 सबसे छोटा है।"
       }
     },
     {
@@ -1239,75 +1239,75 @@
         "hi": "&lt;U&gt; टैग का क्या कार्य है?"
       },
       "options": {
-        "a": {"en": "to bold text", "hi": "टेक्स्ट को बोल्ड करना"},
-        "b": {"en": "to underline text", "hi": "टेक्स्ट को रेखांकित (underline) करना"},
-        "c": {"en": "to italicise text", "hi": "टेक्स्ट को इटैलिक करना"},
-        "d": {"en": "to uppercase text", "hi": "टेक्स्ट को अपरकेस करना"}
+        "a": {"en": "to underline text", "hi": "टेक्स्ट को रेखांकित (underline) करना"},
+        "b": {"en": "to update text", "hi": "टेक्स्ट को अपडेट करना"},
+        "c": {"en": "to uppercase text", "hi": "टेक्स्ट को अपरकेस करना"},
+        "d": {"en": "to unlink text", "hi": "टेक्स्ट को अनलिंक करना"}
       },
-      "correct_option": "b",
+      "correct_option": "a",
       "hint": {
-        "en": "It stands for Underline.",
-        "hi": "इसका मतलब अंडरलाइन है।"
+        "en": "Stands for Underline.",
+        "hi": "अंडरलाइन का संक्षिप्त रूप।"
       },
       "explanation": {
-        "en": "Underline tag: &lt;U&gt; ... &lt;/U&gt; tag is used to underline text.",
-        "hi": "अंडरलाइन टैग: &lt;U&gt; ... &lt;/U&gt; टैग का उपयोग टेक्स्ट को रेखांकित करने के लिए किया जाता है।"
+        "en": "The &lt;U&gt; tag adds a horizontal line under the enclosed text segment.",
+        "hi": "&lt;U&gt; टैग संलग्न टेक्स्ट खंड के नीचे एक क्षैतिज रेखा जोड़ता है।"
       },
       "key_takeaway": {
-        "en": "&lt;U&gt; adds a horizontal line beneath text.",
-        "hi": "&lt;U&gt; टेक्स्ट के नीचे एक क्षैतिज रेखा जोड़ता है।"
+        "en": "&lt;U&gt; = Underlined text style.",
+        "hi": "&lt;U&gt; = अंडरलाइन टेक्स्ट स्टाइल।"
       }
     },
     {
       "question_id": 49,
       "question": {
-        "en": "Which attribute is used to provide a background image in a table?",
-        "hi": "टेबल में बैकग्राउंड इमेज प्रदान करने के लिए किस एट्रिब्यूट का उपयोग किया जाता है?"
+        "en": "To set the background color of a whole table, use the 'bgcolor' attribute in the ______ tag.",
+        "hi": "पूरी टेबल का बैकग्राउंड रंग सेट करने के लिए, ______ टैग में 'bgcolor' एट्रिब्यूट का उपयोग करें।"
       },
       "options": {
-        "a": {"en": "bgcolor", "hi": "bgcolor"},
-        "b": {"en": "background", "hi": "background"},
-        "c": {"en": "img", "hi": "img"},
-        "d": {"en": "src", "hi": "src"}
+        "a": {"en": "&lt;TR&gt;", "hi": "&lt;TR&gt;"},
+        "b": {"en": "&lt;TABLE&gt;", "hi": "&lt;TABLE&gt;"},
+        "c": {"en": "&lt;TD&gt;", "hi": "&lt;TD&gt;"},
+        "d": {"en": "&lt;TH&gt;", "hi": "&lt;TH&gt;"}
       },
       "correct_option": "b",
       "hint": {
-        "en": "Note that it is only mentioned for the BODY tag in the attributes list but applies similarly.",
-        "hi": "ध्यान दें कि यह एट्रिब्यूट सूची में केवल BODY टैग के लिए उल्लेखित है लेकिन इसी तरह लागू होता है।"
+        "en": "The main container for the entire grid structure.",
+        "hi": "संपूर्ण ग्रिड संरचना के लिए मुख्य कंटेनर।"
       },
       "explanation": {
-        "en": "The background attribute is generally used for images, while bgcolor is used for background colors.",
-        "hi": "background एट्रिब्यूट का उपयोग आम तौर पर इमेज के लिए किया जाता है, जबकि bgcolor का उपयोग बैकग्राउंड रंगों के लिए किया जाता है।"
+        "en": "Attributes applied to &lt;TABLE&gt; affect the entire table structure unless overridden in cells.",
+        "hi": "&lt;TABLE&gt; पर लागू एट्रिब्यूट पूरी टेबल संरचना को प्रभावित करते हैं जब तक कि सेल में उन्हें बदला न जाए।"
       },
       "key_takeaway": {
-        "en": "Use background for textures/photos; bgcolor for solid colors.",
-        "hi": "टेक्सचर/फोटो के लिए background का उपयोग करें; ठोस रंगों के लिए bgcolor का।"
+        "en": "TABLE attributes = global table settings.",
+        "hi": "TABLE एट्रिब्यूट्स = वैश्विक टेबल सेटिंग्स।"
       }
     },
     {
       "question_id": 50,
       "question": {
-        "en": "Which of the following describes 'Internal linking'?",
-        "hi": "निम्नलिखित में से कौन 'इंटरनल लिंकिंग' का वर्णन करता है?"
+        "en": "Internal linking is used to ______.",
+        "hi": "इंटरनल लिंकिंग का उपयोग ______ के लिए किया जाता है।"
       },
       "options": {
-        "a": {"en": "Linking to a new website", "hi": "नई वेबसाइट को लिंक करना"},
-        "b": {"en": "Displaying another part of the same web-page", "hi": "उसी वेब-पेज के किसी और भाग को प्रदर्शित करना"},
-        "c": {"en": "Adding images to code", "hi": "कोड में इमेज जोड़ना"},
-        "d": {"en": "Creating a new HTML file", "hi": "नई HTML फ़ाइल बनाना"}
+        "a": {"en": "connect to a different website", "hi": "एक अलग वेबसाइट से जुड़ने"},
+        "b": {"en": "jump to another part of the same web-page", "hi": "उसी वेब-पेज के दूसरे भाग पर जाने"},
+        "c": {"en": "download a file", "hi": "फ़ाइल डाउनलोड करने"},
+        "d": {"en": "close the browser", "hi": "ब्राउज़र बंद करने"}
       },
       "correct_option": "b",
       "hint": {
-        "en": "It uses named anchors like #top.",
-        "hi": "यह #top जैसे नामांकित एंकर का उपयोग करता है।"
+        "en": "Useful for navigating long single-page documents.",
+        "hi": "लंबे सिंगल-पेज दस्तावेज़ों को नेविगेट करने के लिए उपयोगी।"
       },
       "explanation": {
-        "en": "Internal linking: Internal links are used to display another part of the same web-page.",
-        "hi": "इंटरनल लिंकिंग: आंतरिक लिंक का उपयोग उसी वेब-पेज के किसी और भाग को प्रदर्शित करने के लिए किया जाता है।"
+        "en": "Internal links navigate within the current document using anchor names.",
+        "hi": "इंटरनल लिंक एंकर नामों का उपयोग करके वर्तमान दस्तावेज़ के भीतर नेविगेट करते हैं।"
       },
       "key_takeaway": {
-        "en": "Internal links improve navigation within long pages.",
-        "hi": "इंटरनल लिंक लंबे पेजों के भीतर नेविगेशन में सुधार करते हैं।"
+        "en": "Internal Link = intra-document navigation.",
+        "hi": "इंटरनल लिंक = इंट्रा-डॉक्यूमेंट नेविगेशन।"
       }
     }
   ]
