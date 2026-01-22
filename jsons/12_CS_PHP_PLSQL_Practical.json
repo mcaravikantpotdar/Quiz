@@ -1,0 +1,924 @@
+{
+  "metadata": {
+    "chapter_numbers": [4, 6],
+    "chapter_title": "PHP and PL/SQL Practical Logic - Comparative Study",
+    "chapter_title_hindi": "PHP और PL/SQL प्रैक्टिकल लॉजिक - तुलनात्मक अध्ययन",
+    "subject": "Computer Science - Class 12",
+    "board": "HPBOSE",
+    "total_questions": 35,
+    "version": "1.0",
+    "naming_convention": "12_CS_PHP_PLSQL_Practical.json"
+  },
+  "questions": [
+    {
+      "question_id": 1,
+      "question": {
+        "en": "Predict the output of this PHP code snippet:\n\n$S1 = 'I love';\n$S2 = ' my country ';\necho $S1 . $S2 . 'India';",
+        "hi": "इस PHP कोड स्निपेट के आउटपुट का अनुमान लगाएं:\n\n$S1 = 'I love';\n$S2 = ' my country ';\necho $S1 . $S2 . 'India';"
+      },
+      "options": {
+        "a": {"en": "I love my countryIndia", "hi": "I love my countryIndia"},
+        "b": {"en": "I love my country India", "hi": "I love my country India"},
+        "c": {"en": "I lovemy countryIndia", "hi": "I lovemy countryIndia"},
+        "d": {"en": "Error: . operator not found", "hi": "एरर: . ऑपरेटर नहीं मिला"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "PHP uses the dot (.) operator to join strings. Check the spaces in $S2.",
+        "hi": "PHP स्ट्रिंग्स को जोड़ने के लिए डॉट (.) ऑपरेटर का उपयोग करता है। $S2 में स्पेस (खाली जगह) की जाँच करें।"
+      },
+      "explanation": {
+        "en": "The variables are joined sequentially. $S1 ('I love') + $S2 (' my country ') + 'India' results in 'I love my country India'.",
+        "hi": "वेरिएबल्स क्रमिक रूप से जुड़े हुए हैं। $S1 ('I love') + $S2 (' my country ') + 'India' का परिणाम 'I love my country India' होता है।"
+      },
+      "key_takeaway": {
+        "en": "In PHP, concatenation is done with a dot (.).",
+        "hi": "PHP में, कॉन्केटनेशन (जोड़ना) डॉट (.) के साथ किया जाता है।"
+      }
+    },
+    {
+      "question_id": 2,
+      "question": {
+        "en": "In the PL/SQL equivalent of joining strings, which operator replaces the PHP dot (.) operator?\n\nS3 := S1 || S2;",
+        "hi": "स्ट्रिंग्स को जोड़ने के PL/SQL समकक्ष में, कौन सा ऑपरेटर PHP के डॉट (.) ऑपरेटर को बदल देता है?\n\nS3 := S1 || S2;"
+      },
+      "options": {
+        "a": {"en": "+", "hi": "+"},
+        "b": {"en": "&amp;", "hi": "&amp;"},
+        "c": {"en": "||", "hi": "||"},
+        "d": {"en": "..", "hi": ".."}
+      },
+      "correct_option": "c",
+      "hint": {
+        "en": "It is called the double pipe operator.",
+        "hi": "इसे डबल पाइप ऑपरेटर कहा जाता है।"
+      },
+      "explanation": {
+        "en": "While PHP uses '.', PL/SQL uses '||' (double pipe) to concatenate strings together.",
+        "hi": "जहाँ PHP '.' का उपयोग करता है, वहीं PL/SQL स्ट्रिंग्स को आपस में जोड़ने के लिए '||' (डबल पाइप) का उपयोग करता है।"
+      },
+      "key_takeaway": {
+        "en": "PL/SQL Concatenation = || operator.",
+        "hi": "PL/SQL कॉन्केटनेशन = || ऑपरेटर।"
+      }
+    },
+    {
+      "question_id": 3,
+      "question": {
+        "en": "What will be the output of the modulus operation in this PHP code?\n\n$a = 5;\n$b = 2;\necho $a % $b;",
+        "hi": "इस PHP कोड में मॉड्यूलस (modulus) संक्रिया का आउटपुट क्या होगा?\n\n$a = 5;\n$b = 2;\necho $a % $b;"
+      },
+      "options": {
+        "a": {"en": "2.5", "hi": "2.5"},
+        "b": {"en": "2", "hi": "2"},
+        "c": {"en": "1", "hi": "1"},
+        "d": {"en": "0", "hi": "0"}
+      },
+      "correct_option": "c",
+      "hint": {
+        "en": "The '%' operator returns the remainder after division.",
+        "hi": "'%' ऑपरेटर विभाजन के बाद शेषफल लौटाता है।"
+      },
+      "explanation": {
+        "en": "5 divided by 2 is 2 with a remainder of 1. The modulus operator returns this remainder.",
+        "hi": "5 को 2 से विभाजित करने पर 2 आता है और शेषफल 1 बचता है। मॉड्यूलस ऑपरेटर यही शेषफल लौटाता है।"
+      },
+      "key_takeaway": {
+        "en": "% (PHP) is identical in function to MOD(a, b) in PL/SQL.",
+        "hi": "PHP में % का कार्य PL/SQL में MOD(a, b) के समान है।"
+      }
+    },
+    {
+      "question_id": 4,
+      "question": {
+        "en": "How is the 'remainder' operation written in PL/SQL, compared to PHP's '$a % $b'?",
+        "hi": "PHP के '$a % $b' की तुलना में, PL/SQL में 'शेषफल' (remainder) संक्रिया कैसे लिखी जाती है?"
+      },
+      "options": {
+        "a": {"en": "a % b", "hi": "a % b"},
+        "b": {"en": "REM(a, b)", "hi": "REM(a, b)"},
+        "c": {"en": "MOD(a, b)", "hi": "MOD(a, b)"},
+        "d": {"en": "a MOD b", "hi": "a MOD b"}
+      },
+      "correct_option": "c",
+      "hint": {
+        "en": "PL/SQL uses a built-in function instead of a symbol operator like %.",
+        "hi": "PL/SQL % जैसे प्रतीक ऑपरेटर के बजाय एक इन-बिल्ट फंक्शन का उपयोग करता है।"
+      },
+      "explanation": {
+        "en": "In PL/SQL, the MOD function is used: MOD(value, divisor) to get the remainder.",
+        "hi": "PL/SQL में, शेषफल प्राप्त करने के लिए MOD फंक्शन का उपयोग किया जाता है: MOD(value, divisor)।"
+      },
+      "key_takeaway": {
+        "en": "PHP remainder: % | PL/SQL remainder: MOD().",
+        "hi": "PHP शेषफल: % | PL/SQL शेषफल: MOD()।"
+      }
+    },
+    {
+      "question_id": 5,
+      "question": {
+        "en": "Predict the output of the following PHP code for calculating Area of a Rectangle:\n\n$L = 50;\n$W = 20;\n$A = $L * $W;\necho $A;",
+        "hi": "आयत के क्षेत्रफल की गणना करने के लिए निम्नलिखित PHP कोड के आउटपुट का अनुमान लगाएं:\n\n$L = 50;\n$W = 20;\n$A = $L * $W;\necho $A;"
+      },
+      "options": {
+        "a": {"en": "70", "hi": "70"},
+        "b": {"en": "100", "hi": "100"},
+        "c": {"en": "1000", "hi": "1000"},
+        "d": {"en": "500", "hi": "500"}
+      },
+      "correct_option": "c",
+      "hint": {
+        "en": "Area = Length * Width. Multiply 50 by 20.",
+        "hi": "क्षेत्रफल = लंबाई * चौड़ाई। 50 को 20 से गुणा करें।"
+      },
+      "explanation": {
+        "en": "The multiplication operator (*) works the same in both PHP and PL/SQL. 50 * 20 = 1000.",
+        "hi": "गुणा ऑपरेटर (*) PHP और PL/SQL दोनों में समान रूप से काम करता है। 50 * 20 = 1000।"
+      },
+      "key_takeaway": {
+        "en": "Basic math operators (+, -, *, /) are generally consistent across languages.",
+        "hi": "बुनियादी गणित ऑपरेटर (+, -, *, /) आमतौर पर सभी भाषाओं में एक समान होते हैं।"
+      }
+    },
+    {
+      "question_id": 6,
+      "question": {
+        "en": "Identify the logic error in this PL/SQL assignment snippet:\n\nDECLARE\n    A NUMBER;\nBEGIN\n    A = 50 * 20;\nEND;",
+        "hi": "इस PL/SQL असाइनमेंट स्निपेट में लॉजिक एरर की पहचान करें:\n\nDECLARE\n    A NUMBER;\nBEGIN\n    A = 50 * 20;\nEND;"
+      },
+      "options": {
+        "a": {"en": "The variable A is not declared", "hi": "वेरिएबल A घोषित नहीं है"},
+        "b": {"en": "The assignment operator should be ':=' instead of '='", "hi": "असाइनमेंट ऑपरेटर '=' के बजाय ':=' होना चाहिए"},
+        "c": {"en": "NUMBER is not a valid data type", "hi": "NUMBER एक मान्य डेटा टाइप नहीं है"},
+        "d": {"en": "Missing curly braces", "hi": "कर्ली ब्रेसेस गायब हैं"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "PL/SQL uses a colon before the equal sign for assigning values.",
+        "hi": "PL/SQL मान निर्दिष्ट करने के लिए बराबर के चिह्न से पहले कोलन (colon) का उपयोग करता है।"
+      },
+      "explanation": {
+        "en": "In PL/SQL, '=' is used only for comparison. For assignment, the operator must be ':='.",
+        "hi": "PL/SQL में, '=' का उपयोग केवल तुलना के लिए किया जाता है। असाइनमेंट के लिए, ऑपरेटर ':=' होना चाहिए।"
+      },
+      "key_takeaway": {
+        "en": "Assignment: PHP ($x = 10;) vs PL/SQL (x := 10;).",
+        "hi": "असाइनमेंट: PHP ($x = 10;) बनाम PL/SQL (x := 10;)।"
+      }
+    },
+    {
+      "question_id": 7,
+      "question": {
+        "en": "What is the result of the following exponentiation in PHP?\n\n$a = 5;\n$b = 2;\necho $a ** $b;",
+        "hi": "PHP में निम्नलिखित एक्सपोनेंटियशन (exponentiation) का परिणाम क्या होगा?\n\n$a = 5;\n$b = 2;\necho $a ** $b;"
+      },
+      "options": {
+        "a": {"en": "10", "hi": "10"},
+        "b": {"en": "25", "hi": "25"},
+        "c": {"en": "7", "hi": "7"},
+        "d": {"en": "3", "hi": "3"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "The double asterisk (**) means 'to the power of'.",
+        "hi": "डबल एस्टेरिस्क (**) का अर्थ है 'की घात'।"
+      },
+      "explanation": {
+        "en": "5 ** 2 is 5 raised to the power of 2 (5 * 5), which is 25.",
+        "hi": "5 ** 2 का अर्थ है 5 की घात 2 (5 * 5), जो 25 है।"
+      },
+      "key_takeaway": {
+        "en": "** is the exponent operator in PHP.",
+        "hi": "PHP में ** एक्सपोनेंट ऑपरेटर है।"
+      }
+    },
+    {
+      "question_id": 8,
+      "question": {
+        "en": "Which PL/SQL function replaces the PHP '**' operator for power calculations?\n\nAR := 3.14 * ______(Rad, 2);",
+        "hi": "पावर गणना के लिए कौन सा PL/SQL फंक्शन PHP के '**' ऑपरेटर की जगह लेता है?\n\nAR := 3.14 * ______(Rad, 2);"
+      },
+      "options": {
+        "a": {"en": "POW", "hi": "POW"},
+        "b": {"en": "SQRT", "hi": "SQRT"},
+        "c": {"en": "POWER", "hi": "POWER"},
+        "d": {"en": "EXP", "hi": "EXP"}
+      },
+      "correct_option": "c",
+      "hint": {
+        "en": "It is a full English word used as a math function in SQL/PLSQL.",
+        "hi": "यह SQL/PLSQL में गणित फंक्शन के रूप में उपयोग किया जाने वाला पूरा अंग्रेजी शब्द है।"
+      },
+      "explanation": {
+        "en": "PL/SQL uses the POWER(base, exponent) function for power calculations. PHP uses the '**' operator.",
+        "hi": "PL/SQL पावर गणना के लिए POWER(base, exponent) फंक्शन का उपयोग करता है। PHP '**' ऑपरेटर का उपयोग करता है।"
+      },
+      "key_takeaway": {
+        "en": "PHP: ** | PL/SQL: POWER() function.",
+        "hi": "PHP: ** | PL/SQL: POWER() फंक्शन।"
+      }
+    },
+    {
+      "question_id": 9,
+      "question": {
+        "en": "Predict the output of this conditional check in PHP:\n\n$age = 22;\nif ($age >= 18)\n{\n    echo \"Yes\";\n}\nelse\n{\n    echo \"No\";\n}",
+        "hi": "PHP में इस कंडीशनल चेक के आउटपुट का अनुमान लगाएं:\n\n$age = 22;\nif ($age >= 18)\n{\n    echo \"Yes\";\n}\nelse\n{\n    echo \"No\";\n}"
+      },
+      "options": {
+        "a": {"en": "Yes", "hi": "Yes"},
+        "b": {"en": "No", "hi": "No"},
+        "c": {"en": "Error", "hi": "Error"},
+        "d": {"en": "22", "hi": "22"}
+      },
+      "correct_option": "a",
+      "hint": {
+        "en": "Check if 22 is greater than or equal to 18.",
+        "hi": "जाँचें कि क्या 22, 18 से बड़ा या उसके बराबर है।"
+      },
+      "explanation": {
+        "en": "Since 22 is indeed greater than 18, the condition is TRUE and the 'if' block executes.",
+        "hi": "चूंकि 22 वास्तव में 18 से बड़ा है, इसलिए शर्त TRUE है और 'if' ब्लॉक निष्पादित होता है।"
+      },
+      "key_takeaway": {
+        "en": "PHP uses braces { } to group conditional code blocks.",
+        "hi": "PHP कंडीशनल कोड ब्लॉक को समूहबद्ध करने के लिए ब्रेसेस { } का उपयोग करता है।"
+      }
+    },
+    {
+      "question_id": 10,
+      "question": {
+        "en": "Convert the previous 'Vote' logic to PL/SQL. Which part is correct?\n\nIF (age >= 18) ______",
+        "hi": "पिछले 'वोट' लॉजिक को PL/SQL में बदलें। कौन सा हिस्सा सही है?\n\nIF (age >= 18) ______"
+      },
+      "options": {
+        "a": {"en": "DO", "hi": "DO"},
+        "b": {"en": "THEN", "hi": "THEN"},
+        "c": {"en": "{", "hi": "{"},
+        "d": {"en": "BEGIN", "hi": "BEGIN"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "PL/SQL uses this keyword after the condition to start the action.",
+        "hi": "PL/SQL क्रिया शुरू करने के लिए शर्त के बाद इस कीवर्ड का उपयोग करता है।"
+      },
+      "explanation": {
+        "en": "PL/SQL syntax for IF statements is: IF (condition) THEN [action] END IF;.",
+        "hi": "IF स्टेटमेंट के लिए PL/SQL सिंटैक्स है: IF (condition) THEN [action] END IF;।"
+      },
+      "key_takeaway": {
+        "en": "PL/SQL requires the THEN keyword after every IF and ELSIF condition.",
+        "hi": "PL/SQL को प्रत्येक IF और ELSIF शर्त के बाद THEN कीवर्ड की आवश्यकता होती है।"
+      }
+    },
+    {
+      "question_id": 11,
+      "question": {
+        "en": "In a PHP grading system, how is 'elseif' written, and how does it differ in PL/SQL?",
+        "hi": "PHP ग्रेडिंग सिस्टम में 'elseif' कैसे लिखा जाता है, और यह PL/SQL में कैसे भिन्न है?"
+      },
+      "options": {
+        "a": {"en": "PHP: else if | PL/SQL: ELSIF", "hi": "PHP: else if | PL/SQL: ELSIF"},
+        "b": {"en": "PHP: elseif | PL/SQL: ELSIF", "hi": "PHP: elseif | PL/SQL: ELSIF"},
+        "c": {"en": "PHP: elseif | PL/SQL: ELSEIF", "hi": "PHP: elseif | PL/SQL: ELSEIF"},
+        "d": {"en": "Both use elseif", "hi": "दोनों elseif का उपयोग करते हैं"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "PL/SQL removes the 'E' in 'ELSEIF'.",
+        "hi": "PL/SQL 'ELSEIF' में से 'E' हटा देता है।"
+      },
+      "explanation": {
+        "en": "PHP typically uses 'elseif' (all one word). PL/SQL uses 'ELSIF' (no 'E' between S and I).",
+        "hi": "PHP आमतौर पर 'elseif' (एक शब्द) का उपयोग करता है। PL/SQL 'ELSIF' (S और I के बीच 'E' नहीं) का उपयोग करता है।"
+      },
+      "key_takeaway": {
+        "en": "Spelling check: PHP (elseif) vs PL/SQL (ELSIF).",
+        "hi": "स्पेलिंग चेक: PHP (elseif) बनाम PL/SQL (ELSIF)।"
+      }
+    },
+    {
+      "question_id": 12,
+      "question": {
+        "en": "What will be the output for a student with marks m = 75 in this PL/SQL block?\n\nIF (m >= 85) THEN DBMS...('Distinction');\nELSIF (m >= 33) THEN DBMS...('Pass');\nELSE DBMS...('Fail');\nEND IF;",
+        "hi": "इस PL/SQL ब्लॉक में m = 75 अंक वाले छात्र के लिए आउटपुट क्या होगा?\n\nIF (m >= 85) THEN DBMS...('Distinction');\nELSIF (m >= 33) THEN DBMS...('Pass');\nELSE DBMS...('Fail');\nEND IF;"
+      },
+      "options": {
+        "a": {"en": "Distinction", "hi": "Distinction"},
+        "b": {"en": "Pass", "hi": "Pass"},
+        "c": {"en": "Fail", "hi": "Fail"},
+        "d": {"en": "Error", "hi": "Error"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "The second condition (m >= 33) will evaluate to TRUE.",
+        "hi": "दूसरी शर्त (m >= 33) TRUE (सत्य) होगी।"
+      },
+      "explanation": {
+        "en": "75 is not >= 85, but it is >= 33. The code skips the first block and executes the ELSIF block.",
+        "hi": "75 >= 85 नहीं है, लेकिन यह >= 33 है। कोड पहले ब्लॉक को छोड़ देता है और ELSIF ब्लॉक को निष्पादित करता है।"
+      },
+      "key_takeaway": {
+        "en": "Both languages evaluate conditions from top to bottom.",
+        "hi": "दोनों भाषाएं ऊपर से नीचे तक शर्तों का मूल्यांकन करती हैं।"
+      }
+    },
+    {
+      "question_id": 13,
+      "question": {
+        "en": "Predict the output of this Leap Year check in PHP for $y = 2025:\n\nif ($y % 4 == 0)\n{\n    echo 'Leap';\n}\nelse\n{\n    echo 'Not Leap';\n}",
+        "hi": "$y = 2025 के लिए PHP में इस लीप वर्ष की जाँच के आउटपुट का अनुमान लगाएं:\n\nif ($y % 4 == 0)\n{\n    echo 'Leap';\n}\nelse\n{\n    echo 'Not Leap';\n}"
+      },
+      "options": {
+        "a": {"en": "Leap", "hi": "Leap"},
+        "b": {"en": "Not Leap", "hi": "Not Leap"},
+        "c": {"en": "Error", "hi": "Error"},
+        "d": {"en": "0", "hi": "0"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "2025 divided by 4 leaves a remainder of 1.",
+        "hi": "2025 को 4 से विभाजित करने पर शेषफल 1 बचता है।"
+      },
+      "explanation": {
+        "en": "2025 % 4 is not 0, so the condition is FALSE. The 'else' block executes.",
+        "hi": "2025 % 4, 0 नहीं है, इसलिए शर्त FALSE है। 'else' ब्लॉक निष्पादित होता है।"
+      },
+      "key_takeaway": {
+        "en": "Leap year logic uses divisibility by 4 as a basic check.",
+        "hi": "लीप वर्ष लॉजिक बुनियादी जाँच के रूप में 4 से विभाज्यता का उपयोग करता है।"
+      }
+    },
+    {
+      "question_id": 14,
+      "question": {
+        "en": "In PL/SQL, what is the mandatory ending for an IF-ELSE structure?",
+        "hi": "PL/SQL में, IF-ELSE संरचना के लिए अनिवार्य अंत क्या है?"
+      },
+      "options": {
+        "a": {"en": "}", "hi": "}"},
+        "b": {"en": "END;", "hi": "END;"},
+        "c": {"en": "END IF;", "hi": "END IF;"},
+        "d": {"en": "DONE;", "hi": "DONE;"}
+      },
+      "correct_option": "c",
+      "hint": {
+        "en": "It includes the name of the conditional tag itself.",
+        "hi": "इसमें स्वयं कंडीशनल टैग का नाम शामिल होता है।"
+      },
+      "explanation": {
+        "en": "Unlike PHP which uses a brace '}', PL/SQL requires 'END IF;' to close a conditional block.",
+        "hi": "PHP के विपरीत जो ब्रेस '}' का उपयोग करता है, PL/SQL को कंडीशनल ब्लॉक को बंद करने के लिए 'END IF;' की आवश्यकता होती है।"
+      },
+      "key_takeaway": {
+        "en": "PL/SQL IF blocks must always be closed with END IF;.",
+        "hi": "PL/SQL IF ब्लॉक हमेशा END IF; के साथ बंद होने चाहिए।"
+      }
+    },
+    {
+      "question_id": 15,
+      "question": {
+        "en": "What will be printed if $m = 59 in this PHP Grading code?\n\nif ($m >= 90) { echo 'Grade A'; }\nelseif ($m >= 50) { echo 'Grade C'; }\nelse { echo 'Grade E'; }",
+        "hi": "यदि इस PHP ग्रेडिंग कोड में $m = 59 है तो क्या प्रिंट होगा?\n\nif ($m >= 90) { echo 'Grade A'; }\nelseif ($m >= 50) { echo 'Grade C'; }\nelse { echo 'Grade E'; }"
+      },
+      "options": {
+        "a": {"en": "Grade A", "hi": "Grade A"},
+        "b": {"en": "Grade C", "hi": "Grade C"},
+        "c": {"en": "Grade E", "hi": "Grade E"},
+        "d": {"en": "Fail", "hi": "Fail"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "Is 59 >= 90? No. Is 59 >= 50? Yes.",
+        "hi": "क्या 59 >= 90 है? नहीं। क्या 59 >= 50 है? हाँ।"
+      },
+      "explanation": {
+        "en": "The score 59 falls into the >= 50 category, so the corresponding 'Grade C' is echoed.",
+        "hi": "स्कोर 59, >= 50 श्रेणी में आता है, इसलिए संबंधित 'Grade C' आउटपुट में आता है।"
+      },
+      "key_takeaway": {
+        "en": "PHP logic stops after finding the first TRUE condition in an elseif chain.",
+        "hi": "PHP लॉजिक elseif श्रृंखला में पहली TRUE शर्त मिलने के बाद रुक जाता है।"
+      }
+    },
+    {
+      "question_id": 16,
+      "question": {
+        "en": "Which PHP loop is used for the Natural Number series (1 to 20) when using a 'Do-While' approach?",
+        "hi": "नेचुरल नंबर सीरीज (1 से 20) के लिए 'Do-While' दृष्टिकोण का उपयोग करते समय किस PHP लूप का उपयोग किया जाता है?"
+      },
+      "options": {
+        "a": {"en": "do { ... } while ($N <= 20);", "hi": "do { ... } while ($N <= 20);"},
+        "b": {"en": "while ($N <= 20) { ... }", "hi": "while ($N <= 20) { ... }"},
+        "c": {"en": "for ($N=1; $N<=20; $N++) { ... }", "hi": "for ($N=1; $N<=20; $N++) { ... }"},
+        "d": {"en": "repeat { ... } until ($N > 20);", "hi": "repeat { ... } until ($N > 20);"}
+      },
+      "correct_option": "a",
+      "hint": {
+        "en": "In this loop, action comes before the condition check.",
+        "hi": "इस लूप में, क्रिया शर्त जाँच से पहले आती है।"
+      },
+      "explanation": {
+        "en": "The PHP 'do-while' syntax is 'do { block } while (condition);'. It executes at least once.",
+        "hi": "PHP 'do-while' सिंटैक्स 'do { block } while (condition);' है। यह कम से कम एक बार निष्पादित होता है।"
+      },
+      "key_takeaway": {
+        "en": "do-while (PHP) = Exit-controlled loop.",
+        "hi": "do-while (PHP) = एग्जिट-कंट्रोल्ड लूप।"
+      }
+    },
+    {
+      "question_id": 17,
+      "question": {
+        "en": "What is the equivalent of a 'Do-While' loop in PL/SQL syntax?",
+        "hi": "PL/SQL सिंटैक्स में 'Do-While' लूप के समकक्ष क्या है?"
+      },
+      "options": {
+        "a": {"en": "DO ... WHILE", "hi": "DO ... WHILE"},
+        "b": {"en": "LOOP ... EXIT WHEN ... END LOOP;", "hi": "LOOP ... EXIT WHEN ... END LOOP;"},
+        "c": {"en": "REPEAT ... UNTIL", "hi": "REPEAT ... UNTIL"},
+        "d": {"en": "WHILE ... LOOP", "hi": "WHILE ... LOOP"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "It is often called a 'Basic Loop'.",
+        "hi": "इसे अक्सर 'बेसिक लूप' कहा जाता है।"
+      },
+      "explanation": {
+        "en": "PL/SQL uses a Basic Loop structure (LOOP ... END LOOP;) with an 'EXIT WHEN' condition to act like a do-while loop.",
+        "hi": "PL/SQL एक बेसिक लूप संरचना (LOOP ... END LOOP;) का उपयोग करता है जिसमें 'EXIT WHEN' शर्त होती है, जो do-while लूप की तरह कार्य करती है।"
+      },
+      "key_takeaway": {
+        "en": "PL/SQL Basic Loop = exit condition inside the loop.",
+        "hi": "PL/SQL बेसिक लूप = लूप के अंदर एग्जिट कंडीशन।"
+      }
+    },
+    {
+      "question_id": 18,
+      "question": {
+        "en": "Which statement correctly updates the variable N to print the Even Number series (2, 4, 6...)?",
+        "hi": "सम संख्या (Even Number) सीरीज (2, 4, 6...) प्रिंट करने के लिए कौन सा स्टेटमेंट वेरिएबल N को सही ढंग से अपडेट करता है?"
+      },
+      "options": {
+        "a": {"en": "$N = $N + 1;", "hi": "$N = $N + 1;"},
+        "b": {"en": "$N++;", "hi": "$N++;"},
+        "c": {"en": "$N = $N + 2;", "hi": "$N = $N + 2;"},
+        "d": {"en": "$N = $N * 2;", "hi": "$N = $N * 2;"}
+      },
+      "correct_option": "c",
+      "hint": {
+        "en": "To get even numbers, you must skip one number and jump by 2.",
+        "hi": "सम संख्याएँ प्राप्त करने के लिए, आपको एक संख्या छोड़नी होगी और 2 से कूदना होगा।"
+      },
+      "explanation": {
+        "en": "Starting from 2, adding 2 in each step ($N = $N + 2) results in 4, 6, 8, etc.",
+        "hi": "2 से शुरू करते हुए, प्रत्येक चरण में 2 जोड़ने पर ($N = $N + 2) परिणाम 4, 6, 8 आदि प्राप्त होते हैं।"
+      },
+      "key_takeaway": {
+        "en": "Loop step value determines the series sequence.",
+        "hi": "लूप स्टेप वैल्यू सीरीज के अनुक्रम को निर्धारित करती है।"
+      }
+    },
+    {
+      "question_id": 19,
+      "question": {
+        "en": "Predict the value of SUM after this PHP loop for natural numbers 1-10:\n\n$SUM = 0;\nfor ($N=1; $N<=10; $N++) { $SUM = $SUM + $N; }",
+        "hi": "नेचुरल नंबर 1-10 के लिए इस PHP लूप के बाद SUM के मान का अनुमान लगाएं:\n\n$SUM = 0;\nfor ($N=1; $N<=10; $N++) { $SUM = $SUM + $N; }"
+      },
+      "options": {
+        "a": {"en": "10", "hi": "10"},
+        "b": {"en": "45", "hi": "45"},
+        "c": {"en": "55", "hi": "55"},
+        "d": {"en": "100", "hi": "100"}
+      },
+      "correct_option": "c",
+      "hint": {
+        "en": "Sum = 1+2+3+4+5+6+7+8+9+10.",
+        "hi": "योग = 1+2+3+4+5+6+7+8+9+10।"
+      },
+      "explanation": {
+        "en": "The cumulative sum of numbers from 1 to 10 is exactly 55.",
+        "hi": "1 से 10 तक की संख्याओं का संचयी योग ठीक 55 है।"
+      },
+      "key_takeaway": {
+        "en": "Summation loops are a common practical programming exercise.",
+        "hi": "योग (Summation) लूप एक सामान्य प्रैक्टिकल प्रोग्रामिंग अभ्यास है।"
+      }
+    },
+    {
+      "question_id": 20,
+      "question": {
+        "en": "How is the 'FOR' loop counter incremented in PL/SQL compared to PHP's '$N++'?",
+        "hi": "PHP के '$N++' की तुलना में PL/SQL में 'FOR' लूप काउंटर कैसे बढ़ाया जाता है?"
+      },
+      "options": {
+        "a": {"en": "N++", "hi": "N++"},
+        "b": {"en": "N := N + 1", "hi": "N := N + 1"},
+        "c": {"en": "It increments automatically in the range 1..10", "hi": "यह रेंज 1..10 में अपने आप बढ़ जाता है"},
+        "d": {"en": "N =+ 1", "hi": "N =+ 1"}
+      },
+      "correct_option": "c",
+      "hint": {
+        "en": "PL/SQL FOR loops manage the counter internally within the specified range.",
+        "hi": "PL/SQL FOR लूप निर्दिष्ट सीमा के भीतर आंतरिक रूप से काउंटर का प्रबंधन करते हैं।"
+      },
+      "explanation": {
+        "en": "In PL/SQL 'FOR N IN 1..10 LOOP', the variable N increases by 1 automatically in each iteration. No manual increment is needed.",
+        "hi": "PL/SQL 'FOR N IN 1..10 LOOP' में, वेरिएबल N प्रत्येक राउंड में अपने आप 1 से बढ़ जाता है। किसी मैन्युअल इंक्रीमेंट की आवश्यकता नहीं है।"
+      },
+      "key_takeaway": {
+        "en": "PL/SQL FOR loops are range-based and auto-incrementing.",
+        "hi": "PL/SQL FOR लूप रेंज-आधारित और ऑटो-इंक्रीमेंटिंग होते हैं।"
+      }
+    },
+    {
+      "question_id": 21,
+      "question": {
+        "en": "What is the result of ($N1 > $N2 && $N1 > $N3) in PHP if $N1=10, $N2=20, $N3=30?",
+        "hi": "यदि $N1=10, $N2=20, $N3=30 है, तो PHP में ($N1 > $N2 && $N1 > $N3) का परिणाम क्या होगा?"
+      },
+      "options": {
+        "a": {"en": "TRUE", "hi": "TRUE"},
+        "b": {"en": "FALSE", "hi": "FALSE"},
+        "c": {"en": "Error", "hi": "Error"},
+        "d": {"en": "10", "hi": "10"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "Is 10 greater than 20? No.",
+        "hi": "क्या 10, 20 से बड़ा है? नहीं।"
+      },
+      "explanation": {
+        "en": "The Logical AND (&&) requires all conditions to be TRUE. Since 10 is not greater than 20, the entire result is FALSE.",
+        "hi": "लॉजिकल AND (&&) के लिए सभी शर्तों का TRUE होना आवश्यक है। चूंकि 10, 20 से बड़ा नहीं है, इसलिए पूरा परिणाम FALSE है।"
+      },
+      "key_takeaway": {
+        "en": "&& (AND) operator returns true only if both sides are true.",
+        "hi": "&& (AND) ऑपरेटर तभी सही लौटाता है जब दोनों पक्ष सही हों।"
+      }
+    },
+    {
+      "question_id": 22,
+      "question": {
+        "en": "Which PL/SQL block will correctly print the multiplication table of 11?",
+        "hi": "कौन सा PL/SQL ब्लॉक 11 का पहाड़ा सही ढंग से प्रिंट करेगा?"
+      },
+      "options": {
+        "a": {"en": "FOR N IN 1..10 LOOP ... (N * 11) ... END LOOP;", "hi": "FOR N IN 1..10 LOOP ... (N * 11) ... END LOOP;"},
+        "b": {"en": "WHILE N <= 110 LOOP ... N := N + 11; ... END LOOP;", "hi": "WHILE N <= 110 LOOP ... N := N + 11; ... END LOOP;"},
+        "c": {"en": "LOOP ... N := N + 11; EXIT WHEN N > 110; ... END LOOP;", "hi": "LOOP ... N := N + 11; EXIT WHEN N > 110; ... END LOOP;"},
+        "d": {"en": "All of the above", "hi": "उपरोक्त सभी"}
+      },
+      "correct_option": "d",
+      "hint": {
+        "en": "Tables can be generated using any loop type by adjusting the logic.",
+        "hi": "लॉजिक को एडजस्ट करके किसी भी लूप प्रकार का उपयोग करके पहाड़े (tables) बनाए जा सकते हैं।"
+      },
+      "explanation": {
+        "en": "All three loop structures in PL/SQL can produce the table of 11 using either range-based multiplication or addition-based increments.",
+        "hi": "PL/SQL में तीनों लूप संरचनाएं रेंज-आधारित गुणा या जोड़-आधारित इंक्रीमेंट का उपयोग करके 11 का पहाड़ा तैयार कर सकती हैं।"
+      },
+      "key_takeaway": {
+        "en": "Different loops can achieve the same programming goal.",
+        "hi": "विभिन्न लूप एक ही प्रोग्रामिंग लक्ष्य प्राप्त कर सकते हैं।"
+      }
+    },
+    {
+      "question_id": 23,
+      "question": {
+        "en": "What does the following PHP snippet calculate?\n\n$H = 40;\n$B = 20;\n$AR = 0.5 * $B * $H;",
+        "hi": "निम्नलिखित PHP स्निपेट क्या गणना करता है?\n\n$H = 40;\n$B = 20;\n$AR = 0.5 * $B * $H;"
+      },
+      "options": {
+        "a": {"en": "Area of a Square", "hi": "वर्ग का क्षेत्रफल"},
+        "b": {"en": "Area of a Triangle", "hi": "त्रिभुज का क्षेत्रफल"},
+        "c": {"en": "Area of a Circle", "hi": "वृत्त का क्षेत्रफल"},
+        "d": {"en": "Volume of a Cube", "hi": "घन (Cube) का आयतन"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "The formula involves Base, Height, and a factor of 0.5 (half).",
+        "hi": "सूत्र में आधार (Base), ऊँचाई (Height) और 0.5 (आधा) का फैक्टर शामिल है।"
+      },
+      "explanation": {
+        "en": "The standard formula for the Area of a Triangle is (1/2 * Base * Height). In code, 1/2 is written as 0.5.",
+        "hi": "त्रिभुज के क्षेत्रफल का मानक सूत्र (1/2 * आधार * ऊँचाई) है। कोड में, 1/2 को 0.5 लिखा जाता है।"
+      },
+      "key_takeaway": {
+        "en": "Area of Triangle = 0.5 * Base * Height.",
+        "hi": "त्रिभुज का क्षेत्रफल = 0.5 * आधार * ऊँचाई।"
+      }
+    },
+    {
+      "question_id": 24,
+      "question": {
+        "en": "In PL/SQL, how do you correctly write 'Not Equal to' for a condition check?",
+        "hi": "PL/SQL में, कंडीशन चेक के लिए 'Not Equal to' (बराबर नहीं) सही ढंग से कैसे लिखा जाता है?"
+      },
+      "options": {
+        "a": {"en": "!=", "hi": "!="},
+        "b": {"en": "&lt;&gt;", "hi": "&lt;&gt;"},
+        "c": {"en": "~=", "hi": "~="},
+        "d": {"en": "Any of the above", "hi": "इनमें से कोई भी"}
+      },
+      "correct_option": "d",
+      "hint": {
+        "en": "PL/SQL is very flexible with inequality operators.",
+        "hi": "PL/SQL असमानता ऑपरेटरों के साथ बहुत लचीला है।"
+      },
+      "explanation": {
+        "en": "PL/SQL supports !=, &lt;&gt;, and ~= to represent the 'Not Equal' condition.",
+        "hi": "PL/SQL 'Not Equal' शर्त को दर्शाने के लिए !=, &lt;&gt;, और ~= का समर्थन करता है।"
+      },
+      "key_takeaway": {
+        "en": "PL/SQL inequality: != , &lt;&gt; , or ~= .",
+        "hi": "PL/SQL असमानता: != , &lt;&gt; , या ~= ।"
+      }
+    },
+    {
+      "question_id": 25,
+      "question": {
+        "en": "Calculate the output for Area of a Square in PHP with $S = 70:\n\n$Ar = $S * $S;",
+        "hi": "$S = 70 के साथ PHP में वर्ग के क्षेत्रफल (Area of a Square) के आउटपुट की गणना करें:\n\n$Ar = $S * $S;"
+      },
+      "options": {
+        "a": {"en": "140", "hi": "140"},
+        "b": {"en": "490", "hi": "490"},
+        "c": {"en": "4900", "hi": "4900"},
+        "d": {"en": "700", "hi": "700"}
+      },
+      "correct_option": "c",
+      "hint": {
+        "en": "7 multiplied by 7 is 49. Add two zeros.",
+        "hi": "7 को 7 से गुणा करने पर 49 आता है। दो शून्य जोड़ें।"
+      },
+      "explanation": {
+        "en": "70 * 70 = 4900. Area of a square is side squared.",
+        "hi": "70 * 70 = 4900. वर्ग का क्षेत्रफल भुजा का वर्ग होता है।"
+      },
+      "key_takeaway": {
+        "en": "Area of Square = Side * Side.",
+        "hi": "वर्ग का क्षेत्रफल = भुजा * भुजा।"
+      }
+    },
+    {
+      "question_id": 26,
+      "question": {
+        "en": "What is the purpose of 'DBMS_OUTPUT.PUT_LINE' in PL/SQL?",
+        "hi": "PL/SQL में 'DBMS_OUTPUT.PUT_LINE' का उद्देश्य क्या है?"
+      },
+      "options": {
+        "a": {"en": "To store data in a table", "hi": "टेबल में डेटा स्टोर करना"},
+        "b": {"en": "To display text output on the console", "hi": "कंसोल पर टेक्स्ट आउटपुट प्रदर्शित करना"},
+        "c": {"en": "To delete a database", "hi": "डेटाबेस को हटाना"},
+        "d": {"en": "To create a new user", "hi": "एक नया यूजर बनाना"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "It performs a similar function to 'echo' in PHP.",
+        "hi": "यह PHP में 'echo' के समान कार्य करता है।"
+      },
+      "explanation": {
+        "en": "PUT_LINE is a procedure that prints information. In PL/SQL, it is used to output messages during execution.",
+        "hi": "PUT_LINE एक प्रक्रिया (procedure) है जो जानकारी प्रिंट करती है। PL/SQL में, इसका उपयोग निष्पादन के दौरान संदेश आउटपुट करने के लिए किया जाता है।"
+      },
+      "key_takeaway": {
+        "en": "DBMS_OUTPUT.PUT_LINE = Standard PL/SQL print command.",
+        "hi": "DBMS_OUTPUT.PUT_LINE = मानक PL/SQL प्रिंट कमांड।"
+      }
+    },
+    {
+      "question_id": 27,
+      "question": {
+        "en": "Predict the value of N after one iteration of this PHP loop starting with $N = 3:\n\ndo { ... $N = $N + 5; } while ($N <= 48);",
+        "hi": "$N = 3 से शुरू होने वाले इस PHP लूप के एक राउंड के बाद N के मान का अनुमान लगाएं:\n\ndo { ... $N = $N + 5; } while ($N <= 48);"
+      },
+      "options": {
+        "a": {"en": "3", "hi": "3"},
+        "b": {"en": "5", "hi": "5"},
+        "c": {"en": "8", "hi": "8"},
+        "d": {"en": "13", "hi": "13"}
+      },
+      "correct_option": "c",
+      "hint": {
+        "en": "Initial value + Step value = 3 + 5.",
+        "hi": "प्रारंभिक मान + स्टेप वैल्यू = 3 + 5।"
+      },
+      "explanation": {
+        "en": "In the first iteration, N starts at 3 and is incremented by 5 ($N = 3 + 5), making it 8.",
+        "hi": "पहली पुनरावृत्ति (iteration) में, N 3 से शुरू होता है और 5 से बढ़ जाता है ($N = 3 + 5), जिससे यह 8 हो जाता है।"
+      },
+      "key_takeaway": {
+        "en": "The update expression runs at the end of each iteration.",
+        "hi": "अपडेट एक्सप्रेशन प्रत्येक पुनरावृत्ति के अंत में चलता है।"
+      }
+    },
+    {
+      "question_id": 28,
+      "question": {
+        "en": "In a PL/SQL 'CASE' statement, what keyword is used instead of PHP's 'default' for a fallback option?",
+        "hi": "PL/SQL 'CASE' स्टेटमेंट में, फॉलबैक विकल्प के लिए PHP के 'default' के बजाय किस कीवर्ड का उपयोग किया जाता है?"
+      },
+      "options": {
+        "a": {"en": "OTHERWISE", "hi": "OTHERWISE"},
+        "b": {"en": "FALLBACK", "hi": "FALLBACK"},
+        "c": {"en": "ELSE", "hi": "ELSE"},
+        "d": {"en": "DEFAULT", "hi": "DEFAULT"}
+      },
+      "correct_option": "c",
+      "hint": {
+        "en": "It is the same word used in IF-ELSE.",
+        "hi": "यह वही शब्द है जो IF-ELSE में उपयोग किया जाता है।"
+      },
+      "explanation": {
+        "en": "In a PL/SQL CASE block, the 'ELSE' keyword handles situations where no specific case matches.",
+        "hi": "PL/SQL CASE ब्लॉक में, 'ELSE' कीवर्ड उन स्थितियों को संभालता है जहाँ कोई विशिष्ट केस मैच नहीं होता है।"
+      },
+      "key_takeaway": {
+        "en": "PL/SQL CASE: WHEN...THEN...ELSE...END CASE;",
+        "hi": "PL/SQL CASE: WHEN...THEN...ELSE...END CASE;"
+      }
+    },
+    {
+      "question_id": 29,
+      "question": {
+        "en": "Which syntax correctly starts a reverse loop in PL/SQL from 10 down to 1?",
+        "hi": "PL/SQL में 10 से 1 तक का रिवर्स लूप सही ढंग से कौन सा सिंटैक्स शुरू करता है?"
+      },
+      "options": {
+        "a": {"en": "FOR N IN 10..1", "hi": "FOR N IN 10..1"},
+        "b": {"en": "FOR N IN REVERSE 1..10", "hi": "FOR N IN REVERSE 1..10"},
+        "c": {"en": "FOR N IN 10-1", "hi": "FOR N IN 10-1"},
+        "d": {"en": "FOR N DOWNTO 1", "hi": "FOR N DOWNTO 1"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "You must use the keyword REVERSE with the lower bound first.",
+        "hi": "आपको पहले लोअर बाउंड (lower bound) के साथ REVERSE कीवर्ड का उपयोग करना चाहिए।"
+      },
+      "explanation": {
+        "en": "To count backwards in PL/SQL, use 'FOR N IN REVERSE 1..10'. Range is always written from small to large.",
+        "hi": "PL/SQL में पीछे की ओर गिनने के लिए, 'FOR N IN REVERSE 1..10' का उपयोग करें। रेंज हमेशा छोटी से बड़ी की ओर लिखी जाती है।"
+      },
+      "key_takeaway": {
+        "en": "REVERSE keyword handles descending loops in PL/SQL.",
+        "hi": "REVERSE कीवर्ड PL/SQL में अवरोही लूप को संभालता है।"
+      }
+    },
+    {
+      "question_id": 30,
+      "question": {
+        "en": "Predict the result of this concatenated output in PHP: echo 10 . 20;",
+        "hi": "PHP में इस कॉन्केटनेटेड आउटपुट के परिणाम का अनुमान लगाएं: echo 10 . 20;"
+      },
+      "options": {
+        "a": {"en": "30", "hi": "30"},
+        "b": {"en": "1020", "hi": "1020"},
+        "c": {"en": "Error", "hi": "Error"},
+        "d": {"en": "10.20", "hi": "10.20"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "The dot (.) joins items as text even if they are numbers.",
+        "hi": "डॉट (.) वस्तुओं को टेक्स्ट के रूप में जोड़ता है चाहे वे नंबर ही क्यों न हों।"
+      },
+      "explanation": {
+        "en": "Using the dot operator forces the values to be treated as strings and joins them together. Result is '1020'.",
+        "hi": "डॉट ऑपरेटर का उपयोग मानों को स्ट्रिंग्स के रूप में मानने के लिए मजबूर करता है और उन्हें आपस में जोड़ता है। परिणाम '1020' है।"
+      },
+      "key_takeaway": {
+        "en": "Dot (.) operator for strings; Plus (+) operator for addition.",
+        "hi": "स्ट्रिंग्स के लिए डॉट (.) ऑपरेटर; जोड़ के लिए प्लस (+) ऑपरेटर।"
+      }
+    },
+    {
+      "question_id": 31,
+      "question": {
+        "en": "In PL/SQL, how do you handle logical 'OR' when checking two conditions?\n\nIF (A > B ______ A > C) THEN",
+        "hi": "PL/SQL में, दो स्थितियों की जाँच करते समय आप लॉजिकल 'OR' को कैसे संभालते हैं?\n\nIF (A > B ______ A > C) THEN"
+      },
+      "options": {
+        "a": {"en": "||", "hi": "||"},
+        "b": {"en": "OR", "hi": "OR"},
+        "c": {"en": "|", "hi": "|"},
+        "d": {"en": "ORIF", "hi": "ORIF"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "PL/SQL uses English words for logical gates.",
+        "hi": "PL/SQL लॉजिकल गेट्स के लिए अंग्रेजी शब्दों का उपयोग करता है।"
+      },
+      "explanation": {
+        "en": "PL/SQL uses the keyword 'OR'. PHP uses '||'.",
+        "hi": "PL/SQL 'OR' कीवर्ड का उपयोग करता है। PHP '||' का उपयोग करता है।"
+      },
+      "key_takeaway": {
+        "en": "Logical OR: PHP (||) vs PL/SQL (OR).",
+        "hi": "लॉजिकल OR: PHP (||) बनाम PL/SQL (OR)।"
+      }
+    },
+    {
+      "question_id": 32,
+      "question": {
+        "en": "Which of the following is correct for Area of a Circle with Rad=10 in PL/SQL?",
+        "hi": "PL/SQL में Rad=10 वाले वृत्त के क्षेत्रफल के लिए निम्नलिखित में से कौन सा सही है?"
+      },
+      "options": {
+        "a": {"en": "AR := 3.14 * Rad * Rad;", "hi": "AR := 3.14 * Rad * Rad;"},
+        "b": {"en": "AR := 3.14 * POWER(Rad, 2);", "hi": "AR := 3.14 * POWER(Rad, 2);"},
+        "c": {"en": "Both a and b", "hi": "a और b दोनों"},
+        "d": {"en": "AR := 3.14 * Rad ** 2;", "hi": "AR := 3.14 * Rad ** 2;"}
+      },
+      "correct_option": "c",
+      "hint": {
+        "en": "Both multiplying a number by itself and using the POWER function are valid math approaches.",
+        "hi": "किसी संख्या को स्वयं से गुणा करना और POWER फंक्शन का उपयोग करना दोनों ही मान्य गणितीय दृष्टिकोण हैं।"
+      },
+      "explanation": {
+        "en": "In PL/SQL, you can either use the built-in POWER function or simply multiply the radius twice. Both yield the correct area.",
+        "hi": "PL/SQL में, आप या तो इन-बिल्ट POWER फंक्शन का उपयोग कर सकते हैं या बस त्रिज्या को दो बार गुणा कर सकते हैं। दोनों सही क्षेत्रफल देते हैं।"
+      },
+      "key_takeaway": {
+        "en": "Multiple ways to express squares: x*x or POWER(x,2).",
+        "hi": "वर्गों को व्यक्त करने के कई तरीके: x*x या POWER(x,2)।"
+      }
+    },
+    {
+      "question_id": 33,
+      "question": {
+        "en": "Predict the final value of SUM in this PL/SQL loop:\n\nSUM := 0;\nFOR N IN 1..4 LOOP\n  SUM := SUM + 2;\nEND LOOP;",
+        "hi": "इस PL/SQL लूप में SUM के अंतिम मान का अनुमान लगाएं:\n\nSUM := 0;\nFOR N IN 1..4 LOOP\n  SUM := SUM + 2;\nEND LOOP;"
+      },
+      "options": {
+        "a": {"en": "4", "hi": "4"},
+        "b": {"en": "8", "hi": "8"},
+        "c": {"en": "10", "hi": "10"},
+        "d": {"en": "2", "hi": "2"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "The loop runs 4 times. Each time it adds 2.",
+        "hi": "लूप 4 बार चलता है। हर बार यह 2 जोड़ता है।"
+      },
+      "explanation": {
+        "en": "Iteration 1: 0+2=2. Iteration 2: 2+2=4. Iteration 3: 4+2=6. Iteration 4: 6+2=8.",
+        "hi": "पहला राउंड: 0+2=2। दूसरा राउंड: 2+2=4। तीसरा राउंड: 4+2=6। चौथा राउंड: 6+2=8।"
+      },
+      "key_takeaway": {
+        "en": "Loops repeat a mathematical action based on the range.",
+        "hi": "लूप रेंज के आधार पर एक गणितीय क्रिया को दोहराते हैं।"
+      }
+    },
+    {
+      "question_id": 34,
+      "question": {
+        "en": "What is the result of '1' + 1 in PHP?",
+        "hi": "PHP में '1' + 1 का परिणाम क्या है?"
+      },
+      "options": {
+        "a": {"en": "11", "hi": "11"},
+        "b": {"en": "2", "hi": "2"},
+        "c": {"en": "Error", "hi": "Error"},
+        "d": {"en": "0", "hi": "0"}
+      },
+      "correct_option": "b",
+      "hint": {
+        "en": "PHP automatically converts the string '1' to a number if the plus (+) operator is used.",
+        "hi": "यदि प्लस (+) ऑपरेटर का उपयोग किया जाता है, तो PHP अपने आप स्ट्रिंग '1' को नंबर में बदल देता है।"
+      },
+      "explanation": {
+        "en": "PHP is loosely typed. When it sees '+' (the addition operator), it treats both sides as numbers. 1 + 1 = 2.",
+        "hi": "PHP 'लूजली टाइप्ड' (loosely typed) है। जब यह '+' (जोड़ ऑपरेटर) देखता है, तो यह दोनों पक्षों को संख्याओं के रूप में मानता है। 1 + 1 = 2।"
+      },
+      "key_takeaway": {
+        "en": "Operator precedence: + forces addition; . forces concatenation.",
+        "hi": "ऑपरेटर वरीयता: + जोड़ के लिए मजबूर करता है; . कॉन्केटनेशन के लिए मजबूर करता है।"
+      }
+    },
+    {
+      "question_id": 35,
+      "question": {
+        "en": "In the Fibonacci series program (0, 1, 1, 2, 3...), which statement correctly calculates the NEXT term in the sequence?",
+        "hi": "फाइबोनैचि सीरीज प्रोग्राम (0, 1, 1, 2, 3...) में, कौन सा स्टेटमेंट अनुक्रम में अगले (NEXT) पद की सही गणना करता है?"
+      },
+      "options": {
+        "a": {"en": "SUM = PRV + NXT;", "hi": "SUM = PRV + NXT;"},
+        "b": {"en": "SUM = PRV * NXT;", "hi": "SUM = PRV * NXT;"},
+        "c": {"en": "SUM = NXT + 1;", "hi": "SUM = NXT + 1;"},
+        "d": {"en": "SUM = PRV + 1;", "hi": "SUM = PRV + 1;"}
+      },
+      "correct_option": "a",
+      "hint": {
+        "en": "Every Fibonacci number is the sum of the two numbers before it.",
+        "hi": "प्रत्येक फाइबोनैचि संख्या अपने से पहले की दो संख्याओं का योग होती है।"
+      },
+      "explanation": {
+        "en": "The sequence is formed by adding the previous (PRV) and current (NXT) terms to find the sum (the next number).",
+        "hi": "अगली संख्या (योग) खोजने के लिए पिछले (PRV) और वर्तमान (NXT) पदों को जोड़कर अनुक्रम बनाया जाता है।"
+      },
+      "key_takeaway": {
+        "en": "Fibonacci logic: next = n-1 + n-2.",
+        "hi": "फाइबोनैचि लॉजिक: next = n-1 + n-2।"
+      }
+    }
+  ]
+}
