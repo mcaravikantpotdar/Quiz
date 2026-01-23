@@ -9,7 +9,7 @@ class QuizApp {
         // --- GITHUB API CONFIG ---
         this.GITHUB_CONFIG = {
             owner: "mcaravikantpotdar", 
-            repo: "Quiz-Eng-10",               
+            repo: "Quiz",               
             path: "jsons"               
         };
         
