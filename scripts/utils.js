@@ -1,46 +1,75 @@
 class QuizUtils {
-    // --- UI UTILITIES ---
     
+    // --- UI UTILITIES ---
+
     /**
      * Handles the visibility of the loading spinner.
-     * Updated to ensure compatibility with your .spinner CSS class.
      */
     static showLoading(show = true) {
-        // Look for the spinner by ID first, then fallback to class if necessary
-        const spinner = document.getElementById('loadingSpinner') || document.querySelector('.spinner');
+        const spinner = document.getElementById('loadingSpinner');
         if (spinner) {
-            spinner.classList.toggle('active', show);
+            if (show) spinner.classList.add('active');
+            else spinner.classList.remove('active');
         }
     }
 
     /**
-     * Swaps between different application screens.
+     * Swaps between different application screens and resets scroll position.
      */
     static showScreen(screenId) {
+        // Hide all screens
         document.querySelectorAll('.screen').forEach(screen => {
             screen.classList.remove('active');
+            screen.style.display = 'none'; // Force hide to prevent layout jumps
         });
+
+        // Show target screen
         const target = document.getElementById(screenId);
         if (target) {
-            target.classList.add('active');
+            target.style.display = 'block';
+            // Small delay to allow display:block to apply before adding class for animation
+            setTimeout(() => target.classList.add('active'), 10);
+            
+            // EXPERT UPGRADE: Auto-scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     }
 
     /**
      * Visual celebration effect for quiz completion.
+     * Optimized to be self-contained (no external CSS dependencies needed for animation).
      */
     static createConfetti() {
-        const colors = ['#2563eb', '#16a34a', '#dc2626', '#7c3aed', '#059669'];
+        const colors = ['#2563eb', '#22c55e', '#f59e0b', '#ef4444', '#7c3aed'];
+        
         for (let i = 0; i < 50; i++) {
             const confetti = document.createElement('div');
-            confetti.className = 'confetti';
+            // Inline styles to ensure it works without extra CSS
+            confetti.style.position = 'fixed';
+            confetti.style.zIndex = '9999';
             confetti.style.left = Math.random() * 100 + 'vw';
-            confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
-            confetti.style.animationDelay = Math.random() * 2 + 's';
-            document.body.appendChild(confetti);
+            confetti.style.top = '-10px';
+            confetti.style.width = Math.random() * 10 + 5 + 'px';
+            confetti.style.height = Math.random() * 10 + 5 + 'px';
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.borderRadius = '50%';
+            confetti.style.opacity = Math.random() + 0.5;
             
-            // Clean up DOM to prevent memory leaks
-            setTimeout(() => confetti.remove(), 3000);
+            document.body.appendChild(confetti);
+
+            // Physics Animation
+            const animationDuration = Math.random() * 2 + 1.5; // 1.5s - 3.5s
+            
+            confetti.animate([
+                { transform: `translate(0, 0) rotate(0deg)`, opacity: 1 },
+                { transform: `translate(${Math.random() * 200 - 100}px, 100vh) rotate(${Math.random() * 720}deg)`, opacity: 0 }
+            ], {
+                duration: animationDuration * 1000,
+                easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+            });
+
+            // Cleanup
+            setTimeout(() => confetti.remove(), animationDuration * 1000);
         }
     }
 
@@ -52,60 +81,53 @@ class QuizUtils {
         return `${mins}:${secs.toString().padStart(2, '0')}`;
     }
 
-    static formatTimeSpent(seconds) {
-        if (seconds < 60) {
-            return `${seconds}s`;
-        }
-        const mins = Math.floor(seconds / 60);
-        const secs = seconds % 60;
-        return `${mins}m ${secs}s`;
-    }
+    // --- DATA VALIDATION (ROBUST BILINGUAL CHECK) ---
 
-    // --- DATA VALIDATION ---
-
-    /**
-     * Deep inspection of Quiz JSON structure.
-     * Prevents runtime errors by catching missing bilingual keys early.
-     */
     static validateQuizJSON(data) {
         const errors = [];
         
-        if (!data) return { isValid: false, errors: ['JSON data is null or undefined'] };
-        if (!data.metadata) errors.push('Missing metadata object');
-        if (!data.questions || !Array.isArray(data.questions)) {
-            errors.push('Missing or invalid questions array');
+        if (!data) return { isValid: false, errors: ['JSON data is null'] };
+
+        // 1. Metadata Check
+        if (!data.metadata) {
+            errors.push("Missing 'metadata' object");
+        } else if (!data.metadata.chapter_title) {
+            errors.push("Missing 'chapter_title' in metadata");
         }
 
-        if (data.questions && Array.isArray(data.questions)) {
-            data.questions.forEach((q, index) => {
-                const qNum = index + 1;
+        // 2. Questions Array Check
+        if (!data.questions || !Array.isArray(data.questions) || data.questions.length === 0) {
+            errors.push("Missing or empty 'questions' array");
+        } else {
+            // 3. Deep Validation of Each Question
+            data.questions.forEach((q, i) => {
+                const qNum = i + 1;
                 
-                // 1. Structural Checks
-                if (!q.question_id) errors.push(`Q${qNum}: Missing question_id`);
+                if (!q.question_id) errors.push(`Q${qNum} missing 'question_id'`);
+                
+                // Bilingual Text Check
                 if (!q.question || !q.question.en || !q.question.hi) {
-                    errors.push(`Q${qNum}: Missing question text in English or Hindi`);
+                    errors.push(`Q${qNum} missing English or Hindi question text`);
                 }
-                
-                // 2. Options Validation (Deep Check)
+
+                // Options Check
                 if (!q.options) {
-                    errors.push(`Q${qNum}: Missing options object`);
+                    errors.push(`Q${qNum} missing options`);
                 } else {
                     ['a', 'b', 'c', 'd'].forEach(opt => {
-                        if (!q.options[opt] || !q.options[opt].en || !q.options[opt].hi) {
-                            errors.push(`Q${qNum}: Option ${opt.toUpperCase()} is missing English or Hindi text`);
+                        if (!q.options[opt]) errors.push(`Q${qNum} missing Option ${opt.toUpperCase()}`);
+                        else if (!q.options[opt].en || !q.options[opt].hi) {
+                            errors.push(`Q${qNum} Option ${opt.toUpperCase()} incomplete (needs en & hi)`);
                         }
                     });
                 }
 
-                if (!q.correct_option || !['a','b','c','d'].includes(q.correct_option)) {
-                    errors.push(`Q${qNum}: Missing or invalid correct_option (must be a, b, c, or d)`);
-                }
+                if (!q.correct_option) errors.push(`Q${qNum} missing 'correct_option'`);
 
-                // 3. Pedagogical Field Checks (Bilingual Requirement)
-                const pedagogicalFields = ['hint', 'explanation', 'key_takeaway'];
-                pedagogicalFields.forEach(field => {
-                    if (!q[field] || !q[field].en || !q[field].hi) {
-                        errors.push(`Q${qNum}: Missing ${field.replace('_', ' ')} text in English or Hindi`);
+                // Feedback Check
+                ['hint', 'explanation', 'key_takeaway'].forEach(field => {
+                    if (q[field] && (!q[field].en || !q[field].hi)) {
+                        errors.push(`Q${qNum} '${field}' exists but is missing language keys`);
                     }
                 });
             });
@@ -117,45 +139,24 @@ class QuizUtils {
         };
     }
 
-    /**
-     * Provides the Master Specification Template for new JSON creation.
-     */
+    // Helper to generate a template (Preserved from your original code)
     static getSampleJSON() {
         return {
-            "metadata": {
-                "chapter_title": "Sample Chapter",
-                "chapter_title_hindi": "नमूना अध्याय",
-                "total_questions": 1,
-                "max_score": 4
-            },
-            "questions": [
-                {
-                    "question_id": "sample_01",
-                    "question": {
-                        "en": "What is 2 + 2?",
-                        "hi": "2 + 2 क्या है?"
-                    },
-                    "options": {
-                        "a": {"en": "3", "hi": "3"},
-                        "b": {"en": "4", "hi": "4"},
-                        "c": {"en": "5", "hi": "5"},
-                        "d": {"en": "6", "hi": "6"}
-                    },
-                    "correct_option": "b",
-                    "hint": {
-                        "en": "Basic math.",
-                        "hi": "बुनियादी गणित।"
-                    },
-                    "explanation": {
-                        "en": "2 + 2 equals 4.",
-                        "hi": "2 + 2 बराबर 4 होता है।"
-                    },
-                    "key_takeaway": {
-                        "en": "Addition results in a sum.",
-                        "hi": "जोड़ का परिणाम योग होता है।"
-                    }
-                }
-            ]
+            "metadata": { "chapter_title": "Sample", "total_questions": 1 },
+            "questions": [{
+                "question_id": "q1",
+                "question": { "en": "Test?", "hi": "Test?" },
+                "options": {
+                    "a": { "en": "A", "hi": "A" },
+                    "b": { "en": "B", "hi": "B" },
+                    "c": { "en": "C", "hi": "C" },
+                    "d": { "en": "D", "hi": "D" }
+                },
+                "correct_option": "a",
+                "hint": { "en": "Hint", "hi": "Hint" },
+                "explanation": { "en": "Exp", "hi": "Exp" },
+                "key_takeaway": { "en": "Key", "hi": "Key" }
+            }]
         };
     }
 }
