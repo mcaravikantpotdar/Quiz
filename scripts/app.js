@@ -9,7 +9,7 @@ class QuizApp {
         // --- GITHUB API CONFIG ---
         this.GITHUB_CONFIG = {
             owner: "mcaravikantpotdar", 
-            repo: "Quiz",               
+            repo: "Quiz-Eng-10",               
             path: "jsons"               
         };
         
@@ -22,7 +22,7 @@ class QuizApp {
         
         // Leaderboard State
         this.scoreboardData = [];
-        this.sortConfig = { key: 'rank', asc: false };
+        this.sortConfig = { key: 'date', asc: false }; // Default: Latest First
 
         this.init();
     }
@@ -70,7 +70,7 @@ class QuizApp {
         this.btnViewScoreboard = document.getElementById('viewScoreboardBtn');
         this.btnViewScoreboardResults = document.getElementById('viewScoreboardFromResults');
         this.btnBackScoreboard = document.getElementById('backFromScoreboard');
-        this.btnDemo = document.getElementById('demoModeBtn'); 
+        // Removed Demo Button Cache
         
         this.btnTopHome = document.getElementById('topHomeBtn');
         this.btnTopQuit = document.getElementById('topQuitBtn');
@@ -98,7 +98,7 @@ class QuizApp {
         this.inputName.addEventListener('input', () => this.validateStartForm());
         this.inputSchool.addEventListener('input', () => this.validateStartForm());
         this.btnStart.addEventListener('click', () => this.handleStart());
-        if (this.btnDemo) this.btnDemo.addEventListener('click', () => this.runDemoMode());
+        // Removed Demo Listener
         
         const showScoreboard = () => { QuizUtils.showScreen('scoreboardScreen'); this.fetchScoreboard(); };
         this.btnViewScoreboard.addEventListener('click', showScoreboard);
@@ -165,8 +165,18 @@ class QuizApp {
         this.btnStart.disabled = !(name && school && hasQuiz);
     }
 
+    formatName(str) {
+        // Auto-Format: Capitalize first letter of each word
+        return str.replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())));
+    }
+
     async handleStart() {
         if (!this.selectedQuizFile) return;
+        
+        // Sanitize Inputs
+        this.inputName.value = this.formatName(this.inputName.value.trim());
+        this.inputSchool.value = this.formatName(this.inputSchool.value.trim());
+
         QuizUtils.showLoading(true);
         this.errorDiv.textContent = '';
         try {
@@ -180,14 +190,48 @@ class QuizApp {
         } finally { QuizUtils.showLoading(false); }
     }
 
+    updateHeaderIdentity() {
+        // Inject Student Profile into Header
+        const name = this.inputName.value;
+        const school = this.inputSchool.value;
+        const mode = this.quizEngine.mode.toUpperCase();
+        
+        const oldId = document.getElementById('identityBar');
+        if(oldId) oldId.remove();
+
+        const identityHTML = `
+            <div id="identityBar" style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #f1f5f9; padding-bottom:10px; margin-bottom:10px;">
+                <div style="text-align:left;">
+                    <div style="font-weight:700; font-size:14px; color:#1e293b;">👤 ${name}</div>
+                    <div style="font-size:11px; color:#64748b;">${school}</div>
+                </div>
+                <div class="stat-badge ${mode === 'TEST' ? 'strict' : ''}" style="font-size:10px; padding:4px 8px; border-radius:12px; background:${mode === 'TEST' ? '#fee2e2' : '#dcfce7'}; color:${mode === 'TEST' ? '#991b1b' : '#166534'}; border:none;">
+                    ${mode} MODE
+                </div>
+            </div>
+        `;
+        
+        const titleEl = document.getElementById('chapterTitle');
+        if(titleEl && titleEl.parentNode) {
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = identityHTML.trim();
+            titleEl.parentNode.insertBefore(tempDiv.firstChild, titleEl);
+        }
+    }
+
     startQuiz() {
         const mode = document.querySelector('input[name="quizMode"]:checked').value;
         this.quizEngine.setMode(mode);
         this.quizEngine.clearProgress(); 
         this.currentAttempts = {}; this.hintUsed = {}; this.shuffledOrders = {}; 
+        
         const metadata = this.quizEngine.quizData.metadata;
         document.getElementById('chapterTitle').textContent = (metadata.chapter_title || "Quiz");
         document.getElementById('totalQuestions').textContent = this.quizEngine.getTotalQuestions();
+        
+        // Inject Identity Bar
+        this.updateHeaderIdentity();
+
         QuizUtils.showScreen('quizScreen');
         this.renderQuestionGrid();
         this.showQuestion(0);
@@ -206,9 +250,11 @@ class QuizApp {
         order.forEach((key, idx) => {
             const card = document.createElement('div');
             card.className = 'option-card';
-            card.innerHTML = `<div class="option-label">${labels[idx]}</div><div class="option-content"><div>${q.options[key].en}</div><div style="font-size:14px; opacity:0.7;">${q.options[key].hi}</div></div>`;
+            // Expert: Clean HTML for Flexbox (No inline styles that block layout)
+            card.innerHTML = `<div class="option-label">${labels[idx]}</div><div class="option-content"><div class="opt-lang en">${q.options[key].en}</div><div class="opt-lang hi">${q.options[key].hi}</div></div>`;
             
             if (ans) {
+                // Practice Mode: Show History colors
                 if (mode === 'practice') {
                     if (ans.history && ans.history.includes(key)) {
                         card.classList.add(key === q.correct_option ? 'correct' : 'wrong');
@@ -216,6 +262,8 @@ class QuizApp {
                         card.classList.add('correct');
                     }
                 } else {
+                    // Test Mode: Only show selection, no colors until end (optional, or stick to current logic)
+                    // Current logic: Just highlight selected
                     if (key === ans.selectedOption) card.classList.add('selected-only');
                 }
             }
@@ -232,16 +280,14 @@ class QuizApp {
         try {
             const response = await fetch(`${this.SCRIPT_URL}?action=get&t=${Date.now()}`);
             this.scoreboardData = await response.json();
-            this.sortScoreboard('rank'); // Default sort
+            this.sortScoreboard('date'); // Default: Chronological
         } catch (e) { tbody.innerHTML = '<tr><td colspan="7" style="padding:40px; text-align:center; color:#dc2626;">Server Connection Error.</td></tr>'; }
     }
 
     sortScoreboard(key) {
-        // Toggle direction if same key clicked
         if (this.sortConfig.key === key) this.sortConfig.asc = !this.sortConfig.asc;
         else { this.sortConfig.key = key; this.sortConfig.asc = (key === 'student' || key === 'chapter'); }
 
-        // Update Sort Indicators in UI
         const headers = document.querySelectorAll('#leaderboardHeaders th');
         headers.forEach(th => th.classList.remove('sort-asc', 'sort-desc'));
         
@@ -262,9 +308,8 @@ class QuizApp {
                 case 'mode': valA = a[4].toLowerCase(); valB = b[4].toLowerCase(); break;
                 case 'score': valA = parseInt(a[5].split('/')[0]); valB = parseInt(b[5].split('/')[0]); break;
                 case 'efficiency': valA = parseFloat(a[6]); valB = parseFloat(b[6]); break;
-                default: // Default: Rank (Score then Time)
+                default: 
                     valA = parseInt(a[5].split('/')[0]); valB = parseInt(b[5].split('/')[0]);
-                    if (valA === valB) { valA = parseFloat(b[6]); valB = parseFloat(a[6]); } 
                     return valB - valA; 
             }
             if (valA < valB) return asc ? -1 : 1;
@@ -278,17 +323,15 @@ class QuizApp {
     renderScoreboard(data) {
         const tbody = document.getElementById('scoreboardBody');
         tbody.innerHTML = data.slice(0, 50).map((row, index) => {
-            let rankIcon = index + 1;
-            if (index === 0) rankIcon = '🥇';
-            if (index === 1) rankIcon = '🥈';
-            if (index === 2) rankIcon = '🥉';
-
+            let rankDisplay = index + 1; 
+            // Removed Medals as requested
+            
             const dateStr = row[0] ? new Date(row[0]).toLocaleDateString('en-IN', {day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit'}) : '-';
             const modeClass = row[4] === 'TEST' ? 'tag strict' : 'tag';
 
             return `
                 <tr>
-                    <td style="padding:15px; font-weight:bold; font-size:16px;">${rankIcon}</td>
+                    <td style="padding:15px; font-weight:bold; font-size:16px;">${rankDisplay}</td>
                     <td style="padding:15px; font-size:12px; color:#64748b;">${dateStr}</td>
                     <td style="padding:15px;">
                         <strong>${row[1]}</strong><br>
@@ -349,13 +392,19 @@ class QuizApp {
     }
 
     showQuestion(i) {
+        // Atomic Stop: New Engine handles this, but ensuring UI state is clear
+        this.quizEngine.stopTimer(); 
+        
         this.quizEngine.currentQuestionIndex = i;
         const q = this.quizEngine.getCurrentQuestion();
         document.getElementById('questionEn').innerHTML = q.question.en;
         document.getElementById('questionHi').innerHTML = q.question.hi;
         document.getElementById('currentQuestion').textContent = i + 1;
         this.renderOptions(q);
+        
+        // Clear old feedback areas
         document.querySelectorAll('.hint-area, .explanation-area, .key-takeaway-area').forEach(el => el.remove());
+        
         document.getElementById('optionsContainer').insertAdjacentHTML('afterend', `
             <div id="feedbackContainer" style="display: none;">
                 <div class="feedback-area explanation-area"><h4>✅ Explanation</h4><div class="e-en">${q.explanation.en}</div><div class="e-hi">${q.explanation.hi}</div></div>
@@ -366,7 +415,10 @@ class QuizApp {
         
         this.updateQuestionGrid(); 
         this.updateNavigationButtons();
+        
+        // Engine handles timer start (and checks if disabled internally)
         this.startQuestionTimer(q.question_id);
+        
         this.updateHintButton();
         if (this.quizEngine.isQuestionDisabled(q.question_id) && this.quizEngine.mode === 'practice') this.showFeedbackArea('feedbackContainer');
         if (this.hintUsed[q.question_id]) this.showFeedbackArea('hintArea');
@@ -385,7 +437,7 @@ class QuizApp {
         this.quizEngine.startTimer(qId, (t) => {
             document.getElementById('timer').textContent = t;
         }, () => {
-            this.quizEngine.recordTimeout(qId, this.hintUsed[qId]);
+            // Timeout Callback
             this.showQuestion(this.quizEngine.currentQuestionIndex);
             this.updateQuestionInGrid(qId);
         });
@@ -412,8 +464,9 @@ class QuizApp {
         const nextBtn = document.getElementById('nextBtn');
         const isLastQuestion = this.quizEngine.currentQuestionIndex === this.quizEngine.getTotalQuestions() - 1;
 
+        // Free Roam: Next is ALWAYS enabled unless last question
         nextBtn.textContent = isLastQuestion ? '🏁 Finish Assessment' : 'Next Question →';
-        nextBtn.disabled = !this.quizEngine.isQuestionDisabled(qId);
+        nextBtn.disabled = false; // Always active
         document.getElementById('prevBtn').disabled = this.quizEngine.currentQuestionIndex === 0;
     }
 
@@ -435,18 +488,49 @@ class QuizApp {
         this.quizEngine.quizData.questions.forEach(q => this.updateQuestionInGrid(q.question_id));
     }
 
-    previousQuestion() { this.quizEngine.clearTimer(); this.showQuestion(this.quizEngine.currentQuestionIndex - 1); }
-    nextQuestion() { if (this.quizEngine.currentQuestionIndex === this.quizEngine.getTotalQuestions() - 1) this.completeQuiz(); else { this.quizEngine.clearTimer(); this.showQuestion(this.quizEngine.currentQuestionIndex + 1); } }
-    goToQuestion(i) { this.quizEngine.clearTimer(); this.showQuestion(i); }
-    quitQuiz() { this.quizEngine.clearTimer(); this.completeQuiz(); }
-    completeQuiz() { 
-        this.quizEngine.clearTimer();
-        QuizUtils.createConfetti(); 
+    previousQuestion() { 
+        this.quizEngine.stopTimer(); // Save progress
+        this.showQuestion(this.quizEngine.currentQuestionIndex - 1); 
+    }
+
+    nextQuestion() { 
+        if (this.quizEngine.currentQuestionIndex === this.quizEngine.getTotalQuestions() - 1) {
+            this.completeQuiz(); 
+        } else { 
+            this.quizEngine.stopTimer(); // Save progress
+            this.showQuestion(this.quizEngine.currentQuestionIndex + 1); 
+        } 
+    }
+
+    goToQuestion(i) { 
+        // Prevent Restart Bug: If already on this question, do nothing
+        if (i === this.quizEngine.currentQuestionIndex) return;
+        this.quizEngine.stopTimer(); 
+        this.showQuestion(i); 
+    }
+
+    quitQuiz() { 
+        this.quizEngine.stopTimer(); 
+        this.completeQuiz(true); // true = forced exit
+    }
+
+    completeQuiz(forced = false) { 
+        // Smart Finish Warning
         const res = this.quizEngine.getResults(); 
+        if (!forced && res.unattemptedCount > 0) {
+            if (!confirm(`Wait! You have ${res.unattemptedCount} unattempted questions.\n\nAre you sure you want to finish?`)) {
+                return;
+            }
+        }
+
+        this.quizEngine.stopTimer();
+        QuizUtils.createConfetti(); 
+        
         document.getElementById('finalScore').textContent = res.totalScore; 
         document.getElementById('totalPossible').textContent = res.maxScore; 
         document.getElementById('percentage').textContent = res.percentage; 
         document.getElementById('totalTime').textContent = res.timeTaken; 
+        
         this.renderResultsBreakdown(res); 
         QuizUtils.showScreen('resultsScreen'); 
         this.submitScore(res); 
@@ -456,16 +540,31 @@ class QuizApp {
         const container = document.getElementById('resultsBreakdown'); container.innerHTML = '';
         res.questions.forEach((q, i) => {
             const ans = res.userAnswers[q.question_id];
+            // 3-State Status: Correct, Wrong, or Skipped
+            let statusClass = 'wrong'; // Default for skipped/wrong
+            if (ans && ans.isCorrect) statusClass = 'correct';
+            else if (!ans || !ans.finalized) statusClass = 'skipped'; // New visual state needed in CSS
+            
             const div = document.createElement('div');
-            div.className = `result-item ${ans?.isCorrect ? 'correct' : 'wrong'}`;
+            div.className = `result-item ${statusClass}`;
             div.innerHTML = `<div class="result-meta">Q${i+1} • ${ans?.marks || 0} Marks</div><div class="result-question">${q.question.en}</div><div style="font-size:14px; color:#64748b;">Correct: ${q.options[q.correct_option].en}</div>`;
             container.appendChild(div);
         });
     }
+
     retakeQuiz() { this.quizEngine.clearProgress(); this.startQuiz(); }
+
     async submitScore(res) {
         if (!this.SCRIPT_URL) return;
-        const payload = { action: 'submit', studentName: this.inputName.value, schoolName: this.inputSchool.value, quizTitle: this.quizEngine.quizData.metadata.chapter_title, mode: this.quizEngine.mode.toUpperCase(), score: `${res.totalScore}/${res.maxScore}`, timeTaken: `${res.timeTaken}m` };
+        const payload = { 
+            action: 'submit', 
+            studentName: this.inputName.value, 
+            schoolName: this.inputSchool.value, 
+            quizTitle: this.quizEngine.quizData.metadata.chapter_title, 
+            mode: this.quizEngine.mode.toUpperCase(), 
+            score: `${res.totalScore}/${res.maxScore}`, 
+            timeTaken: res.timeTaken // MM:SS format from new engine
+        };
         try { await fetch(this.SCRIPT_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) }); } catch (e) { }
     }
 }
