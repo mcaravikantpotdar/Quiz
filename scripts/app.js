@@ -9,8 +9,8 @@ class QuizApp {
         // --- GITHUB API CONFIG ---
         this.GITHUB_CONFIG = {
             owner: "mcaravikantpotdar", 
-            repo: "Quiz",               
-            path: "jsons"               
+            repo: "Quiz",                
+            path: "jsons"                
         };
         
         // State
@@ -70,7 +70,6 @@ class QuizApp {
         this.btnViewScoreboard = document.getElementById('viewScoreboardBtn');
         this.btnViewScoreboardResults = document.getElementById('viewScoreboardFromResults');
         this.btnBackScoreboard = document.getElementById('backFromScoreboard');
-        // Removed Demo Button Cache
         
         this.btnTopHome = document.getElementById('topHomeBtn');
         this.btnTopQuit = document.getElementById('topQuitBtn');
@@ -98,7 +97,6 @@ class QuizApp {
         this.inputName.addEventListener('input', () => this.validateStartForm());
         this.inputSchool.addEventListener('input', () => this.validateStartForm());
         this.btnStart.addEventListener('click', () => this.handleStart());
-        // Removed Demo Listener
         
         const showScoreboard = () => { QuizUtils.showScreen('scoreboardScreen'); this.fetchScoreboard(); };
         this.btnViewScoreboard.addEventListener('click', showScoreboard);
@@ -139,6 +137,12 @@ class QuizApp {
             this.inputAdminPass.value = '';
             this.adminError.textContent = '';
         });
+
+        // FIX: Add Enter Key Support for Admin
+        this.inputAdminPass.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') this.handleDatabaseReset();
+        });
+
         this.btnConfirmReset.addEventListener('click', () => this.handleDatabaseReset());
     }
 
@@ -166,14 +170,12 @@ class QuizApp {
     }
 
     formatName(str) {
-        // Auto-Format: Capitalize first letter of each word
         return str.replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())));
     }
 
     async handleStart() {
         if (!this.selectedQuizFile) return;
         
-        // Sanitize Inputs
         this.inputName.value = this.formatName(this.inputName.value.trim());
         this.inputSchool.value = this.formatName(this.inputSchool.value.trim());
 
@@ -191,7 +193,6 @@ class QuizApp {
     }
 
     updateHeaderIdentity() {
-        // Inject Student Profile into Header
         const name = this.inputName.value;
         const school = this.inputSchool.value;
         const mode = this.quizEngine.mode.toUpperCase();
@@ -211,11 +212,13 @@ class QuizApp {
             </div>
         `;
         
-        const titleEl = document.getElementById('chapterTitle');
-        if(titleEl && titleEl.parentNode) {
-            const tempDiv = document.createElement('div');
-            tempDiv.innerHTML = identityHTML.trim();
-            titleEl.parentNode.insertBefore(tempDiv.firstChild, titleEl);
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = identityHTML.trim();
+
+        // FIX: Inject into the main Header container to prevent squishing
+        const header = document.querySelector('.quiz-header');
+        if (header) {
+            header.insertBefore(tempDiv.firstChild, header.firstChild);
         }
     }
 
@@ -223,13 +226,24 @@ class QuizApp {
         const mode = document.querySelector('input[name="quizMode"]:checked').value;
         this.quizEngine.setMode(mode);
         this.quizEngine.clearProgress(); 
-        this.currentAttempts = {}; this.hintUsed = {}; this.shuffledOrders = {}; 
+        
+        this.currentAttempts = {}; 
+        this.hintUsed = {}; 
+        this.shuffledOrders = {}; 
+        
+        // FIX: Sync Hint State from Engine (Fixes Refresh Persistence Bug)
+        if (this.quizEngine.userAnswers) {
+            Object.keys(this.quizEngine.userAnswers).forEach(qId => {
+                if (this.quizEngine.userAnswers[qId].hintUsed) {
+                    this.hintUsed[qId] = true;
+                }
+            });
+        }
         
         const metadata = this.quizEngine.quizData.metadata;
         document.getElementById('chapterTitle').textContent = (metadata.chapter_title || "Quiz");
         document.getElementById('totalQuestions').textContent = this.quizEngine.getTotalQuestions();
         
-        // Inject Identity Bar
         this.updateHeaderIdentity();
 
         QuizUtils.showScreen('quizScreen');
@@ -250,11 +264,9 @@ class QuizApp {
         order.forEach((key, idx) => {
             const card = document.createElement('div');
             card.className = 'option-card';
-            // Expert: Clean HTML for Flexbox (No inline styles that block layout)
             card.innerHTML = `<div class="option-label">${labels[idx]}</div><div class="option-content"><div class="opt-lang en">${q.options[key].en}</div><div class="opt-lang hi">${q.options[key].hi}</div></div>`;
             
             if (ans) {
-                // Practice Mode: Show History colors
                 if (mode === 'practice') {
                     if (ans.history && ans.history.includes(key)) {
                         card.classList.add(key === q.correct_option ? 'correct' : 'wrong');
@@ -262,8 +274,6 @@ class QuizApp {
                         card.classList.add('correct');
                     }
                 } else {
-                    // Test Mode: Only show selection, no colors until end (optional, or stick to current logic)
-                    // Current logic: Just highlight selected
                     if (key === ans.selectedOption) card.classList.add('selected-only');
                 }
             }
@@ -324,7 +334,6 @@ class QuizApp {
         const tbody = document.getElementById('scoreboardBody');
         tbody.innerHTML = data.slice(0, 50).map((row, index) => {
             let rankDisplay = index + 1; 
-            // Removed Medals as requested
             
             const dateStr = row[0] ? new Date(row[0]).toLocaleDateString('en-IN', {day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit'}) : '-';
             const modeClass = row[4] === 'TEST' ? 'tag strict' : 'tag';
@@ -392,7 +401,6 @@ class QuizApp {
     }
 
     showQuestion(i) {
-        // Atomic Stop: New Engine handles this, but ensuring UI state is clear
         this.quizEngine.stopTimer(); 
         
         this.quizEngine.currentQuestionIndex = i;
@@ -402,7 +410,6 @@ class QuizApp {
         document.getElementById('currentQuestion').textContent = i + 1;
         this.renderOptions(q);
         
-        // Clear old feedback areas
         document.querySelectorAll('.hint-area, .explanation-area, .key-takeaway-area').forEach(el => el.remove());
         
         document.getElementById('optionsContainer').insertAdjacentHTML('afterend', `
@@ -416,7 +423,6 @@ class QuizApp {
         this.updateQuestionGrid(); 
         this.updateNavigationButtons();
         
-        // Engine handles timer start (and checks if disabled internally)
         this.startQuestionTimer(q.question_id);
         
         this.updateHintButton();
@@ -437,7 +443,6 @@ class QuizApp {
         this.quizEngine.startTimer(qId, (t) => {
             document.getElementById('timer').textContent = t;
         }, () => {
-            // Timeout Callback
             this.showQuestion(this.quizEngine.currentQuestionIndex);
             this.updateQuestionInGrid(qId);
         });
@@ -464,9 +469,8 @@ class QuizApp {
         const nextBtn = document.getElementById('nextBtn');
         const isLastQuestion = this.quizEngine.currentQuestionIndex === this.quizEngine.getTotalQuestions() - 1;
 
-        // Free Roam: Next is ALWAYS enabled unless last question
         nextBtn.textContent = isLastQuestion ? '🏁 Finish Assessment' : 'Next Question →';
-        nextBtn.disabled = false; // Always active
+        nextBtn.disabled = false; 
         document.getElementById('prevBtn').disabled = this.quizEngine.currentQuestionIndex === 0;
     }
 
@@ -489,7 +493,7 @@ class QuizApp {
     }
 
     previousQuestion() { 
-        this.quizEngine.stopTimer(); // Save progress
+        this.quizEngine.stopTimer(); 
         this.showQuestion(this.quizEngine.currentQuestionIndex - 1); 
     }
 
@@ -497,13 +501,12 @@ class QuizApp {
         if (this.quizEngine.currentQuestionIndex === this.quizEngine.getTotalQuestions() - 1) {
             this.completeQuiz(); 
         } else { 
-            this.quizEngine.stopTimer(); // Save progress
+            this.quizEngine.stopTimer(); 
             this.showQuestion(this.quizEngine.currentQuestionIndex + 1); 
         } 
     }
 
     goToQuestion(i) { 
-        // Prevent Restart Bug: If already on this question, do nothing
         if (i === this.quizEngine.currentQuestionIndex) return;
         this.quizEngine.stopTimer(); 
         this.showQuestion(i); 
@@ -511,11 +514,10 @@ class QuizApp {
 
     quitQuiz() { 
         this.quizEngine.stopTimer(); 
-        this.completeQuiz(true); // true = forced exit
+        this.completeQuiz(true); 
     }
 
     completeQuiz(forced = false) { 
-        // Smart Finish Warning
         const res = this.quizEngine.getResults(); 
         if (!forced && res.unattemptedCount > 0) {
             if (!confirm(`Wait! You have ${res.unattemptedCount} unattempted questions.\n\nAre you sure you want to finish?`)) {
@@ -540,10 +542,9 @@ class QuizApp {
         const container = document.getElementById('resultsBreakdown'); container.innerHTML = '';
         res.questions.forEach((q, i) => {
             const ans = res.userAnswers[q.question_id];
-            // 3-State Status: Correct, Wrong, or Skipped
-            let statusClass = 'wrong'; // Default for skipped/wrong
+            let statusClass = 'wrong'; 
             if (ans && ans.isCorrect) statusClass = 'correct';
-            else if (!ans || !ans.finalized) statusClass = 'skipped'; // New visual state needed in CSS
+            else if (!ans || !ans.finalized) statusClass = 'skipped'; 
             
             const div = document.createElement('div');
             div.className = `result-item ${statusClass}`;
@@ -563,7 +564,7 @@ class QuizApp {
             quizTitle: this.quizEngine.quizData.metadata.chapter_title, 
             mode: this.quizEngine.mode.toUpperCase(), 
             score: `${res.totalScore}/${res.maxScore}`, 
-            timeTaken: res.timeTaken // MM:SS format from new engine
+            timeTaken: res.timeTaken 
         };
         try { await fetch(this.SCRIPT_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) }); } catch (e) { }
     }
