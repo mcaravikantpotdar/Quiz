@@ -108,7 +108,6 @@ class QuizApp {
             } else { QuizUtils.showScreen('uploadScreen'); }
         });
 
-        // Header Sorting Events
         const headerRow = document.getElementById('leaderboardHeaders');
         if (headerRow) {
             headerRow.addEventListener('click', (e) => {
@@ -138,7 +137,6 @@ class QuizApp {
             this.adminError.textContent = '';
         });
 
-        // FIX: Add Enter Key Support for Admin
         this.inputAdminPass.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') this.handleDatabaseReset();
         });
@@ -200,8 +198,9 @@ class QuizApp {
         const oldId = document.getElementById('identityBar');
         if(oldId) oldId.remove();
 
+        // FIX: Removed the <br> which caused injection to fail
         const identityHTML = `
-            <div id="identityBar" style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #f1f5f9; padding-bottom:10px; margin-bottom:10px;">
+            <div id="identityBar" style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #f1f5f9; padding-bottom:10px; margin-bottom:10px; width:100%;">
                 <div style="text-align:left;">
                     <div style="font-weight:700; font-size:14px; color:#1e293b;">👤 ${name}</div>
                     <div style="font-size:11px; color:#64748b;">${school}</div>
@@ -215,15 +214,17 @@ class QuizApp {
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = identityHTML.trim();
 
-        // FIX: Inject into the main Header container to prevent squishing
+        // FIX: Safe injection at the top of the header
         const header = document.querySelector('.quiz-header');
         if (header) {
-            header.insertBefore(tempDiv.firstChild, header.firstChild);
+            header.prepend(tempDiv.firstChild);
         }
     }
 
     startQuiz() {
-        const mode = document.querySelector('input[name="quizMode"]:checked').value;
+        const modeInput = document.querySelector('input[name="quizMode"]:checked');
+        const mode = modeInput ? modeInput.value : 'practice';
+        
         this.quizEngine.setMode(mode);
         this.quizEngine.clearProgress(); 
         
@@ -231,7 +232,6 @@ class QuizApp {
         this.hintUsed = {}; 
         this.shuffledOrders = {}; 
         
-        // FIX: Sync Hint State from Engine (Fixes Refresh Persistence Bug)
         if (this.quizEngine.userAnswers) {
             Object.keys(this.quizEngine.userAnswers).forEach(qId => {
                 if (this.quizEngine.userAnswers[qId].hintUsed) {
@@ -245,7 +245,6 @@ class QuizApp {
         document.getElementById('totalQuestions').textContent = this.quizEngine.getTotalQuestions();
         
         this.updateHeaderIdentity();
-
         QuizUtils.showScreen('quizScreen');
         this.renderQuestionGrid();
         this.showQuestion(0);
@@ -264,7 +263,12 @@ class QuizApp {
         order.forEach((key, idx) => {
             const card = document.createElement('div');
             card.className = 'option-card';
-            card.innerHTML = `<div class="option-label">${labels[idx]}</div><div class="option-content"><div class="opt-lang en">${q.options[key].en}</div><div class="opt-lang hi">${q.options[key].hi}</div></div>`;
+            
+            // FIX: Added case-insensitivity support for option keys
+            const optKey = q.options[key] ? key : key.toUpperCase();
+            const optionData = q.options[optKey] || { en: 'Error', hi: 'त्रुटि' };
+
+            card.innerHTML = `<div class="option-label">${labels[idx]}</div><div class="option-content"><div class="opt-lang en">${optionData.en}</div><div class="opt-lang hi">${optionData.hi}</div></div>`;
             
             if (ans) {
                 if (mode === 'practice') {
@@ -283,14 +287,13 @@ class QuizApp {
         });
     }
 
-    // --- ENHANCED 7-COLUMN SCOREBOARD & DYNAMIC SORTING ---
     async fetchScoreboard() {
         const tbody = document.getElementById('scoreboardBody');
         tbody.innerHTML = '<tr><td colspan="7" style="padding:40px; text-align:center;">Fetching database...</td></tr>';
         try {
             const response = await fetch(`${this.SCRIPT_URL}?action=get&t=${Date.now()}`);
             this.scoreboardData = await response.json();
-            this.sortScoreboard('date'); // Default: Chronological
+            this.sortScoreboard('date');
         } catch (e) { tbody.innerHTML = '<tr><td colspan="7" style="padding:40px; text-align:center; color:#dc2626;">Server Connection Error.</td></tr>'; }
     }
 
@@ -334,7 +337,6 @@ class QuizApp {
         const tbody = document.getElementById('scoreboardBody');
         tbody.innerHTML = data.slice(0, 50).map((row, index) => {
             let rankDisplay = index + 1; 
-            
             const dateStr = row[0] ? new Date(row[0]).toLocaleDateString('en-IN', {day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit'}) : '-';
             const modeClass = row[4] === 'TEST' ? 'tag strict' : 'tag';
 
@@ -388,6 +390,7 @@ class QuizApp {
     renderQuestionGrid() {
         const grid = document.getElementById('questionGrid'); 
         grid.innerHTML = '';
+        if (!this.quizEngine.quizData) return;
         this.quizEngine.quizData.questions.forEach((q, i) => {
             const el = document.createElement('div');
             el.className = `question-number ${this.quizEngine.getQuestionStatus(q.question_id)}`;
@@ -402,15 +405,22 @@ class QuizApp {
 
     showQuestion(i) {
         this.quizEngine.stopTimer(); 
-        
         this.quizEngine.currentQuestionIndex = i;
         const q = this.quizEngine.getCurrentQuestion();
+        
+        // FIX: Error Handling for missing bilingual keys
+        if (!q.question || typeof q.question === 'string') {
+            console.error("JSON Error: Question is not bilingual. Please check your data format.");
+            return;
+        }
+
         document.getElementById('questionEn').innerHTML = q.question.en;
         document.getElementById('questionHi').innerHTML = q.question.hi;
         document.getElementById('currentQuestion').textContent = i + 1;
         this.renderOptions(q);
         
-        document.querySelectorAll('.hint-area, .explanation-area, .key-takeaway-area').forEach(el => el.remove());
+        // FIX: Correctly clear and REFRESH feedback areas to avoid ID duplication
+        document.querySelectorAll('#feedbackContainer, #hintArea').forEach(el => el.remove());
         
         document.getElementById('optionsContainer').insertAdjacentHTML('afterend', `
             <div id="feedbackContainer" style="display: none;">
@@ -422,10 +432,9 @@ class QuizApp {
         
         this.updateQuestionGrid(); 
         this.updateNavigationButtons();
-        
         this.startQuestionTimer(q.question_id);
-        
         this.updateHintButton();
+
         if (this.quizEngine.isQuestionDisabled(q.question_id) && this.quizEngine.mode === 'practice') this.showFeedbackArea('feedbackContainer');
         if (this.hintUsed[q.question_id]) this.showFeedbackArea('hintArea');
     }
@@ -461,14 +470,16 @@ class QuizApp {
         this.updateHintButton();
     }
 
-    showFeedbackArea(id) { document.getElementById(id).style.display = 'block'; }
+    showFeedbackArea(id) { 
+        const el = document.getElementById(id);
+        if (el) el.style.display = 'block'; 
+    }
+    
     updateScoreDisplay() { document.getElementById('currentScore').textContent = this.quizEngine.score; }
 
     updateNavigationButtons() {
-        const qId = this.quizEngine.getCurrentQuestion().question_id;
         const nextBtn = document.getElementById('nextBtn');
         const isLastQuestion = this.quizEngine.currentQuestionIndex === this.quizEngine.getTotalQuestions() - 1;
-
         nextBtn.textContent = isLastQuestion ? '🏁 Finish Assessment' : 'Next Question →';
         nextBtn.disabled = false; 
         document.getElementById('prevBtn').disabled = this.quizEngine.currentQuestionIndex === 0;
