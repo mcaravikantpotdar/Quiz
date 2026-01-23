@@ -2,7 +2,7 @@ class QuizEngine {
     constructor() {
         this.quizData = null;
         this.currentQuestionIndex = 0;
-        this.userAnswers = {};
+        this.userAnswers = {}; // { qId: { history, attempts, isCorrect, marks, hintUsed, finalized } }
         this.score = 0;
         this.startTime = null;
         this.timer = null;
@@ -31,26 +31,24 @@ class QuizEngine {
     }
 
     getTotalQuestions() {
-        return this.quizData.questions.length;
+        return this.quizData ? this.quizData.questions.length : 0;
     }
 
     getMaxScore() {
         return this.getTotalQuestions() * 4;
     }
 
+    // --- ENHANCED SCORING & ATOMIC STOP ---
     recordAnswer(questionId, selectedOption, attemptNumber, hintUsed = false) {
         const question = this.quizData.questions.find(q => q.question_id === questionId);
         if (!question) return;
 
         const isCorrect = selectedOption === question.correct_option;
         let marks = 0;
-        let finalAttempts = attemptNumber;
 
-        // --- MANAGE SELECTION HISTORY ---
-        // Initialize history if this is the first click for this question
         if (!this.userAnswers[questionId]) {
             this.userAnswers[questionId] = {
-                history: [], // Stores all clicked options
+                history: [],
                 attempts: 0,
                 isCorrect: false,
                 marks: 0,
@@ -60,7 +58,6 @@ class QuizEngine {
 
         const currentData = this.userAnswers[questionId];
         
-        // Add current selection to history if not already there
         if (!currentData.history.includes(selectedOption)) {
             currentData.history.push(selectedOption);
         }
@@ -68,7 +65,7 @@ class QuizEngine {
         if (this.mode === 'test') {
             if (isCorrect) marks = hintUsed ? 2 : 4;
             else marks = 0;
-            finalAttempts = 3; 
+            currentData.attempts = 3; // Lock question
         } else {
             if (isCorrect) {
                 switch (attemptNumber) {
@@ -81,18 +78,22 @@ class QuizEngine {
             } else {
                 marks = 0;
             }
+            currentData.attempts = attemptNumber;
         }
 
-        // --- UPDATE PERSISTENT STATE ---
-        currentData.selectedOption = selectedOption; // Last selected
-        currentData.attempts = (this.mode === 'test') ? 3 : attemptNumber;
+        currentData.selectedOption = selectedOption;
         currentData.isCorrect = isCorrect;
         currentData.marks = marks;
         currentData.hintUsed = hintUsed;
         currentData.answeredAt = new Date().toISOString();
         
-        // Flag to prevent UI spoilers until finished
-        currentData.isPartial = (this.mode === 'practice' && !isCorrect && attemptNumber < 3);
+        // Finalize check
+        const finalized = (isCorrect || currentData.attempts >= 3);
+        currentData.isPartial = !finalized;
+
+        if (finalized) {
+            this.clearTimer(); // ATOMIC STOP: Kill the zombie pulse immediately
+        }
 
         this.calculateScore();
         this.saveProgress();
@@ -111,6 +112,7 @@ class QuizEngine {
             isTimeout: true,
             isPartial: false
         };
+        this.clearTimer();
         this.calculateScore();
         this.saveProgress();
     }
@@ -121,40 +123,7 @@ class QuizEngine {
             .reduce((total, answer) => total + answer.marks, 0);
     }
 
-    getQuestionStatus(questionId) {
-        const answer = this.userAnswers[questionId];
-        if (!answer) return 'unanswered';
-        if (answer.isCorrect) return 'correct';
-        if (answer.attempts >= 3 && !answer.isCorrect) return 'wrong';
-        return 'attempted';
-    }
-
-    isQuestionDisabled(questionId) {
-        const answer = this.userAnswers[questionId];
-        return answer && !answer.isPartial && (answer.isCorrect || answer.attempts >= 3);
-    }
-
-    getRemainingAttempts(questionId) {
-        const answer = this.userAnswers[questionId];
-        if (this.mode === 'test' && answer) return 0;
-        return answer ? Math.max(0, 3 - answer.attempts) : 3;
-    }
-
-    getQuestionMarks(questionId) {
-        const answer = this.userAnswers[questionId];
-        if (!answer || answer.isPartial) return null;
-        return {
-            obtained: answer.marks,
-            max: 4,
-            display: `${answer.marks}/4`
-        };
-    }
-
-    isQuestionAnswered(questionId) {
-        const answer = this.userAnswers[questionId];
-        return answer && !answer.isPartial;
-    }
-
+    // --- TIMER LOGIC (WITH PAUSE/RESUME FIX) ---
     initializeQuestionTimer(questionId) {
         if (this.questionTimers[questionId] === undefined) {
             const defaultTime = (this.mode === 'test') ? 40 : 99;
@@ -164,19 +133,14 @@ class QuizEngine {
         return this.questionTimers[questionId];
     }
 
-    saveCurrentQuestionTime(questionId, remainingTime) {
-        if (questionId && remainingTime >= 0) {
-            this.questionTimers[questionId] = remainingTime;
-            const maxTime = (this.mode === 'test') ? 40 : 99;
-            const timeSpent = maxTime - remainingTime;
-            if (timeSpent > 0) {
-                this.questionTimeSpent[questionId] = timeSpent;
-            }
-        }
-    }
-
     startTimer(questionId, onTick, onExpire) {
-        this.clearTimer();
+        // Prevent starting timer on locked questions
+        if (this.isQuestionDisabled(questionId)) {
+            onTick(this.questionTimers[questionId] || 0);
+            return;
+        }
+
+        this.clearTimer(); // Reset existing
         const startSeconds = this.initializeQuestionTimer(questionId);
         this.currentTimer = startSeconds;
         this.currentQuestionId = questionId;
@@ -202,35 +166,61 @@ class QuizEngine {
             }
 
             if (this.currentTimer <= 0) {
-                this.saveCurrentQuestionTime(questionId, 0);
-                this.clearTimer();
+                this.recordTimeout(questionId, this.userAnswers[questionId]?.hintUsed);
                 onExpire();
             }
         }, 200);
     }
 
     clearTimer() {
+        // FIX: Before clearing, save the current state for Free-Roam Resume
+        if (this.currentQuestionId && this.currentTimer >= 0) {
+            this.questionTimers[this.currentQuestionId] = this.currentTimer;
+            const maxTime = (this.mode === 'test') ? 40 : 99;
+            this.questionTimeSpent[this.currentQuestionId] = maxTime - this.currentTimer;
+        }
+
         if (this.timer) {
             clearInterval(this.timer);
             this.timer = null;
         }
+        
         const timerEl = document.getElementById('timer');
         if (timerEl) {
             timerEl.classList.remove('pulse');
         }
     }
 
-    getTimeSpent(questionId) {
-        return this.questionTimeSpent[questionId] || 0;
-    }
-
+    // --- RESULTS & PERSISTENCE ---
     getTotalTimeSpent() {
         return Object.values(this.questionTimeSpent).reduce((total, time) => total + time, 0);
     }
 
+    getQuestionStatus(questionId) {
+        const answer = this.userAnswers[questionId];
+        if (!answer) return 'unanswered';
+        if (answer.isCorrect) return 'correct';
+        if (answer.attempts >= 3 && !answer.isCorrect) return 'wrong';
+        return 'attempted';
+    }
+
+    isQuestionDisabled(questionId) {
+        const answer = this.userAnswers[questionId];
+        return answer && !answer.isPartial && (answer.isCorrect || answer.attempts >= 3);
+    }
+
+    getQuestionMarks(questionId) {
+        const answer = this.userAnswers[questionId];
+        if (!answer || answer.isPartial) return null;
+        return {
+            obtained: answer.marks,
+            max: 4,
+            display: `${answer.marks}/4`
+        };
+    }
+
     saveProgress() {
         const progress = {
-            quizData: this.quizData,
             currentQuestionIndex: this.currentQuestionIndex,
             userAnswers: this.userAnswers,
             score: this.score,
@@ -247,52 +237,53 @@ class QuizEngine {
         if (saved) {
             try {
                 const progress = JSON.parse(saved);
-                if (progress.quizData && progress.quizData.metadata) {
-                    this.currentQuestionIndex = progress.currentQuestionIndex || 0;
-                    this.userAnswers = progress.userAnswers || {};
-                    this.score = progress.score || 0;
-                    this.startTime = progress.startTime || new Date().toISOString();
-                    this.questionTimers = progress.questionTimers || {};
-                    this.questionTimeSpent = progress.questionTimeSpent || {};
-                    this.mode = progress.mode || 'practice';
-                    return true;
-                }
+                this.currentQuestionIndex = progress.currentQuestionIndex || 0;
+                this.userAnswers = progress.userAnswers || {};
+                this.score = progress.score || 0;
+                this.startTime = progress.startTime || new Date().toISOString();
+                this.questionTimers = progress.questionTimers || {};
+                this.questionTimeSpent = progress.questionTimeSpent || {};
+                this.mode = progress.mode || 'practice';
+                return true;
             } catch (e) {
-                console.error('Error loading progress:', e);
+                console.error('Save Corrupted:', e);
             }
         }
         this.startTime = new Date().toISOString();
-        this.questionTimers = {};
-        this.questionTimeSpent = {};
         return false;
     }
 
     clearProgress() {
         localStorage.removeItem('quizProgress');
+        this.stopProgressState();
+    }
+
+    stopProgressState() {
         this.currentQuestionIndex = 0;
         this.userAnswers = {};
         this.score = 0;
         this.startTime = new Date().toISOString();
         this.questionTimers = {};
         this.questionTimeSpent = {};
+        this.clearTimer();
     }
 
     getResults() {
-        const endTime = new Date();
-        const startTime = new Date(this.startTime);
-        const totalTimeTaken = Math.round((endTime - startTime) / 1000);
+        // Efficiency calculation based on active time spent, not wall clock
+        const totalActiveSeconds = this.getTotalTimeSpent();
+        const mins = Math.floor(totalActiveSeconds / 60);
+        const secs = totalActiveSeconds % 60;
+        const formattedEfficiency = `${mins}:${secs.toString().padStart(2, '0')}`;
 
         return {
             totalScore: this.score,
             maxScore: this.getMaxScore(),
             percentage: Math.round((this.score / this.getMaxScore()) * 100),
-            timeTaken: Math.round(totalTimeTaken / 60),
-            timeTakenSeconds: totalTimeTaken,
+            timeTaken: formattedEfficiency, // This is the "Efficiency" for the leaderboard
+            timeTakenSeconds: totalActiveSeconds,
             userAnswers: this.userAnswers,
             questions: this.quizData.questions,
-            metadata: this.quizData.metadata,
-            questionTimeSpent: this.questionTimeSpent,
-            totalTimeSpent: this.getTotalTimeSpent(),
+            unattemptedCount: this.quizData.questions.length - Object.keys(this.userAnswers).filter(id => !this.userAnswers[id].isPartial).length,
             mode: this.mode
         };
     }
