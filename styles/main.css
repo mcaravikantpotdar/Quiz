@@ -199,8 +199,13 @@ body {
 .stat-label { display: block; font-size: 10px; font-weight: 700; color: #64748b; text-transform: uppercase; }
 .stat-value { font-size: 16px; font-weight: 800; color: #0f172a; }
 
-#timer.pulse { color: #dc2626; animation: pulse 1s infinite; }
-@keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+/* IMPROVED: Timer pulse with scaling urgency */
+#timer.pulse { color: #dc2626; animation: timerPulse 0.8s infinite; font-weight: 800; }
+@keyframes timerPulse { 
+    0% { transform: scale(1); opacity: 1; } 
+    50% { transform: scale(1.1); opacity: 0.7; } 
+    100% { transform: scale(1); opacity: 1; } 
+}
 
 /* =========================================
    6. QUESTION GRID & DYNAMIC MARKS
@@ -246,8 +251,6 @@ body {
 .question-number.correct .marks { color: #15803d; }
 .question-number.wrong { background: #fee2e2; border-color: #ef4444; }
 .question-number.wrong .marks { color: #b91c1c; }
-
-/* FIX: Synchronized with Engine state name */
 .question-number.attempted { background: #fff7ed; border-color: #fdba74; } 
 
 /* =========================================
@@ -345,8 +348,8 @@ body {
 .scoreboard-table th[data-sort] { cursor: pointer; position: relative; }
 .scoreboard-table th[data-sort]:hover { background: #eff6ff; color: #2563eb; }
 
-.sort-asc::after { content: " ↑"; color: #2563eb; font-size: 14px; }
-.sort-desc::after { content: " ↓"; color: #2563eb; font-size: 14px; }
+.sort-asc::after { content: " ↑"; color: #2563eb; font-size: 14px; font-weight: bold; }
+.sort-desc::after { content: " ↓"; color: #2563eb; font-size: 14px; font-weight: bold; }
 
 .scoreboard-table td { padding: 15px; border-bottom: 1px solid #f1f5f9; font-size: 14px; vertical-align: middle; }
 
