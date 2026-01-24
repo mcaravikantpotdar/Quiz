@@ -758,7 +758,7 @@
       },
       "explanation": {
         "en": "SVG (Scalable Vector Graphics) is an XML-based vector image format for two-dimensional graphics with support for interactivity and animation. It is the ideal format for scalable web graphics.",
-        "hi": "SVG (स्केलेबल वेक्टर ग्राफिक्स) इंटरेक्टिविटी और एनीमेशन के समर्थन के साथ द्वि-आयामी ग्राफिक्स के लिए एक XML-आधारित वेक्टर इमेज फॉर्मेट है। यह स्केलेबल वेब ग्राफिक्स के लिए आदर्श फॉर्मेट है।"
+        "hi": "SVG (स्केलेबल वेक्टर ग्राफिक्स) इंटरेक्टिविटी और एनीमेशन के समर्थन के साथ द्वि-आयामी ग्राफिक्स के लिए एक XML-आधारित वेक्टर इमेज फॉर्मेट है। इट इस द आइडियल फॉर्मेट फॉर स्केलेबल वेब ग्राफिक्स।"
       },
       "key_takeaway": {
         "en": "SVG is the ideal format for scalable web graphics.",
@@ -800,7 +800,7 @@
       "options": {
         "a": { "en": "Vector graphics have larger file sizes", "hi": "वेक्टर ग्राफिक्स का फाइल आकार बड़ा होता है" },
         "b": { "en": "Vector graphics can be scaled for use on both small badges and large banners without losing quality", "hi": "वेक्टर ग्राफिक्स को छोटे बैज और बड़े बैनर दोनों पर उपयोग के लिए गुणवत्ता खोए बिना स्केल किया जा सकता है" },
-        "c": { "en": "Vector graphics are only suitable for black and white designs", "hi": "वेक्टर ग्राफिक्स केवल काले और सफेद डिजाइनों के लिए उपयुक्त हैं" },
+        "c": { "en": "Vector graphics are only suitable for black and white डिजाइनों", "hi": "वेक्टर ग्राफिक्स केवल काले और सफेद डिजाइनों के लिए उपयुक्त हैं" },
         "d": { "en": "Vector graphics are easier to create than bitmap images", "hi": "वेक्टर ग्राफिक्स बिटमैप इमेज की तुलना में बनाने में आसान होते हैं" }
       },
       "correct_option": "b",
