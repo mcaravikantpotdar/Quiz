@@ -94,7 +94,7 @@ class QuizApp {
         if (this.cancelQuit) this.cancelQuit.addEventListener('click', () => this.quitModal.classList.remove('active'));
         if (this.confirmQuit) this.confirmQuit.addEventListener('click', () => this.quitQuiz());
         if (this.retakeBtn) this.retakeBtn.addEventListener('click', () => {
-            this.quizEngine.clearProgress();
+            this.quizEngine.nuclearReset(); // Ensure clean timer start
             this.startActualQuiz();
         });
         if (this.homeBtn) this.homeBtn.addEventListener('click', () => window.location.reload());
@@ -129,6 +129,8 @@ class QuizApp {
     async handleStart() {
         QuizUtils.showLoading(true);
         try {
+            // FORCE: Clean session for the new attempt
+            this.quizEngine.nuclearReset(); 
             const r = await fetch(`jsons/${this.selectedQuizFile}?t=${Date.now()}`);
             const data = await r.json();
             this.quizEngine.loadQuizData(data, this.studentName.value, this.schoolName.value);
@@ -162,11 +164,6 @@ class QuizApp {
         const header = document.querySelector('.quiz-header');
         if (header) {
             header.insertBefore(temp.firstChild, header.firstChild);
-            // FIX: Re-cache the gear icon specifically if it was moved in the DOM
-            this.adminGear = document.getElementById('adminGear');
-            if (this.adminGear) {
-                this.adminGear.onclick = () => this.adminModal.classList.add('active');
-            }
         }
     }
 
@@ -305,6 +302,10 @@ class QuizApp {
         this.completeQuiz(true);
     }
 
+    /**
+     * STABILIZED: Fail-Safe Finish
+     * Ensures memory wipe even if UI updates fail.
+     */
     completeQuiz(forced = false) { 
         try {
             const res = this.quizEngine.getResults(); 
@@ -315,20 +316,23 @@ class QuizApp {
             this.quizEngine.stopTimer(); 
             QuizUtils.createConfetti(); 
             
-            if (this.finalScore) this.finalScore.textContent = res.totalScore; 
-            if (this.totalPossible) this.totalPossible.textContent = res.maxScore; 
-            if (this.percentage) this.percentage.textContent = res.percentage + '%'; 
-            if (this.totalTime) this.totalTime.textContent = res.timeTaken; 
-            
-            this.renderResultsBreakdown(res); 
+            // Safety Update: UI Labels
+            try {
+                if (this.finalScore) this.finalScore.textContent = res.totalScore; 
+                if (this.totalPossible) this.totalPossible.textContent = res.maxScore; 
+                if (this.percentage) this.percentage.textContent = res.percentage + '%'; 
+                if (this.totalTime) this.totalTime.textContent = res.timeTaken; 
+                this.renderResultsBreakdown(res); 
+            } catch (uiError) { console.warn("UI sync minor error:", uiError); }
+
             QuizUtils.showScreen('resultsScreen'); 
             this.submitScore(res); 
             
-            // FIX: Force Clear session memory immediately
-            this.quizEngine.clearProgress(); 
+            // CRITICAL: NUCLEAR RESET
+            this.quizEngine.nuclearReset(); 
         } catch (error) {
-            console.error("QuizApp: completeQuiz failed", error);
-            this.quizEngine.clearProgress(); 
+            console.error("QuizApp: completeQuiz crash recovery", error);
+            this.quizEngine.nuclearReset(); // Force clear on failure
         }
     }
 
