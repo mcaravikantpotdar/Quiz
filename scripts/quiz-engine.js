@@ -11,14 +11,26 @@ class QuizEngine {
         this.questionTimers = {};
         this.questionTimeSpent = {};
         this.currentQuestionId = null;
+        
+        // --- IDENTITY GUARD STATE ---
+        this.studentName = '';
+        this.schoolName = '';
     }
 
     setMode(mode) { this.mode = mode; }
 
-    loadQuizData(data) {
+    /**
+     * Updated: Now accepts student identity to prevent "Zombie Sessions"
+     */
+    loadQuizData(data, name = '', school = '') {
         const validation = QuizUtils.validateQuizJSON(data);
         if (!validation.isValid) throw new Error(`Data Error: ${validation.errors[0]}`);
+        
         this.quizData = data;
+        this.studentName = name;
+        this.schoolName = school;
+        
+        // Identity is established before progress is loaded
         this.loadProgress();
     }
 
@@ -133,7 +145,16 @@ class QuizEngine {
     }
 
     saveProgress() {
-        const p = { currentQuestionIndex: this.currentQuestionIndex, userAnswers: this.userAnswers, score: this.score, questionTimers: this.questionTimers, questionTimeSpent: this.questionTimeSpent, mode: this.mode };
+        const p = { 
+            studentName: this.studentName, // Persistence of identity
+            schoolName: this.schoolName, 
+            currentQuestionIndex: this.currentQuestionIndex, 
+            userAnswers: this.userAnswers, 
+            score: this.score, 
+            questionTimers: this.questionTimers, 
+            questionTimeSpent: this.questionTimeSpent, 
+            mode: this.mode 
+        };
         localStorage.setItem('quizProgress', JSON.stringify(p));
     }
 
@@ -142,6 +163,14 @@ class QuizEngine {
         if (s) {
             try {
                 const p = JSON.parse(s);
+                
+                // IDENTITY GUARD: If names don't match the current form, purge the old data
+                if (p.studentName !== this.studentName || p.schoolName !== this.schoolName) {
+                    console.log("New student detected. Clearing previous session.");
+                    this.clearProgress();
+                    return false;
+                }
+
                 this.currentQuestionIndex = p.currentQuestionIndex || 0;
                 this.userAnswers = p.userAnswers || {};
                 this.score = p.score || 0;
@@ -161,14 +190,12 @@ class QuizEngine {
     }
 
     getResults() {
-        // Source Correction: Ensuring efficiency is purely duration-based
         const totalSecs = Object.values(this.questionTimeSpent).reduce((t, s) => t + s, 0);
         const mins = Math.floor(totalSecs / 60);
         const secs = totalSecs % 60;
         return {
             totalScore: this.score, maxScore: this.getMaxScore(),
             percentage: this.getMaxScore() > 0 ? Math.round((this.score / this.getMaxScore()) * 100) : 0,
-            // Optimized format for Google Sheets ingestion
             timeTaken: `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`,
             userAnswers: this.userAnswers, questions: this.quizData.questions,
             unattemptedCount: this.quizData.questions.length - Object.keys(this.userAnswers).filter(id => !this.userAnswers[id].isPartial).length
