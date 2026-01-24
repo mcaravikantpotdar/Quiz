@@ -125,7 +125,11 @@ class QuizApp {
         try {
             const r = await fetch(`jsons/${this.selectedQuizFile}?t=${Date.now()}`);
             const data = await r.json();
-            this.quizEngine.loadQuizData(data);
+            
+            // --- FIX: IDENTITY HANDSHAKE ---
+            // Passing input values to the engine so it can validate or clear previous sessions.
+            this.quizEngine.loadQuizData(data, this.studentName.value, this.schoolName.value);
+            
             this.startActualQuiz();
         } catch (e) { if (this.errorDiv) this.errorDiv.textContent = e.message; }
         finally { QuizUtils.showLoading(false); }
@@ -162,7 +166,6 @@ class QuizApp {
         this.quizEngine.currentQuestionIndex = i;
         const q = this.quizEngine.getCurrentQuestion();
         
-        // Blank Screen Safety Check
         if (!q || !q.question) {
             console.error("QuizApp: Malformed question data at index", i);
             return;
@@ -333,7 +336,6 @@ class QuizApp {
         } catch (e) { this.scoreboardBody.innerHTML = '<tr><td colspan="7" style="color:#ef4444; text-align:center;">Server Error.</td></tr>'; }
     }
 
-    // Efficiency Fix: Time-Stripper to remove 1899 epoch
     cleanEfficiency(s) {
         const raw = String(s || '').replace('⏱️', '').trim();
         return raw.includes('T') ? raw.split('T')[1].split('.')[0] : raw;
