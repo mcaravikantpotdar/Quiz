@@ -75,7 +75,6 @@ class QuizEngine {
     }
 
     startTimer(questionId, onTick, onExpire) {
-        // Master Clock: Ensures absolute time tracking
         if (!this.overallTimer) {
             this.overallTimer = setInterval(() => {
                 this.totalElapsedSeconds++;
@@ -190,19 +189,20 @@ class QuizEngine {
         return false;
     }
 
-    /**
-     * FIX: NUCLEAR RESET
-     * Ensures absolute termination of the clock and clearing of memory.
-     */
     nuclearReset() {
         if (this.overallTimer) { clearInterval(this.overallTimer); this.overallTimer = null; }
         this.totalElapsedSeconds = 0;
         this.clearProgress();
     }
 
+    /**
+     * STABILIZED: Full Memory Wipe
+     * Now nullifies quizData so the app returns to Home instead of Quiz screen.
+     */
     clearProgress() {
         localStorage.removeItem('quizProgress');
         if (this.overallTimer) { clearInterval(this.overallTimer); this.overallTimer = null; }
+        this.quizData = null; // KEY FIX: Forget the chapter
         this.currentQuestionIndex = 0; 
         this.userAnswers = {}; 
         this.score = 0; 
@@ -221,8 +221,8 @@ class QuizEngine {
             percentage: this.getMaxScore() > 0 ? Math.round((this.score / this.getMaxScore()) * 100) : 0,
             timeTaken: `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`,
             userAnswers: this.userAnswers, 
-            questions: this.quizData.questions,
-            unattemptedCount: this.quizData.questions.length - Object.keys(this.userAnswers).filter(id => !this.userAnswers[id].isPartial).length
+            questions: this.quizData ? this.quizData.questions : [],
+            unattemptedCount: this.quizData ? (this.quizData.questions.length - Object.keys(this.userAnswers).filter(id => !this.userAnswers[id].isPartial).length) : 0
         };
     }
 }
