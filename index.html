@@ -119,7 +119,10 @@
                 <div style="flex:1; margin:0 10px; text-align:center;">
                     <h2 id="chapterTitle" class="chapter-title" style="margin: 0; border: none; padding: 0;">Chapter Name</h2>
                 </div>
-                <button id="topQuitBtn" class="btn-icon btn-danger-text" title="Quit">🏁 Finish</button>
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <div id="adminGear" style="font-size: 22px; opacity: 0.4; cursor: pointer; transition: 0.2s;" title="Admin Settings">⚙️</div>
+                    <button id="topQuitBtn" class="btn-icon btn-danger-text" title="Quit">🏁 Finish</button>
+                </div>
             </div>
             
             <div class="quiz-stats-row">
@@ -221,8 +224,6 @@
     </div>
 
     <div id="loadingSpinner" class="spinner"></div>
-
-    <div id="adminGear" style="position: fixed; bottom: 10px; right: 10px; font-size: 20px; opacity: 0.1; cursor: pointer; z-index: 1000;">⚙️</div>
 
 </body>
 </html>
