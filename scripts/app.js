@@ -48,8 +48,7 @@ class QuizApp {
             'leaderboardHeaders', 'scoreboardBody'
         ];
         ids.forEach(id => { 
-            const el = document.getElementById(id);
-            this[id] = el; 
+            this[id] = document.getElementById(id); 
         });
         this.quizListContainer = this.quizList;
         this.errorDiv = this.errorMessage;
@@ -69,7 +68,6 @@ class QuizApp {
             else QuizUtils.showScreen('uploadScreen');
         });
 
-        // RESTORED: Leaderboard sorting listener
         if (this.leaderboardHeaders) {
             this.leaderboardHeaders.addEventListener('click', (e) => {
                 const th = e.target.closest('th');
@@ -267,7 +265,6 @@ class QuizApp {
         if (this.sortConfig.key === key) this.sortConfig.asc = !this.sortConfig.asc;
         else { this.sortConfig.key = key; this.sortConfig.asc = (key === 'student' || key === 'chapter'); }
         
-        // UI Feedback: Toggle header classes
         const headers = document.querySelectorAll('#leaderboardHeaders th');
         headers.forEach(th => th.classList.remove('sort-asc', 'sort-desc'));
         const active = document.querySelector(`#leaderboardHeaders th[data-sort="${key}"]`);
@@ -276,14 +273,19 @@ class QuizApp {
         const data = [...this.scoreboardData];
         data.sort((a, b) => {
             let vA, vB;
-            if (key === 'date') { vA = new Date(a[0]); vB = new Date(b[0]); }
-            else if (key === 'score') { vA = parseInt(a[5]); vB = parseInt(b[5]); }
-            else if (key === 'efficiency') { 
-                const toSecs = (s) => { const p = String(s).split(':'); return p.length === 2 ? parseInt(p[0])*60 + parseInt(p[1]) : parseFloat(s) || 0; };
-                vA = toSecs(a[6]); vB = toSecs(b[6]);
+            // FIXED: Full switch mapping for all 7 leaderboard columns
+            switch (key) {
+                case 'rank': 
+                case 'score': vA = parseInt(a[5]) || 0; vB = parseInt(b[5]) || 0; break;
+                case 'date': vA = new Date(a[0]); vB = new Date(b[0]); break;
+                case 'student': vA = String(a[1] || '').toLowerCase(); vB = String(b[1] || '').toLowerCase(); break;
+                case 'chapter': vA = String(a[3] || '').toLowerCase(); vB = String(b[3] || '').toLowerCase(); break;
+                case 'mode': vA = String(a[4] || '').toLowerCase(); vB = String(b[4] || '').toLowerCase(); break;
+                case 'efficiency': 
+                    const toSecs = (s) => { const p = String(s).split(':'); return p.length === 2 ? parseInt(p[0])*60 + parseInt(p[1]) : parseFloat(s) || 0; };
+                    vA = toSecs(a[6]); vB = toSecs(b[6]); break;
+                default: vA = 0; vB = 0;
             }
-            else { vA = String(a[key === 'student' ? 1 : 3] || '').toLowerCase(); vB = String(b[key === 'student' ? 1 : 3] || '').toLowerCase(); }
-            
             if (vA < vB) return this.sortConfig.asc ? -1 : 1;
             if (vA > vB) return this.sortConfig.asc ? 1 : -1;
             return 0;
