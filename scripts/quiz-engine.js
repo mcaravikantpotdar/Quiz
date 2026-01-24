@@ -19,9 +19,6 @@ class QuizEngine {
 
     setMode(mode) { this.mode = mode; }
 
-    /**
-     * Updated: Now accepts student identity to prevent "Zombie Sessions"
-     */
     loadQuizData(data, name = '', school = '') {
         const validation = QuizUtils.validateQuizJSON(data);
         if (!validation.isValid) throw new Error(`Data Error: ${validation.errors[0]}`);
@@ -30,7 +27,6 @@ class QuizEngine {
         this.studentName = name;
         this.schoolName = school;
         
-        // Identity is established before progress is loaded
         this.loadProgress();
     }
 
@@ -69,6 +65,7 @@ class QuizEngine {
         currentData.answeredAt = new Date().toISOString();
         const finalized = (isCorrect || currentData.attempts >= 3);
         currentData.isPartial = !finalized;
+        
         if (finalized) this.stopTimer(); 
         this.calculateScore();
         this.saveProgress();
@@ -89,7 +86,9 @@ class QuizEngine {
         this.timer = setInterval(() => {
             const distance = endTime - Date.now();
             this.currentTimer = Math.ceil(distance / 1000);
-            if (this.currentTimer <= (this.mode === 'test' ? 10 : 30)) document.getElementById('timer')?.classList.add('pulse');
+            if (this.currentTimer <= (this.mode === 'test' ? 10 : 30)) {
+                document.getElementById('timer')?.classList.add('pulse');
+            }
             if (this.currentTimer >= 0) onTick(this.currentTimer);
             if (this.currentTimer <= 0) {
                 this.recordTimeout(questionId, this.userAnswers[questionId]?.hintUsed);
@@ -146,7 +145,7 @@ class QuizEngine {
 
     saveProgress() {
         const p = { 
-            studentName: this.studentName, // Persistence of identity
+            studentName: this.studentName,
             schoolName: this.schoolName, 
             currentQuestionIndex: this.currentQuestionIndex, 
             userAnswers: this.userAnswers, 
@@ -163,14 +162,10 @@ class QuizEngine {
         if (s) {
             try {
                 const p = JSON.parse(s);
-                
-                // IDENTITY GUARD: If names don't match the current form, purge the old data
                 if (p.studentName !== this.studentName || p.schoolName !== this.schoolName) {
-                    console.log("New student detected. Clearing previous session.");
                     this.clearProgress();
                     return false;
                 }
-
                 this.currentQuestionIndex = p.currentQuestionIndex || 0;
                 this.userAnswers = p.userAnswers || {};
                 this.score = p.score || 0;
@@ -185,7 +180,11 @@ class QuizEngine {
 
     clearProgress() {
         localStorage.removeItem('quizProgress');
-        this.currentQuestionIndex = 0; this.userAnswers = {}; this.score = 0; this.questionTimers = {}; this.questionTimeSpent = {};
+        this.currentQuestionIndex = 0; 
+        this.userAnswers = {}; 
+        this.score = 0; 
+        this.questionTimers = {}; 
+        this.questionTimeSpent = {};
         this.stopTimer();
     }
 
@@ -194,10 +193,12 @@ class QuizEngine {
         const mins = Math.floor(totalSecs / 60);
         const secs = totalSecs % 60;
         return {
-            totalScore: this.score, maxScore: this.getMaxScore(),
+            totalScore: this.score, 
+            maxScore: this.getMaxScore(),
             percentage: this.getMaxScore() > 0 ? Math.round((this.score / this.getMaxScore()) * 100) : 0,
             timeTaken: `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`,
-            userAnswers: this.userAnswers, questions: this.quizData.questions,
+            userAnswers: this.userAnswers, 
+            questions: this.quizData.questions,
             unattemptedCount: this.quizData.questions.length - Object.keys(this.userAnswers).filter(id => !this.userAnswers[id].isPartial).length
         };
     }
