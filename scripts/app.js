@@ -94,11 +94,18 @@ class QuizApp {
         if (this.cancelQuit) this.cancelQuit.addEventListener('click', () => this.quitModal.classList.remove('active'));
         if (this.confirmQuit) this.confirmQuit.addEventListener('click', () => this.quitQuiz());
         if (this.retakeBtn) this.retakeBtn.addEventListener('click', () => {
-            this.quizEngine.nuclearReset(); // Ensure clean timer start
+            this.quizEngine.nuclearReset();
             this.startActualQuiz();
         });
         if (this.homeBtn) this.homeBtn.addEventListener('click', () => window.location.reload());
-        if (this.adminGear) this.adminGear.addEventListener('click', () => this.adminModal.classList.add('active'));
+        
+        // STABILIZED: Ensuring gear icon is always clickable regardless of header shifts
+        if (this.adminGear) {
+            this.adminGear.onclick = () => {
+                if (this.adminModal) this.adminModal.classList.add('active');
+            };
+        }
+        
         if (this.closeAdmin) this.closeAdmin.addEventListener('click', () => this.adminModal.classList.remove('active'));
         
         if (this.adminPassword) {
@@ -129,7 +136,7 @@ class QuizApp {
     async handleStart() {
         QuizUtils.showLoading(true);
         try {
-            // FORCE: Clean session for the new attempt
+            // FORCE: Kill any previous session time before starting new chapter
             this.quizEngine.nuclearReset(); 
             const r = await fetch(`jsons/${this.selectedQuizFile}?t=${Date.now()}`);
             const data = await r.json();
@@ -302,10 +309,6 @@ class QuizApp {
         this.completeQuiz(true);
     }
 
-    /**
-     * STABILIZED: Fail-Safe Finish
-     * Ensures memory wipe even if UI updates fail.
-     */
     completeQuiz(forced = false) { 
         try {
             const res = this.quizEngine.getResults(); 
@@ -316,23 +319,23 @@ class QuizApp {
             this.quizEngine.stopTimer(); 
             QuizUtils.createConfetti(); 
             
-            // Safety Update: UI Labels
+            // Safety UI Update
             try {
                 if (this.finalScore) this.finalScore.textContent = res.totalScore; 
                 if (this.totalPossible) this.totalPossible.textContent = res.maxScore; 
                 if (this.percentage) this.percentage.textContent = res.percentage + '%'; 
                 if (this.totalTime) this.totalTime.textContent = res.timeTaken; 
                 this.renderResultsBreakdown(res); 
-            } catch (uiError) { console.warn("UI sync minor error:", uiError); }
+            } catch (uiError) { console.warn("UI sync error:", uiError); }
 
             QuizUtils.showScreen('resultsScreen'); 
             this.submitScore(res); 
             
-            // CRITICAL: NUCLEAR RESET
+            // CRITICAL: KILL Master Clock and wipe cache
             this.quizEngine.nuclearReset(); 
         } catch (error) {
-            console.error("QuizApp: completeQuiz crash recovery", error);
-            this.quizEngine.nuclearReset(); // Force clear on failure
+            console.error("QuizApp: completeQuiz fail-safe triggered", error);
+            this.quizEngine.nuclearReset(); 
         }
     }
 
@@ -366,10 +369,19 @@ class QuizApp {
         } catch (e) { this.scoreboardBody.innerHTML = '<tr><td colspan="7" style="color:#ef4444; text-align:center;">Server Error.</td></tr>'; }
     }
 
+    /**
+     * CLEANER: Aggressively strips spreadsheet formatting errors and timezone offsets.
+     */
     cleanEfficiency(s) {
-        let raw = String(s || '').replace('⏱️', '').trim();
+        let raw = String(s || '').replace('⏱️', '').replace("'", "").trim();
         if (raw.includes('T')) raw = raw.split('T')[1].split('.')[0];
         if (raw.startsWith('00:')) raw = raw.substring(3);
+        
+        // STABILIZED: If Sheets still sends an "18-hour" date object, we know it's a duration under 1 min
+        if (raw.startsWith('18:') || raw.startsWith('19:')) {
+            const parts = raw.split(':');
+            return parts.length === 3 ? `0:${parts[2]}` : '0:02';
+        }
         return raw || '0:00';
     }
 
@@ -431,7 +443,11 @@ class QuizApp {
     }
 
     async submitScore(res) {
-        const p = { action: 'submit', studentName: this.studentName.value, schoolName: this.schoolName.value, quizTitle: this.quizEngine.quizData.metadata.chapter_title, mode: this.quizEngine.mode.toUpperCase(), score: `${res.totalScore}/${res.maxScore}`, timeTaken: res.timeTaken };
+        // FIX: The Apostrophe Prefix forces Sheets to treat the value as STRING (Text)
+        // This stops it from converting "00:11" into a broken 1899 date object
+        const lockedTime = `'${res.timeTaken}`;
+        
+        const p = { action: 'submit', studentName: this.studentName.value, schoolName: this.schoolName.value, quizTitle: this.quizEngine.quizData.metadata.chapter_title, mode: this.quizEngine.mode.toUpperCase(), score: `${res.totalScore}/${res.maxScore}`, timeTaken: lockedTime };
         try { await fetch(this.SCRIPT_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(p) }); } catch (e) { }
     }
 }
