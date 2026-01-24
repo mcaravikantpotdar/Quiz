@@ -103,8 +103,8 @@ class QuizApp {
         if(this.btnViewScoreboardResults) this.btnViewScoreboardResults.addEventListener('click', showScoreboard);
         
         this.btnBackScoreboard.addEventListener('click', () => {
-            if (this.quizEngine.quizData && this.quizEngine.currentQuestionIndex >= 0 && this.quizEngine.score > 0) {
-                 QuizUtils.showScreen('resultsScreen');
+            if (this.quizEngine.quizData && this.quizEngine.currentQuestionIndex >= 0) {
+                 QuizUtils.showScreen('quizScreen');
             } else { QuizUtils.showScreen('uploadScreen'); }
         });
 
@@ -198,14 +198,13 @@ class QuizApp {
         const oldId = document.getElementById('identityBar');
         if(oldId) oldId.remove();
 
-        // FIX: Removed the <br> which caused injection to fail
         const identityHTML = `
-            <div id="identityBar" style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #f1f5f9; padding-bottom:10px; margin-bottom:10px; width:100%;">
-                <div style="text-align:left;">
-                    <div style="font-weight:700; font-size:14px; color:#1e293b;">👤 ${name}</div>
-                    <div style="font-size:11px; color:#64748b;">${school}</div>
+            <div id="identityBar">
+                <div class="id-student-info">
+                    <div class="id-name">👤 ${name}</div>
+                    <div class="id-school">${school}</div>
                 </div>
-                <div class="stat-badge ${mode === 'TEST' ? 'strict' : ''}" style="font-size:10px; padding:4px 8px; border-radius:12px; background:${mode === 'TEST' ? '#fee2e2' : '#dcfce7'}; color:${mode === 'TEST' ? '#991b1b' : '#166534'}; border:none;">
+                <div class="stat-badge ${mode === 'TEST' ? 'strict' : ''}">
                     ${mode} MODE
                 </div>
             </div>
@@ -214,7 +213,6 @@ class QuizApp {
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = identityHTML.trim();
 
-        // FIX: Safe injection at the top of the header
         const header = document.querySelector('.quiz-header');
         if (header) {
             header.prepend(tempDiv.firstChild);
@@ -264,7 +262,6 @@ class QuizApp {
             const card = document.createElement('div');
             card.className = 'option-card';
             
-            // FIX: Added case-insensitivity support for option keys
             const optKey = q.options[key] ? key : key.toUpperCase();
             const optionData = q.options[optKey] || { en: 'Error', hi: 'त्रुटि' };
 
@@ -408,9 +405,8 @@ class QuizApp {
         this.quizEngine.currentQuestionIndex = i;
         const q = this.quizEngine.getCurrentQuestion();
         
-        // FIX: Error Handling for missing bilingual keys
         if (!q.question || typeof q.question === 'string') {
-            console.error("JSON Error: Question is not bilingual. Please check your data format.");
+            console.error("JSON Error: Question is not bilingual.");
             return;
         }
 
@@ -419,7 +415,6 @@ class QuizApp {
         document.getElementById('currentQuestion').textContent = i + 1;
         this.renderOptions(q);
         
-        // FIX: Correctly clear and REFRESH feedback areas to avoid ID duplication
         document.querySelectorAll('#feedbackContainer, #hintArea').forEach(el => el.remove());
         
         document.getElementById('optionsContainer').insertAdjacentHTML('afterend', `
