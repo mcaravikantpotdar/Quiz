@@ -199,7 +199,6 @@ body {
 .stat-label { display: block; font-size: 10px; font-weight: 700; color: #64748b; text-transform: uppercase; }
 .stat-value { font-size: 16px; font-weight: 800; color: #0f172a; }
 
-/* IMPROVED: Timer pulse with scaling urgency */
 #timer.pulse { color: #dc2626; animation: timerPulse 0.8s infinite; font-weight: 800; }
 @keyframes timerPulse { 
     0% { transform: scale(1); opacity: 1; } 
@@ -353,7 +352,31 @@ body {
 
 .scoreboard-table td { padding: 15px; border-bottom: 1px solid #f1f5f9; font-size: 14px; vertical-align: middle; }
 
-#adminGear:hover { opacity: 1 !important; transform: rotate(45deg); transition: all 0.3s; }
+/* =========================================
+   9. NUCLEAR CONTROL LAYER (FIX FOR GEAR)
+   ========================================= */
+#adminGear {
+    display: block !important;
+    visibility: visible !important;
+    position: fixed !important;
+    bottom: 20px !important;
+    right: 20px !important;
+    font-size: 28px !important;
+    opacity: 0.8 !important; 
+    z-index: 9999 !important; /* Above everything */
+    background: white;
+    padding: 10px;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    cursor: pointer !important;
+    transition: all 0.3s ease;
+}
+
+#adminGear:hover { 
+    opacity: 1 !important; 
+    transform: rotate(45deg) scale(1.1); 
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.2);
+}
 
 .feedback-area { margin-top: 20px; padding: 20px; border-radius: 12px; animation: slideIn 0.3s; }
 @keyframes slideIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
@@ -384,7 +407,7 @@ body {
 .result-question { font-weight: 600; color: #1e293b; margin-bottom: 5px; }
 
 /* =========================================
-   9. MODALS & UTILS
+   10. MODALS & UTILS
    ========================================= */
 .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 100; align-items: center; justify-content: center; backdrop-filter: blur(2px); }
 .modal.active { display: flex; }
@@ -395,7 +418,7 @@ body {
 @keyframes spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
 
 /* =========================================
-   10. MOBILE & RESPONSIVE
+   11. MOBILE & RESPONSIVE
    ========================================= */
 @media (max-width: 768px) {
     .mode-grid { grid-template-columns: 1fr; }
