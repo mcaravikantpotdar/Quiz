@@ -37,18 +37,18 @@ class QuizApp {
     }
 
     cacheDOM() {
-        // FIX: Full list of all required IDs to prevent the blank screen crash
         const ids = [
             'studentName', 'schoolName', 'quizList', 'startQuiz', 'viewScoreboardBtn', 
             'viewScoreboardFromResults', 'backFromScoreboard', 'topHomeBtn', 'topQuitBtn', 
             'nextBtn', 'prevBtn', 'hintBtn', 'quitBtn', 'confirmQuit', 'cancelQuit', 
             'retakeBtn', 'homeBtn', 'adminGear', 'adminModal', 'adminPassword', 
             'confirmReset', 'closeAdmin', 'adminError', 'quitModal', 'errorMessage',
-            'optionsContainer', 'questionGrid', 'questionEn', 'questionHi'
+            'optionsContainer', 'questionGrid', 'questionEn', 'questionHi',
+            'resultsBreakdown', 'finalScore', 'totalPossible', 'percentage', 'totalTime',
+            'leaderboardHeaders', 'scoreboardBody'
         ];
         ids.forEach(id => { 
             const el = document.getElementById(id);
-            if (!el) console.warn(`Missing DOM ID: ${id}`);
             this[id] = el; 
         });
         this.quizListContainer = this.quizList;
@@ -68,6 +68,14 @@ class QuizApp {
             if (this.quizEngine.quizData) QuizUtils.showScreen('quizScreen');
             else QuizUtils.showScreen('uploadScreen');
         });
+
+        // RESTORED: Leaderboard sorting listener
+        if (this.leaderboardHeaders) {
+            this.leaderboardHeaders.addEventListener('click', (e) => {
+                const th = e.target.closest('th');
+                if (th && th.dataset.sort) this.sortScoreboard(th.dataset.sort);
+            });
+        }
 
         this.nextBtn.addEventListener('click', () => this.nextQuestion());
         this.prevBtn.addEventListener('click', () => this.previousQuestion());
@@ -122,14 +130,9 @@ class QuizApp {
         const modeInput = document.querySelector('input[name="quizMode"]:checked');
         const mode = modeInput ? modeInput.value : 'practice';
         this.quizEngine.setMode(mode);
-        
-        Object.keys(this.quizEngine.userAnswers).forEach(id => { 
-            if (this.quizEngine.userAnswers[id].hintUsed) this.hintUsed[id] = true; 
-        });
-
+        Object.keys(this.quizEngine.userAnswers).forEach(id => { if (this.quizEngine.userAnswers[id].hintUsed) this.hintUsed[id] = true; });
         document.getElementById('chapterTitle').textContent = this.quizEngine.quizData.metadata.chapter_title;
         document.getElementById('totalQuestions').textContent = this.quizEngine.getTotalQuestions();
-        
         this.updateHeaderIdentity();
         QuizUtils.showScreen('quizScreen');
         this.renderQuestionGrid();
@@ -147,30 +150,17 @@ class QuizApp {
         this.quizEngine.stopTimer(); 
         this.quizEngine.currentQuestionIndex = i;
         const q = this.quizEngine.getCurrentQuestion();
-        
         this.questionEn.innerHTML = q.question.en;
         this.questionHi.innerHTML = q.question.hi;
         document.getElementById('currentQuestion').textContent = i + 1;
-        
         this.renderOptions(q);
-        
         document.querySelectorAll('#feedbackContainer, #hintArea').forEach(el => el.remove());
         const fb = `<div id="feedbackContainer" style="display:none;"><div class="feedback-area explanation-area"><h4>✅ Explanation</h4><div>${q.explanation.en}</div><div style="margin-top:5px; opacity:0.8;">${q.explanation.hi}</div></div><div class="key-takeaway-area"><h4>🔑 Key Takeaway</h4><div>${q.key_takeaway.en}</div><div style="margin-top:5px; opacity:0.8;">${q.key_takeaway.hi}</div></div></div><div id="hintArea" class="feedback-area hint-area" style="display:none;"><h4>💡 Hint</h4><div>${q.hint.en}</div><div style="margin-top:5px; opacity:0.8;">${q.hint.hi}</div></div>`;
         this.optionsContainer.insertAdjacentHTML('afterend', fb);
-        
-        this.updateQuestionGrid(); 
-        this.updateNavigation(); 
-        
-        this.quizEngine.startTimer(q.question_id, (t) => { 
-            document.getElementById('timer').textContent = t; 
-        }, () => this.showQuestion(i));
-
-        if (this.quizEngine.isQuestionDisabled(q.question_id) && this.quizEngine.mode === 'practice') {
-            document.getElementById('feedbackContainer').style.display = 'block';
-        }
-        if (this.hintUsed[q.question_id]) {
-            document.getElementById('hintArea').style.display = 'block';
-        }
+        this.updateQuestionGrid(); this.updateNavigation(); 
+        this.quizEngine.startTimer(q.question_id, (t) => { document.getElementById('timer').textContent = t; }, () => this.showQuestion(i));
+        if (this.quizEngine.isQuestionDisabled(q.question_id) && this.quizEngine.mode === 'practice') document.getElementById('feedbackContainer').style.display = 'block';
+        if (this.hintUsed[q.question_id]) document.getElementById('hintArea').style.display = 'block';
         this.hintBtn.disabled = this.quizEngine.isQuestionDisabled(q.question_id) || this.hintUsed[q.question_id];
     }
 
@@ -178,12 +168,10 @@ class QuizApp {
         this.optionsContainer.innerHTML = '';
         const order = this.getShuffledOptions(q);
         const ans = this.quizEngine.userAnswers[q.question_id];
-        
         order.forEach((key, idx) => {
             const card = document.createElement('div'); card.className = 'option-card';
             const data = q.options[key];
             card.innerHTML = `<div class="option-label">${['A','B','C','D'][idx]}</div><div class="option-content"><div class="opt-lang en">${data.en}</div><div class="opt-lang hi">${data.hi}</div></div>`;
-            
             if (ans) {
                 if (this.quizEngine.mode === 'practice') {
                     if (ans.history.includes(key)) card.classList.add(key === q.correct_option ? 'correct' : 'wrong');
@@ -206,9 +194,7 @@ class QuizApp {
 
     showHint() {
         const qId = this.quizEngine.getCurrentQuestion().question_id;
-        this.hintUsed[qId] = true; 
-        document.getElementById('hintArea').style.display = 'block'; 
-        this.hintBtn.disabled = true;
+        this.hintUsed[qId] = true; document.getElementById('hintArea').style.display = 'block'; this.hintBtn.disabled = true;
     }
 
     updateNavigation() {
@@ -243,15 +229,15 @@ class QuizApp {
         const res = this.quizEngine.getResults(); 
         if (!forced && res.unattemptedCount > 0) { if (!confirm(`Finish with ${res.unattemptedCount} unattempted questions?`)) return; }
         this.quizEngine.stopTimer(); QuizUtils.createConfetti(); 
-        document.getElementById('finalScore').textContent = res.totalScore; 
-        document.getElementById('totalPossible').textContent = res.maxScore; 
-        document.getElementById('percentage').textContent = res.percentage + '%'; 
-        document.getElementById('totalTime').textContent = res.timeTaken; 
+        if (this.finalScore) this.finalScore.textContent = res.totalScore; 
+        if (this.totalPossible) this.totalPossible.textContent = res.maxScore; 
+        if (this.percentage) this.percentage.textContent = res.percentage + '%'; 
+        if (this.totalTime) this.totalTime.textContent = res.timeTaken; 
         this.renderResultsBreakdown(res); QuizUtils.showScreen('resultsScreen'); this.submitScore(res); 
     }
 
     renderResultsBreakdown(res) {
-        this.resultsBreakdown = document.getElementById('resultsBreakdown');
+        if (!this.resultsBreakdown) return;
         this.resultsBreakdown.innerHTML = res.questions.map((q, i) => {
             const a = res.userAnswers[q.question_id];
             const status = (a && a.isCorrect) ? 'correct' : ((!a || a.isPartial) ? 'skipped' : 'wrong');
@@ -269,26 +255,51 @@ class QuizApp {
     }
 
     async fetchScoreboard() {
-        const b = document.getElementById('scoreboardBody'); b.innerHTML = '<tr><td colspan="7" style="padding:40px; text-align:center;">Syncing...</td></tr>';
+        if (!this.scoreboardBody) return;
+        this.scoreboardBody.innerHTML = '<tr><td colspan="7" style="padding:40px; text-align:center;">Syncing...</td></tr>';
         try {
             const r = await fetch(`${this.SCRIPT_URL}?action=get&t=${Date.now()}`);
             this.scoreboardData = await r.json(); this.sortScoreboard('date');
-        } catch (e) { b.innerHTML = '<tr><td colspan="7" style="color:#ef4444; text-align:center;">Server Error.</td></tr>'; }
+        } catch (e) { this.scoreboardBody.innerHTML = '<tr><td colspan="7" style="color:#ef4444; text-align:center;">Server Error.</td></tr>'; }
     }
 
     sortScoreboard(key) {
         if (this.sortConfig.key === key) this.sortConfig.asc = !this.sortConfig.asc;
         else { this.sortConfig.key = key; this.sortConfig.asc = (key === 'student' || key === 'chapter'); }
+        
+        // UI Feedback: Toggle header classes
+        const headers = document.querySelectorAll('#leaderboardHeaders th');
+        headers.forEach(th => th.classList.remove('sort-asc', 'sort-desc'));
+        const active = document.querySelector(`#leaderboardHeaders th[data-sort="${key}"]`);
+        if (active) active.classList.add(this.sortConfig.asc ? 'sort-asc' : 'sort-desc');
+
         const data = [...this.scoreboardData];
         data.sort((a, b) => {
             let vA, vB;
             if (key === 'date') { vA = new Date(a[0]); vB = new Date(b[0]); }
-            else if (key === 'score') { vA = parseInt(a[5].split('/')[0]); vB = parseInt(b[5].split('/')[0]); }
-            else if (key === 'efficiency') { vA = parseFloat(a[6]); vB = parseFloat(b[6]); }
-            else { vA = a[key === 'student' ? 1 : 3].toLowerCase(); vB = b[key === 'student' ? 1 : 3].toLowerCase(); }
-            return this.sortConfig.asc ? (vA < vB ? -1 : 1) : (vA > vB ? -1 : 1);
+            else if (key === 'score') { vA = parseInt(a[5]); vB = parseInt(b[5]); }
+            else if (key === 'efficiency') { 
+                const toSecs = (s) => { const p = String(s).split(':'); return p.length === 2 ? parseInt(p[0])*60 + parseInt(p[1]) : parseFloat(s) || 0; };
+                vA = toSecs(a[6]); vB = toSecs(b[6]);
+            }
+            else { vA = String(a[key === 'student' ? 1 : 3] || '').toLowerCase(); vB = String(b[key === 'student' ? 1 : 3] || '').toLowerCase(); }
+            
+            if (vA < vB) return this.sortConfig.asc ? -1 : 1;
+            if (vA > vB) return this.sortConfig.asc ? 1 : -1;
+            return 0;
         });
-        document.getElementById('scoreboardBody').innerHTML = data.slice(0, 50).map((r, i) => `<tr><td style="padding:15px; font-weight:bold;">${i+1}</td><td style="padding:15px; font-size:12px;">${r[0] ? new Date(r[0]).toLocaleDateString('en-IN', {day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit'}) : '-'}</td><td style="padding:15px;"><strong>${r[1]}</strong><br><small>${r[2]}</small></td><td style="padding:15px; font-size:13px;">${r[3]}</td><td style="padding:15px;"><span class="tag ${r[4] === 'TEST' ? 'strict' : ''}">${r[4]}</span></td><td style="padding:15px; font-weight:800; color:#2563eb;">${r[5]}</td><td style="padding:15px; font-size:12px;">⏱️ ${r[6]}</td></tr>`).join('');
+
+        this.scoreboardBody.innerHTML = data.slice(0, 50).map((r, i) => `
+            <tr>
+                <td style="padding:15px; font-weight:bold;">${i+1}</td>
+                <td style="padding:15px; font-size:12px;">${r[0] ? new Date(r[0]).toLocaleDateString('en-IN', {day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit'}) : '-'}</td>
+                <td style="padding:15px;"><strong>${r[1]}</strong><br><small>${r[2]}</small></td>
+                <td style="padding:15px; font-size:13px;">${r[3]}</td>
+                <td style="padding:15px;"><span class="tag ${r[4] === 'TEST' ? 'strict' : ''}">${r[4]}</span></td>
+                <td style="padding:15px; font-weight:800; color:#2563eb;">${r[5]}</td>
+                <td style="padding:15px; font-size:12px;">⏱️ ${r[6]}</td>
+            </tr>
+        `).join('');
     }
 
     async handleDatabaseReset() {
