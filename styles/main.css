@@ -147,7 +147,7 @@ body {
 .mode-card input:checked + .card-content .check-mark { display: flex; }
 
 /* =========================================
-   5. QUIZ HEADER (DUAL NAVIGATION SYNC)
+   5. QUIZ HEADER & IDENTITY
    ========================================= */
 .quiz-header {
     background: white;
@@ -160,11 +160,26 @@ body {
     z-index: 50;
 }
 
+#identityBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.id-student-info { text-align: left; }
+.id-name { font-weight: 700; font-size: 14px; color: #1e293b; }
+.id-school { font-size: 11px; color: #64748b; }
+
 .chapter-title {
     text-align: center;
     font-size: 18px;
     font-weight: 800;
     color: #1e293b;
+    margin: 10px 0;
 }
 
 .quiz-stats-row { display: flex; justify-content: space-between; align-items: center; }
@@ -179,7 +194,7 @@ body {
     min-width: 70px;
 }
 .stat-badge.score-badge { background: #eff6ff; border-color: #bfdbfe; }
-.stat-badge.strict { background: #fee2e2; border-color: #fca5a5; color: #991b1b; } /* New Strict Mode Badge */
+.stat-badge.strict { background: #fee2e2; border-color: #fca5a5; color: #991b1b; }
 
 .stat-label { display: block; font-size: 10px; font-weight: 700; color: #64748b; text-transform: uppercase; }
 .stat-value { font-size: 16px; font-weight: 800; color: #0f172a; }
@@ -217,7 +232,6 @@ body {
 
 .q-number { font-size: 13px; font-weight: 700; color: #64748b; line-height: 1.2; }
 
-/* REFINED: Marks look tidy inside the grid boxes */
 .marks { 
     font-size: 9px; 
     font-weight: 800; 
@@ -232,10 +246,12 @@ body {
 .question-number.correct .marks { color: #15803d; }
 .question-number.wrong { background: #fee2e2; border-color: #ef4444; }
 .question-number.wrong .marks { color: #b91c1c; }
-.question-number.partial { background: #fff7ed; border-color: #fdba74; } /* New Partial State */
+
+/* FIX: Synchronized with Engine state name */
+.question-number.attempted { background: #fff7ed; border-color: #fdba74; } 
 
 /* =========================================
-   7. QUESTION & OPTIONS AREA (FLEXBOX UPDATE)
+   7. QUESTION & OPTIONS AREA
    ========================================= */
 .question-area { background: white; padding: 25px; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
 .question-text { margin-bottom: 25px; }
@@ -244,9 +260,8 @@ body {
 
 .options-container { display: grid; gap: 12px; }
 
-/* OPTIMIZED: Flexbox Layout for Options */
 .option-card {
-    display: flex; /* Changed from grid to flex */
+    display: flex;
     align-items: center;
     gap: 15px;
     padding: 15px;
@@ -274,7 +289,7 @@ body {
 .option-content {
     flex: 1;
     display: flex;
-    flex-direction: row; /* Side-by-side on desktop */
+    flex-direction: row;
     gap: 15px;
     align-items: center;
     justify-content: start;
@@ -282,12 +297,11 @@ body {
 
 .opt-lang { flex: 1; padding: 4px; }
 .opt-lang.hi { 
-    border-left: 2px solid #e2e8f0; /* Vertical Divider */
+    border-left: 2px solid #e2e8f0;
     padding-left: 15px; 
     color: #475569; 
 }
 
-/* States */
 .option-card:hover:not(.disabled) { border-color: #3b82f6; background: #f8fafc; }
 .option-card.correct { background: #f0fdf4 !important; border-color: #22c55e !important; }
 .option-card.correct .option-label { background: #dcfce7; color: #166534; }
@@ -296,7 +310,6 @@ body {
 .option-card.selected-only { border-color: #2563eb !important; background: #eff6ff !important; }
 .option-card.disabled { opacity: 0.8; cursor: not-allowed; }
 
-/* Controls */
 .quiz-controls { display: flex; justify-content: space-between; margin-top: 25px; padding-top: 20px; border-top: 1px solid #f1f5f9; }
 
 .btn-primary { background: #2563eb; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
@@ -313,7 +326,7 @@ body {
 .btn-danger-text:hover { background: #fef2f2 !important; }
 
 /* =========================================
-   8. LEADERBOARD (UPDATED)
+   8. LEADERBOARD
    ========================================= */
 .scoreboard-table { width: 100%; border-collapse: collapse; text-align: left; }
 
@@ -332,13 +345,11 @@ body {
 .scoreboard-table th[data-sort] { cursor: pointer; position: relative; }
 .scoreboard-table th[data-sort]:hover { background: #eff6ff; color: #2563eb; }
 
-/* Sort Indicators */
 .sort-asc::after { content: " ↑"; color: #2563eb; font-size: 14px; }
 .sort-desc::after { content: " ↓"; color: #2563eb; font-size: 14px; }
 
 .scoreboard-table td { padding: 15px; border-bottom: 1px solid #f1f5f9; font-size: 14px; vertical-align: middle; }
 
-/* Admin Gear */
 #adminGear:hover { opacity: 1 !important; transform: rotate(45deg); transition: all 0.3s; }
 
 .feedback-area { margin-top: 20px; padding: 20px; border-radius: 12px; animation: slideIn 0.3s; }
@@ -354,7 +365,6 @@ body {
 .results-summary { display: flex; justify-content: center; gap: 30px; margin-top: 15px; font-size: 18px; font-weight: 600; }
 .results-breakdown { padding: 30px; background: #f8fafc; }
 
-/* NEW: Result Items */
 .result-item {
     background: white;
     border: 1px solid #e2e8f0;
@@ -365,7 +375,7 @@ body {
 }
 .result-item.correct { border-left-color: #22c55e; }
 .result-item.wrong { border-left-color: #ef4444; }
-.result-item.skipped { border-left-color: #f59e0b; background: #fffbeb; } /* Skipped State */
+.result-item.skipped { border-left-color: #f59e0b; background: #fffbeb; }
 
 .result-meta { font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 5px; }
 .result-question { font-weight: 600; color: #1e293b; margin-bottom: 5px; }
@@ -388,7 +398,6 @@ body {
     .mode-grid { grid-template-columns: 1fr; }
     .quiz-stats-row { flex-direction: row; flex-wrap: wrap; justify-content: space-around; gap: 10px; }
     
-    /* Mobile: Stack bilingual options vertically */
     .option-content { 
         flex-direction: column; 
         align-items: flex-start; 
