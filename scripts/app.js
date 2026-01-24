@@ -18,11 +18,10 @@ class QuizApp {
 
     async autoScanGitHubLibrary() {
         const { owner, repo, path } = this.GITHUB_CONFIG;
-        // CORRECTED: Using Backticks for template literal
         const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
         try {
             const response = await fetch(apiUrl, { cache: 'no-cache' });
-            if (response.status === 404) throw new Error("Folder 'jsons' not found. Check GitHub repo.");
+            if (response.status === 404) throw new Error("Folder 'jsons' not found.");
             if (!response.ok) throw new Error(`GitHub Error: ${response.status}`);
             const files = await response.json();
             if (!Array.isArray(files)) throw new Error("Invalid library format.");
@@ -38,36 +37,54 @@ class QuizApp {
     }
 
     cacheDOM() {
-        const ids = ['studentName', 'schoolName', 'quizList', 'startQuiz', 'viewScoreboardBtn', 'viewScoreboardFromResults', 'backFromScoreboard', 'topHomeBtn', 'topQuitBtn', 'nextBtn', 'prevBtn', 'hintBtn', 'quitBtn', 'confirmQuit', 'cancelQuit', 'retakeBtn', 'homeBtn', 'adminGear', 'adminModal', 'adminPassword', 'confirmReset', 'closeAdmin', 'adminError', 'quitModal', 'errorMessage'];
-        ids.forEach(id => { this[id] = document.getElementById(id); });
-        this.quizListContainer = this.quizList; // Alias
-        this.errorDiv = this.errorMessage; // Alias
+        // FIX: Full list of all required IDs to prevent the blank screen crash
+        const ids = [
+            'studentName', 'schoolName', 'quizList', 'startQuiz', 'viewScoreboardBtn', 
+            'viewScoreboardFromResults', 'backFromScoreboard', 'topHomeBtn', 'topQuitBtn', 
+            'nextBtn', 'prevBtn', 'hintBtn', 'quitBtn', 'confirmQuit', 'cancelQuit', 
+            'retakeBtn', 'homeBtn', 'adminGear', 'adminModal', 'adminPassword', 
+            'confirmReset', 'closeAdmin', 'adminError', 'quitModal', 'errorMessage',
+            'optionsContainer', 'questionGrid', 'questionEn', 'questionHi'
+        ];
+        ids.forEach(id => { 
+            const el = document.getElementById(id);
+            if (!el) console.warn(`Missing DOM ID: ${id}`);
+            this[id] = el; 
+        });
+        this.quizListContainer = this.quizList;
+        this.errorDiv = this.errorMessage;
     }
 
     bindEvents() {
         this.studentName.addEventListener('input', () => this.validateStartForm());
         this.schoolName.addEventListener('input', () => this.validateStartForm());
         this.startQuiz.addEventListener('click', () => this.handleStart());
+        
         const showScore = () => { QuizUtils.showScreen('scoreboardScreen'); this.fetchScoreboard(); };
         this.viewScoreboardBtn.addEventListener('click', showScore);
         if(this.viewScoreboardFromResults) this.viewScoreboardFromResults.addEventListener('click', showScore);
+        
         this.backFromScoreboard.addEventListener('click', () => {
             if (this.quizEngine.quizData) QuizUtils.showScreen('quizScreen');
             else QuizUtils.showScreen('uploadScreen');
         });
+
         this.nextBtn.addEventListener('click', () => this.nextQuestion());
         this.prevBtn.addEventListener('click', () => this.previousQuestion());
         this.topHomeBtn.addEventListener('click', () => window.location.reload());
         this.hintBtn.addEventListener('click', () => this.showHint());
+        
         const openQuit = () => this.quitModal.classList.add('active');
         this.quitBtn.addEventListener('click', openQuit);
         this.topQuitBtn.addEventListener('click', openQuit);
+        
         this.cancelQuit.addEventListener('click', () => this.quitModal.classList.remove('active'));
         this.confirmQuit.addEventListener('click', () => this.quitQuiz());
         this.retakeBtn.addEventListener('click', () => this.retakeQuiz());
         this.homeBtn.addEventListener('click', () => window.location.reload());
         this.adminGear.addEventListener('click', () => this.adminModal.classList.add('active'));
         this.closeAdmin.addEventListener('click', () => this.adminModal.classList.remove('active'));
+        
         this.adminPassword.addEventListener('keypress', (e) => { if (e.key === 'Enter') this.handleDatabaseReset(); });
         this.confirmReset.addEventListener('click', () => this.handleDatabaseReset());
     }
@@ -102,11 +119,17 @@ class QuizApp {
     }
 
     startActualQuiz() {
-        const mode = document.querySelector('input[name="quizMode"]:checked').value;
+        const modeInput = document.querySelector('input[name="quizMode"]:checked');
+        const mode = modeInput ? modeInput.value : 'practice';
         this.quizEngine.setMode(mode);
-        Object.keys(this.quizEngine.userAnswers).forEach(id => { if (this.quizEngine.userAnswers[id].hintUsed) this.hintUsed[id] = true; });
+        
+        Object.keys(this.quizEngine.userAnswers).forEach(id => { 
+            if (this.quizEngine.userAnswers[id].hintUsed) this.hintUsed[id] = true; 
+        });
+
         document.getElementById('chapterTitle').textContent = this.quizEngine.quizData.metadata.chapter_title;
         document.getElementById('totalQuestions').textContent = this.quizEngine.getTotalQuestions();
+        
         this.updateHeaderIdentity();
         QuizUtils.showScreen('quizScreen');
         this.renderQuestionGrid();
@@ -121,18 +144,33 @@ class QuizApp {
     }
 
     showQuestion(i) {
-        this.quizEngine.stopTimer(); this.quizEngine.currentQuestionIndex = i;
+        this.quizEngine.stopTimer(); 
+        this.quizEngine.currentQuestionIndex = i;
         const q = this.quizEngine.getCurrentQuestion();
-        document.getElementById('questionEn').innerHTML = q.question.en;
-        document.getElementById('questionHi').innerHTML = q.question.hi;
+        
+        this.questionEn.innerHTML = q.question.en;
+        this.questionHi.innerHTML = q.question.hi;
         document.getElementById('currentQuestion').textContent = i + 1;
+        
         this.renderOptions(q);
+        
         document.querySelectorAll('#feedbackContainer, #hintArea').forEach(el => el.remove());
         const fb = `<div id="feedbackContainer" style="display:none;"><div class="feedback-area explanation-area"><h4>✅ Explanation</h4><div>${q.explanation.en}</div><div style="margin-top:5px; opacity:0.8;">${q.explanation.hi}</div></div><div class="key-takeaway-area"><h4>🔑 Key Takeaway</h4><div>${q.key_takeaway.en}</div><div style="margin-top:5px; opacity:0.8;">${q.key_takeaway.hi}</div></div></div><div id="hintArea" class="feedback-area hint-area" style="display:none;"><h4>💡 Hint</h4><div>${q.hint.en}</div><div style="margin-top:5px; opacity:0.8;">${q.hint.hi}</div></div>`;
         this.optionsContainer.insertAdjacentHTML('afterend', fb);
-        this.updateQuestionGrid(); this.updateNavigation(); this.quizEngine.startTimer(q.question_id, (t) => { document.getElementById('timer').textContent = t; }, () => this.showQuestion(i));
-        if (this.quizEngine.isQuestionDisabled(q.question_id) && this.quizEngine.mode === 'practice') document.getElementById('feedbackContainer').style.display = 'block';
-        if (this.hintUsed[q.question_id]) document.getElementById('hintArea').style.display = 'block';
+        
+        this.updateQuestionGrid(); 
+        this.updateNavigation(); 
+        
+        this.quizEngine.startTimer(q.question_id, (t) => { 
+            document.getElementById('timer').textContent = t; 
+        }, () => this.showQuestion(i));
+
+        if (this.quizEngine.isQuestionDisabled(q.question_id) && this.quizEngine.mode === 'practice') {
+            document.getElementById('feedbackContainer').style.display = 'block';
+        }
+        if (this.hintUsed[q.question_id]) {
+            document.getElementById('hintArea').style.display = 'block';
+        }
         this.hintBtn.disabled = this.quizEngine.isQuestionDisabled(q.question_id) || this.hintUsed[q.question_id];
     }
 
@@ -140,10 +178,12 @@ class QuizApp {
         this.optionsContainer.innerHTML = '';
         const order = this.getShuffledOptions(q);
         const ans = this.quizEngine.userAnswers[q.question_id];
+        
         order.forEach((key, idx) => {
             const card = document.createElement('div'); card.className = 'option-card';
             const data = q.options[key];
             card.innerHTML = `<div class="option-label">${['A','B','C','D'][idx]}</div><div class="option-content"><div class="opt-lang en">${data.en}</div><div class="opt-lang hi">${data.hi}</div></div>`;
+            
             if (ans) {
                 if (this.quizEngine.mode === 'practice') {
                     if (ans.history.includes(key)) card.classList.add(key === q.correct_option ? 'correct' : 'wrong');
@@ -166,7 +206,9 @@ class QuizApp {
 
     showHint() {
         const qId = this.quizEngine.getCurrentQuestion().question_id;
-        this.hintUsed[qId] = true; document.getElementById('hintArea').style.display = 'block'; this.hintBtn.disabled = true;
+        this.hintUsed[qId] = true; 
+        document.getElementById('hintArea').style.display = 'block'; 
+        this.hintBtn.disabled = true;
     }
 
     updateNavigation() {
@@ -209,6 +251,7 @@ class QuizApp {
     }
 
     renderResultsBreakdown(res) {
+        this.resultsBreakdown = document.getElementById('resultsBreakdown');
         this.resultsBreakdown.innerHTML = res.questions.map((q, i) => {
             const a = res.userAnswers[q.question_id];
             const status = (a && a.isCorrect) ? 'correct' : ((!a || a.isPartial) ? 'skipped' : 'wrong');
