@@ -12,9 +12,11 @@ class QuizEngine {
         this.questionTimeSpent = {};
         this.currentQuestionId = null;
         
-        // --- IDENTITY GUARD STATE ---
+        // --- IDENTITY & MASTER CLOCK ---
         this.studentName = '';
         this.schoolName = '';
+        this.totalElapsedSeconds = 0; 
+        this.overallTimer = null;
     }
 
     setMode(mode) { this.mode = mode; }
@@ -73,6 +75,14 @@ class QuizEngine {
     }
 
     startTimer(questionId, onTick, onExpire) {
+        // Master Clock: Ensures absolute time tracking
+        if (!this.overallTimer) {
+            this.overallTimer = setInterval(() => {
+                this.totalElapsedSeconds++;
+                this.saveProgress();
+            }, 1000);
+        }
+
         if (this.isQuestionDisabled(questionId)) {
             onTick(this.questionTimers[questionId] || 0);
             return;
@@ -152,7 +162,8 @@ class QuizEngine {
             score: this.score, 
             questionTimers: this.questionTimers, 
             questionTimeSpent: this.questionTimeSpent, 
-            mode: this.mode 
+            mode: this.mode,
+            totalElapsedSeconds: this.totalElapsedSeconds 
         };
         localStorage.setItem('quizProgress', JSON.stringify(p));
     }
@@ -172,6 +183,7 @@ class QuizEngine {
                 this.questionTimers = p.questionTimers || {};
                 this.questionTimeSpent = p.questionTimeSpent || {};
                 this.mode = p.mode || 'practice';
+                this.totalElapsedSeconds = p.totalElapsedSeconds || 0;
                 return true;
             } catch (e) { console.error('Save Corrupted'); }
         }
@@ -180,18 +192,19 @@ class QuizEngine {
 
     clearProgress() {
         localStorage.removeItem('quizProgress');
+        if (this.overallTimer) { clearInterval(this.overallTimer); this.overallTimer = null; }
         this.currentQuestionIndex = 0; 
         this.userAnswers = {}; 
         this.score = 0; 
         this.questionTimers = {}; 
         this.questionTimeSpent = {};
+        this.totalElapsedSeconds = 0;
         this.stopTimer();
     }
 
     getResults() {
-        const totalSecs = Object.values(this.questionTimeSpent).reduce((t, s) => t + s, 0);
-        const mins = Math.floor(totalSecs / 60);
-        const secs = totalSecs % 60;
+        const mins = Math.floor(this.totalElapsedSeconds / 60);
+        const secs = this.totalElapsedSeconds % 60;
         return {
             totalScore: this.score, 
             maxScore: this.getMaxScore(),
