@@ -68,8 +68,10 @@ class QuizApp {
         if (this.viewScoreboardBtn) this.viewScoreboardBtn.addEventListener('click', showScore);
         if (this.viewScoreboardFromResults) this.viewScoreboardFromResults.addEventListener('click', showScore);
         
+        // STABILIZED: Navigation Logic
         if (this.backFromScoreboard) {
             this.backFromScoreboard.addEventListener('click', () => {
+                // If quizData is null (finished), go home. If it exists (resume/mid-quiz), go to quiz screen.
                 if (this.quizEngine.quizData) QuizUtils.showScreen('quizScreen');
                 else QuizUtils.showScreen('uploadScreen');
             });
@@ -99,7 +101,6 @@ class QuizApp {
         });
         if (this.homeBtn) this.homeBtn.addEventListener('click', () => window.location.reload());
         
-        // STABILIZED: Ensuring gear icon is always clickable regardless of header shifts
         if (this.adminGear) {
             this.adminGear.onclick = () => {
                 if (this.adminModal) this.adminModal.classList.add('active');
@@ -136,7 +137,6 @@ class QuizApp {
     async handleStart() {
         QuizUtils.showLoading(true);
         try {
-            // FORCE: Kill any previous session time before starting new chapter
             this.quizEngine.nuclearReset(); 
             const r = await fetch(`jsons/${this.selectedQuizFile}?t=${Date.now()}`);
             const data = await r.json();
@@ -319,7 +319,6 @@ class QuizApp {
             this.quizEngine.stopTimer(); 
             QuizUtils.createConfetti(); 
             
-            // Safety UI Update
             try {
                 if (this.finalScore) this.finalScore.textContent = res.totalScore; 
                 if (this.totalPossible) this.totalPossible.textContent = res.maxScore; 
@@ -331,10 +330,10 @@ class QuizApp {
             QuizUtils.showScreen('resultsScreen'); 
             this.submitScore(res); 
             
-            // CRITICAL: KILL Master Clock and wipe cache
+            // CRITICAL: NUCLEAR RESET (Now clears quizData)
             this.quizEngine.nuclearReset(); 
         } catch (error) {
-            console.error("QuizApp: completeQuiz fail-safe triggered", error);
+            console.error("QuizApp: completeQuiz recovery", error);
             this.quizEngine.nuclearReset(); 
         }
     }
@@ -369,15 +368,11 @@ class QuizApp {
         } catch (e) { this.scoreboardBody.innerHTML = '<tr><td colspan="7" style="color:#ef4444; text-align:center;">Server Error.</td></tr>'; }
     }
 
-    /**
-     * CLEANER: Aggressively strips spreadsheet formatting errors and timezone offsets.
-     */
     cleanEfficiency(s) {
         let raw = String(s || '').replace('⏱️', '').replace("'", "").trim();
         if (raw.includes('T')) raw = raw.split('T')[1].split('.')[0];
         if (raw.startsWith('00:')) raw = raw.substring(3);
         
-        // STABILIZED: If Sheets still sends an "18-hour" date object, we know it's a duration under 1 min
         if (raw.startsWith('18:') || raw.startsWith('19:')) {
             const parts = raw.split(':');
             return parts.length === 3 ? `0:${parts[2]}` : '0:02';
@@ -443,11 +438,8 @@ class QuizApp {
     }
 
     async submitScore(res) {
-        // FIX: The Apostrophe Prefix forces Sheets to treat the value as STRING (Text)
-        // This stops it from converting "00:11" into a broken 1899 date object
         const lockedTime = `'${res.timeTaken}`;
-        
-        const p = { action: 'submit', studentName: this.studentName.value, schoolName: this.schoolName.value, quizTitle: this.quizEngine.quizData.metadata.chapter_title, mode: this.quizEngine.mode.toUpperCase(), score: `${res.totalScore}/${res.maxScore}`, timeTaken: lockedTime };
+        const p = { action: 'submit', studentName: this.studentName.value, schoolName: this.schoolName.value, quizTitle: this.quizEngine.quizData ? this.quizEngine.quizData.metadata.chapter_title : 'Practice Session', mode: this.quizEngine.mode.toUpperCase(), score: `${res.totalScore}/${res.maxScore}`, timeTaken: lockedTime };
         try { await fetch(this.SCRIPT_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(p) }); } catch (e) { }
     }
 }
