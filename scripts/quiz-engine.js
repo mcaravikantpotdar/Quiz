@@ -161,11 +161,15 @@ class QuizEngine {
     }
 
     getResults() {
+        // Source Correction: Ensuring efficiency is purely duration-based
         const totalSecs = Object.values(this.questionTimeSpent).reduce((t, s) => t + s, 0);
+        const mins = Math.floor(totalSecs / 60);
+        const secs = totalSecs % 60;
         return {
             totalScore: this.score, maxScore: this.getMaxScore(),
             percentage: this.getMaxScore() > 0 ? Math.round((this.score / this.getMaxScore()) * 100) : 0,
-            timeTaken: `${Math.floor(totalSecs / 60)}:${(totalSecs % 60).toString().padStart(2, '0')}`,
+            // Optimized format for Google Sheets ingestion
+            timeTaken: `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`,
             userAnswers: this.userAnswers, questions: this.quizData.questions,
             unattemptedCount: this.quizData.questions.length - Object.keys(this.userAnswers).filter(id => !this.userAnswers[id].isPartial).length
         };
