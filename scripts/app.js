@@ -1,7 +1,7 @@
 class QuizApp {
     constructor() {
         this.quizEngine = new QuizEngine();
-        this.SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwxt-akN_S5Dmr3HdtxpEL9by9J80kmZYCufXI1e9_fK3Ep0QYomPU-6jF-3ryPq7Q/exec";
+        this.SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxDHJPeQcjK0OuG1mJU6jHYzVJEREoEUcrwBYDy7iZQs3_gViXScf_27PRzVrGiNjY/exec";
         this.ADMIN_PASSWORD = "Admin@2026"; 
         this.GITHUB_CONFIG = { owner: "mcaravikantpotdar", repo: "Quiz", path: "jsons" };
         this.currentAttempts = {}; this.hintUsed = {}; this.shuffledOrders = {}; 
