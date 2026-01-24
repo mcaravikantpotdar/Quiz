@@ -22,7 +22,7 @@ class QuizApp {
         
         // Leaderboard State
         this.scoreboardData = [];
-        this.sortConfig = { key: 'date', asc: false }; // Default: Latest First
+        this.sortConfig = { key: 'date', asc: false };
 
         this.init();
     }
@@ -39,7 +39,16 @@ class QuizApp {
         
         try {
             const response = await fetch(apiUrl, { cache: 'no-cache' });
-            if (!response.ok) throw new Error(`GitHub API Error: ${response.statusText}`);
+            
+            // ERROR DIAGNOSTICS
+            if (response.status === 403) {
+                throw new Error("GitHub Rate Limit Exceeded or Private Repo access denied.");
+            }
+            if (response.status === 404) {
+                throw new Error(`Folder '${path}' not found in repo '${repo}'. Check case-sensitivity.`);
+            }
+            if (!response.ok) throw new Error(`GitHub Connection Error: ${response.statusText}`);
+
             const files = await response.json();
 
             this.availableQuizzes = files
@@ -53,12 +62,13 @@ class QuizApp {
                 });
 
             if (this.availableQuizzes.length === 0) {
-                this.quizListContainer.innerHTML = '<p style="font-size:12px; opacity:0.6; padding:10px;">No JSONs found.</p>';
+                this.quizListContainer.innerHTML = '<p style="font-size:12px; opacity:0.6; padding:10px;">No JSONs found in folder.</p>';
             } else {
                 this.renderQuizLibrary();
             }
         } catch (error) {
-            this.quizListContainer.innerHTML = `<p style="color:#ef4444; font-size:12px; padding:10px;">Scan Error: ${error.message}</p>`;
+            // Visible error reporting to replace "Connecting to library..."
+            this.quizListContainer.innerHTML = `<p style="color:#ef4444; font-size:12px; padding:10px;">⚠️ ${error.message}</p>`;
         }
     }
 
