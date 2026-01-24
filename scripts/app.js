@@ -32,7 +32,7 @@ class QuizApp {
             if (this.availableQuizzes.length === 0) this.quizListContainer.innerHTML = '<p style="padding:10px; opacity:0.5;">No Quizzes Found.</p>';
             else this.renderQuizLibrary();
         } catch (error) {
-            this.quizListContainer.innerHTML = `<p style="color:#ef4444; font-size:12px; padding:10px;">⚠️ Library Error: ${error.message}</p>`;
+            if (this.quizListContainer) this.quizListContainer.innerHTML = `<p style="color:#ef4444; font-size:12px; padding:10px;">⚠️ Library Error: ${error.message}</p>`;
         }
     }
 
@@ -48,25 +48,29 @@ class QuizApp {
             'leaderboardHeaders', 'scoreboardBody'
         ];
         ids.forEach(id => { 
-            this[id] = document.getElementById(id); 
+            const el = document.getElementById(id);
+            if (!el) console.warn(`QuizApp: ID "${id}" not found in HTML.`);
+            this[id] = el; 
         });
         this.quizListContainer = this.quizList;
         this.errorDiv = this.errorMessage;
     }
 
     bindEvents() {
-        this.studentName.addEventListener('input', () => this.validateStartForm());
-        this.schoolName.addEventListener('input', () => this.validateStartForm());
-        this.startQuiz.addEventListener('click', () => this.handleStart());
+        if (this.studentName) this.studentName.addEventListener('input', () => this.validateStartForm());
+        if (this.schoolName) this.schoolName.addEventListener('input', () => this.validateStartForm());
+        if (this.startQuiz) this.startQuiz.addEventListener('click', () => this.handleStart());
         
         const showScore = () => { QuizUtils.showScreen('scoreboardScreen'); this.fetchScoreboard(); };
-        this.viewScoreboardBtn.addEventListener('click', showScore);
-        if(this.viewScoreboardFromResults) this.viewScoreboardFromResults.addEventListener('click', showScore);
+        if (this.viewScoreboardBtn) this.viewScoreboardBtn.addEventListener('click', showScore);
+        if (this.viewScoreboardFromResults) this.viewScoreboardFromResults.addEventListener('click', showScore);
         
-        this.backFromScoreboard.addEventListener('click', () => {
-            if (this.quizEngine.quizData) QuizUtils.showScreen('quizScreen');
-            else QuizUtils.showScreen('uploadScreen');
-        });
+        if (this.backFromScoreboard) {
+            this.backFromScoreboard.addEventListener('click', () => {
+                if (this.quizEngine.quizData) QuizUtils.showScreen('quizScreen');
+                else QuizUtils.showScreen('uploadScreen');
+            });
+        }
 
         if (this.leaderboardHeaders) {
             this.leaderboardHeaders.addEventListener('click', (e) => {
@@ -75,27 +79,30 @@ class QuizApp {
             });
         }
 
-        this.nextBtn.addEventListener('click', () => this.nextQuestion());
-        this.prevBtn.addEventListener('click', () => this.previousQuestion());
-        this.topHomeBtn.addEventListener('click', () => window.location.reload());
-        this.hintBtn.addEventListener('click', () => this.showHint());
+        if (this.nextBtn) this.nextBtn.addEventListener('click', () => this.nextQuestion());
+        if (this.prevBtn) this.prevBtn.addEventListener('click', () => this.previousQuestion());
+        if (this.topHomeBtn) this.topHomeBtn.addEventListener('click', () => window.location.reload());
+        if (this.hintBtn) this.hintBtn.addEventListener('click', () => this.showHint());
         
-        const openQuit = () => this.quitModal.classList.add('active');
-        this.quitBtn.addEventListener('click', openQuit);
-        this.topQuitBtn.addEventListener('click', openQuit);
+        const openQuit = () => { if (this.quitModal) this.quitModal.classList.add('active'); };
+        if (this.quitBtn) this.quitBtn.addEventListener('click', openQuit);
+        if (this.topQuitBtn) this.topQuitBtn.addEventListener('click', openQuit);
         
-        this.cancelQuit.addEventListener('click', () => this.quitModal.classList.remove('active'));
-        this.confirmQuit.addEventListener('click', () => this.quitQuiz());
-        this.retakeBtn.addEventListener('click', () => this.retakeQuiz());
-        this.homeBtn.addEventListener('click', () => window.location.reload());
-        this.adminGear.addEventListener('click', () => this.adminModal.classList.add('active'));
-        this.closeAdmin.addEventListener('click', () => this.adminModal.classList.remove('active'));
+        if (this.cancelQuit) this.cancelQuit.addEventListener('click', () => this.quitModal.classList.remove('active'));
+        if (this.confirmQuit) this.confirmQuit.addEventListener('click', () => this.quitQuiz());
+        if (this.retakeBtn) this.retakeBtn.addEventListener('click', () => this.retakeQuiz());
+        if (this.homeBtn) this.homeBtn.addEventListener('click', () => window.location.reload());
+        if (this.adminGear) this.adminGear.addEventListener('click', () => this.adminModal.classList.add('active'));
+        if (this.closeAdmin) this.closeAdmin.addEventListener('click', () => this.adminModal.classList.remove('active'));
         
-        this.adminPassword.addEventListener('keypress', (e) => { if (e.key === 'Enter') this.handleDatabaseReset(); });
-        this.confirmReset.addEventListener('click', () => this.handleDatabaseReset());
+        if (this.adminPassword) {
+            this.adminPassword.addEventListener('keypress', (e) => { if (e.key === 'Enter') this.handleDatabaseReset(); });
+        }
+        if (this.confirmReset) this.confirmReset.addEventListener('click', () => this.handleDatabaseReset());
     }
 
     renderQuizLibrary() {
+        if (!this.quizListContainer) return;
         this.quizListContainer.innerHTML = '';
         this.availableQuizzes.forEach(q => {
             const btn = document.createElement('div');
@@ -109,8 +116,8 @@ class QuizApp {
     }
 
     validateStartForm() {
-        const ok = this.studentName.value.trim() && this.schoolName.value.trim() && this.selectedQuizFile;
-        this.startQuiz.disabled = !ok;
+        const ok = this.studentName?.value.trim() && this.schoolName?.value.trim() && this.selectedQuizFile;
+        if (this.startQuiz) this.startQuiz.disabled = !ok;
     }
 
     async handleStart() {
@@ -120,7 +127,7 @@ class QuizApp {
             const data = await r.json();
             this.quizEngine.loadQuizData(data);
             this.startActualQuiz();
-        } catch (e) { this.errorDiv.textContent = e.message; }
+        } catch (e) { if (this.errorDiv) this.errorDiv.textContent = e.message; }
         finally { QuizUtils.showLoading(false); }
     }
 
@@ -129,8 +136,13 @@ class QuizApp {
         const mode = modeInput ? modeInput.value : 'practice';
         this.quizEngine.setMode(mode);
         Object.keys(this.quizEngine.userAnswers).forEach(id => { if (this.quizEngine.userAnswers[id].hintUsed) this.hintUsed[id] = true; });
-        document.getElementById('chapterTitle').textContent = this.quizEngine.quizData.metadata.chapter_title;
-        document.getElementById('totalQuestions').textContent = this.quizEngine.getTotalQuestions();
+        
+        const metadata = this.quizEngine.quizData.metadata;
+        const titleEl = document.getElementById('chapterTitle');
+        const totalEl = document.getElementById('totalQuestions');
+        if (titleEl) titleEl.textContent = metadata.chapter_title;
+        if (totalEl) totalEl.textContent = this.quizEngine.getTotalQuestions();
+        
         this.updateHeaderIdentity();
         QuizUtils.showScreen('quizScreen');
         this.renderQuestionGrid();
@@ -141,31 +153,83 @@ class QuizApp {
         const old = document.getElementById('identityBar'); if(old) old.remove();
         const html = `<div id="identityBar"><div class="id-student-info"><div class="id-name">👤 ${this.studentName.value}</div><div class="id-school">${this.schoolName.value}</div></div><div class="stat-badge ${this.quizEngine.mode === 'test' ? 'strict' : ''}">${this.quizEngine.mode.toUpperCase()} MODE</div></div>`;
         const temp = document.createElement('div'); temp.innerHTML = html.trim();
-        document.querySelector('.quiz-header').prepend(temp.firstChild);
+        const header = document.querySelector('.quiz-header');
+        if (header) header.prepend(temp.firstChild);
     }
 
     showQuestion(i) {
         this.quizEngine.stopTimer(); 
         this.quizEngine.currentQuestionIndex = i;
         const q = this.quizEngine.getCurrentQuestion();
-        this.questionEn.innerHTML = q.question.en;
-        this.questionHi.innerHTML = q.question.hi;
-        document.getElementById('currentQuestion').textContent = i + 1;
+        
+        // Blank Screen Safety Check
+        if (!q || !q.question) {
+            console.error("QuizApp: Malformed question data at index", i);
+            return;
+        }
+
+        const qText = q.question;
+        if (this.questionEn) this.questionEn.innerHTML = (typeof qText === 'object') ? qText.en : qText;
+        if (this.questionHi) this.questionHi.innerHTML = (typeof qText === 'object') ? qText.hi : '';
+        
+        const currentQEl = document.getElementById('currentQuestion');
+        if (currentQEl) currentQEl.textContent = i + 1;
+        
         this.renderOptions(q);
+        
         document.querySelectorAll('#feedbackContainer, #hintArea').forEach(el => el.remove());
-        const fb = `<div id="feedbackContainer" style="display:none;"><div class="feedback-area explanation-area"><h4>✅ Explanation</h4><div>${q.explanation.en}</div><div style="margin-top:5px; opacity:0.8;">${q.explanation.hi}</div></div><div class="key-takeaway-area"><h4>🔑 Key Takeaway</h4><div>${q.key_takeaway.en}</div><div style="margin-top:5px; opacity:0.8;">${q.key_takeaway.hi}</div></div></div><div id="hintArea" class="feedback-area hint-area" style="display:none;"><h4>💡 Hint</h4><div>${q.hint.en}</div><div style="margin-top:5px; opacity:0.8;">${q.hint.hi}</div></div>`;
-        this.optionsContainer.insertAdjacentHTML('afterend', fb);
-        this.updateQuestionGrid(); this.updateNavigation(); 
-        this.quizEngine.startTimer(q.question_id, (t) => { document.getElementById('timer').textContent = t; }, () => this.showQuestion(i));
-        if (this.quizEngine.isQuestionDisabled(q.question_id) && this.quizEngine.mode === 'practice') document.getElementById('feedbackContainer').style.display = 'block';
-        if (this.hintUsed[q.question_id]) document.getElementById('hintArea').style.display = 'block';
-        this.hintBtn.disabled = this.quizEngine.isQuestionDisabled(q.question_id) || this.hintUsed[q.question_id];
+        
+        const fb = `
+            <div id="feedbackContainer" style="display:none;">
+                <div class="feedback-area explanation-area">
+                    <h4>✅ Explanation</h4>
+                    <div>${q.explanation.en}</div>
+                    <div style="margin-top:5px; opacity:0.8;">${q.explanation.hi}</div>
+                </div>
+                <div class="key-takeaway-area">
+                    <h4>🔑 Key Takeaway</h4>
+                    <div>${q.key_takeaway.en}</div>
+                    <div style="margin-top:5px; opacity:0.8;">${q.key_takeaway.hi}</div>
+                </div>
+            </div>
+            <div id="hintArea" class="feedback-area hint-area" style="display:none;">
+                <h4>💡 Hint</h4>
+                <div>${q.hint.en}</div>
+                <div style="margin-top:5px; opacity:0.8;">${q.hint.hi}</div>
+            </div>`;
+            
+        if (this.optionsContainer) {
+            this.optionsContainer.insertAdjacentHTML('afterend', fb);
+        }
+        
+        this.updateQuestionGrid(); 
+        this.updateNavigation(); 
+        
+        this.quizEngine.startTimer(q.question_id, (t) => { 
+            const timerEl = document.getElementById('timer');
+            if (timerEl) timerEl.textContent = t; 
+        }, () => this.showQuestion(i));
+
+        const fbCont = document.getElementById('feedbackContainer');
+        const hArea = document.getElementById('hintArea');
+        
+        if (this.quizEngine.isQuestionDisabled(q.question_id) && this.quizEngine.mode === 'practice' && fbCont) {
+            fbCont.style.display = 'block';
+        }
+        if (this.hintUsed[q.question_id] && hArea) {
+            hArea.style.display = 'block';
+        }
+        if (this.hintBtn) {
+            this.hintBtn.disabled = this.quizEngine.isQuestionDisabled(q.question_id) || this.hintUsed[q.question_id];
+        }
     }
 
     renderOptions(q) {
+        if (!this.optionsContainer) return;
         this.optionsContainer.innerHTML = '';
         const order = this.getShuffledOptions(q);
         const ans = this.quizEngine.userAnswers[q.question_id];
+        
         order.forEach((key, idx) => {
             const card = document.createElement('div'); card.className = 'option-card';
             const data = q.options[key];
@@ -187,21 +251,26 @@ class QuizApp {
         this.currentAttempts[qId] = (this.currentAttempts[qId] || 0) + 1;
         this.quizEngine.recordAnswer(qId, opt, this.currentAttempts[qId], this.hintUsed[qId]);
         this.showQuestion(this.quizEngine.currentQuestionIndex);
-        document.getElementById('currentScore').textContent = this.quizEngine.score;
+        const scoreEl = document.getElementById('currentScore');
+        if (scoreEl) scoreEl.textContent = this.quizEngine.score;
     }
 
     showHint() {
         const qId = this.quizEngine.getCurrentQuestion().question_id;
-        this.hintUsed[qId] = true; document.getElementById('hintArea').style.display = 'block'; this.hintBtn.disabled = true;
+        this.hintUsed[qId] = true; 
+        const hArea = document.getElementById('hintArea');
+        if (hArea) hArea.style.display = 'block'; 
+        if (this.hintBtn) this.hintBtn.disabled = true;
     }
 
     updateNavigation() {
         const isLast = this.quizEngine.currentQuestionIndex === this.quizEngine.getTotalQuestions() - 1;
-        this.nextBtn.textContent = isLast ? '🏁 Finish' : 'Next →';
-        this.prevBtn.disabled = this.quizEngine.currentQuestionIndex === 0;
+        if (this.nextBtn) this.nextBtn.textContent = isLast ? '🏁 Finish' : 'Next →';
+        if (this.prevBtn) this.prevBtn.disabled = this.quizEngine.currentQuestionIndex === 0;
     }
 
     renderQuestionGrid() {
+        if (!this.questionGrid) return;
         this.questionGrid.innerHTML = '';
         this.quizEngine.quizData.questions.forEach((q, i) => {
             const el = document.createElement('div');
@@ -239,7 +308,10 @@ class QuizApp {
         this.resultsBreakdown.innerHTML = res.questions.map((q, i) => {
             const a = res.userAnswers[q.question_id];
             const status = (a && a.isCorrect) ? 'correct' : ((!a || a.isPartial) ? 'skipped' : 'wrong');
-            return `<div class="result-item ${status}"><div class="result-meta">Q${i+1} • ${a?.marks || 0} Marks</div><div class="result-question">${q.question.en}</div><div style="font-size:13px; color:#64748b;">Answer: ${q.options[q.correct_option].en}</div></div>`;
+            const qEn = (typeof q.question === 'object') ? q.question.en : q.question;
+            const correctOpt = q.options[q.correct_option];
+            const correctText = (typeof correctOpt === 'object') ? correctOpt.en : correctOpt;
+            return `<div class="result-item ${status}"><div class="result-meta">Q${i+1} • ${a?.marks || 0} Marks</div><div class="result-question">${qEn}</div><div style="font-size:13px; color:#64748b;">Answer: ${correctText}</div></div>`;
         }).join('');
     }
 
@@ -261,6 +333,12 @@ class QuizApp {
         } catch (e) { this.scoreboardBody.innerHTML = '<tr><td colspan="7" style="color:#ef4444; text-align:center;">Server Error.</td></tr>'; }
     }
 
+    // Efficiency Fix: Time-Stripper to remove 1899 epoch
+    cleanEfficiency(s) {
+        const raw = String(s || '').replace('⏱️', '').trim();
+        return raw.includes('T') ? raw.split('T')[1].split('.')[0] : raw;
+    }
+
     sortScoreboard(key) {
         if (this.sortConfig.key === key) this.sortConfig.asc = !this.sortConfig.asc;
         else { this.sortConfig.key = key; this.sortConfig.asc = (key === 'student' || key === 'chapter'); }
@@ -273,7 +351,6 @@ class QuizApp {
         const data = [...this.scoreboardData];
         data.sort((a, b) => {
             let vA, vB;
-            // FIXED: Full switch mapping for all 7 leaderboard columns
             switch (key) {
                 case 'rank': 
                 case 'score': vA = parseInt(a[5]) || 0; vB = parseInt(b[5]) || 0; break;
@@ -282,7 +359,12 @@ class QuizApp {
                 case 'chapter': vA = String(a[3] || '').toLowerCase(); vB = String(b[3] || '').toLowerCase(); break;
                 case 'mode': vA = String(a[4] || '').toLowerCase(); vB = String(b[4] || '').toLowerCase(); break;
                 case 'efficiency': 
-                    const toSecs = (s) => { const p = String(s).split(':'); return p.length === 2 ? parseInt(p[0])*60 + parseInt(p[1]) : parseFloat(s) || 0; };
+                    const toSecs = (s) => {
+                        const clean = this.cleanEfficiency(s);
+                        const p = clean.split(':').map(Number);
+                        if (p.length === 3) return p[0]*3600 + p[1]*60 + p[2];
+                        return p.length === 2 ? p[0]*60 + p[1] : parseFloat(clean) || 0;
+                    };
                     vA = toSecs(a[6]); vB = toSecs(b[6]); break;
                 default: vA = 0; vB = 0;
             }
@@ -299,13 +381,13 @@ class QuizApp {
                 <td style="padding:15px; font-size:13px;">${r[3]}</td>
                 <td style="padding:15px;"><span class="tag ${r[4] === 'TEST' ? 'strict' : ''}">${r[4]}</span></td>
                 <td style="padding:15px; font-weight:800; color:#2563eb;">${r[5]}</td>
-                <td style="padding:15px; font-size:12px;">⏱️ ${r[6]}</td>
+                <td style="padding:15px; font-size:12px;">⏱️ ${this.cleanEfficiency(r[6])}</td>
             </tr>
         `).join('');
     }
 
     async handleDatabaseReset() {
-        if (this.adminPassword.value !== this.ADMIN_PASSWORD) { this.adminError.textContent = '❌ Incorrect Password'; return; }
+        if (this.adminPassword?.value !== this.ADMIN_PASSWORD) { if (this.adminError) this.adminError.textContent = '❌ Incorrect Password'; return; }
         if (!confirm("Erase all records?")) return;
         QuizUtils.showLoading(true);
         try {
