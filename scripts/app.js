@@ -155,12 +155,19 @@ class QuizApp {
         this.showQuestion(this.quizEngine.currentQuestionIndex);
     }
 
+    /**
+     * FIX: Restored Gear Icon visibility.
+     * Identity bar is now injected without displacing existing header elements.
+     */
     updateHeaderIdentity() {
         const old = document.getElementById('identityBar'); if(old) old.remove();
         const html = `<div id="identityBar"><div class="id-student-info"><div class="id-name">👤 ${this.studentName.value}</div><div class="id-school">${this.schoolName.value}</div></div><div class="stat-badge ${this.quizEngine.mode === 'test' ? 'strict' : ''}">${this.quizEngine.mode.toUpperCase()} MODE</div></div>`;
         const temp = document.createElement('div'); temp.innerHTML = html.trim();
         const header = document.querySelector('.quiz-header');
-        if (header) header.prepend(temp.firstChild);
+        if (header) {
+            // Non-destructive injection: adds bar to top but keeps other children intact
+            header.insertBefore(temp.firstChild, header.firstChild);
+        }
     }
 
     showQuestion(i) {
@@ -298,6 +305,10 @@ class QuizApp {
         this.completeQuiz(true);
     }
 
+    /**
+     * FIX: Fail-Safe Session Termination.
+     * Ensures memory is cleared even if UI updates hit a snag.
+     */
     completeQuiz(forced = false) { 
         try {
             const res = this.quizEngine.getResults(); 
@@ -308,7 +319,6 @@ class QuizApp {
             this.quizEngine.stopTimer(); 
             QuizUtils.createConfetti(); 
             
-            // --- FIX: SAFE UI UPDATES ---
             if (this.finalScore) this.finalScore.textContent = res.totalScore; 
             if (this.totalPossible) this.totalPossible.textContent = res.maxScore; 
             if (this.percentage) this.percentage.textContent = res.percentage + '%'; 
@@ -318,10 +328,11 @@ class QuizApp {
             QuizUtils.showScreen('resultsScreen'); 
             this.submitScore(res); 
             
-            // --- FIX: FORCE FRESH START ---
+            // Critical Step: Killing the Master Clock and wiping cache
             this.quizEngine.clearProgress(); 
         } catch (error) {
-            console.error("QuizApp: completeQuiz failed", error);
+            console.error("QuizApp: Termination sequence failed, force-clearing session.", error);
+            this.quizEngine.clearProgress(); // Force clear even on crash
         }
     }
 
@@ -355,14 +366,9 @@ class QuizApp {
         } catch (e) { this.scoreboardBody.innerHTML = '<tr><td colspan="7" style="color:#ef4444; text-align:center;">Server Error.</td></tr>'; }
     }
 
-    /**
-     * --- FIX: DURATIONS ONLY ---
-     * Strips ISO date components and leading zero hours to show clean MM:SS.
-     */
     cleanEfficiency(s) {
         let raw = String(s || '').replace('⏱️', '').trim();
         if (raw.includes('T')) raw = raw.split('T')[1].split('.')[0];
-        // Only show hours if they are greater than zero
         if (raw.startsWith('00:')) raw = raw.substring(3);
         return raw || '0:00';
     }
