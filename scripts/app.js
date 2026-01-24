@@ -29,8 +29,11 @@ class QuizApp {
                 const clean = f.name.replace('.json', '').replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
                 return { name: `📂 ${clean}`, file: f.name };
             });
-            if (this.availableQuizzes.length === 0) this.quizListContainer.innerHTML = '<p style="padding:10px; opacity:0.5;">No Quizzes Found.</p>';
-            else this.renderQuizLibrary();
+            if (this.availableQuizzes.length === 0) {
+                if (this.quizListContainer) this.quizListContainer.innerHTML = '<p style="padding:10px; opacity:0.5;">No Quizzes Found.</p>';
+            } else {
+                this.renderQuizLibrary();
+            }
         } catch (error) {
             if (this.quizListContainer) this.quizListContainer.innerHTML = `<p style="color:#ef4444; font-size:12px; padding:10px;">⚠️ Library Error: ${error.message}</p>`;
         }
@@ -90,7 +93,10 @@ class QuizApp {
         
         if (this.cancelQuit) this.cancelQuit.addEventListener('click', () => this.quitModal.classList.remove('active'));
         if (this.confirmQuit) this.confirmQuit.addEventListener('click', () => this.quitQuiz());
-        if (this.retakeBtn) this.retakeBtn.addEventListener('click', () => this.retakeQuiz());
+        if (this.retakeBtn) this.retakeBtn.addEventListener('click', () => {
+            this.quizEngine.clearProgress();
+            this.startActualQuiz();
+        });
         if (this.homeBtn) this.homeBtn.addEventListener('click', () => window.location.reload());
         if (this.adminGear) this.adminGear.addEventListener('click', () => this.adminModal.classList.add('active'));
         if (this.closeAdmin) this.closeAdmin.addEventListener('click', () => this.adminModal.classList.remove('active'));
@@ -125,11 +131,7 @@ class QuizApp {
         try {
             const r = await fetch(`jsons/${this.selectedQuizFile}?t=${Date.now()}`);
             const data = await r.json();
-            
-            // --- FIX: IDENTITY HANDSHAKE ---
-            // Passing input values to the engine so it can validate or clear previous sessions.
             this.quizEngine.loadQuizData(data, this.studentName.value, this.schoolName.value);
-            
             this.startActualQuiz();
         } catch (e) { if (this.errorDiv) this.errorDiv.textContent = e.message; }
         finally { QuizUtils.showLoading(false); }
@@ -166,10 +168,7 @@ class QuizApp {
         this.quizEngine.currentQuestionIndex = i;
         const q = this.quizEngine.getCurrentQuestion();
         
-        if (!q || !q.question) {
-            console.error("QuizApp: Malformed question data at index", i);
-            return;
-        }
+        if (!q || !q.question) return;
 
         const qText = q.question;
         if (this.questionEn) this.questionEn.innerHTML = (typeof qText === 'object') ? qText.en : qText;
@@ -293,17 +292,37 @@ class QuizApp {
         if (this.quizEngine.currentQuestionIndex === this.quizEngine.getTotalQuestions() - 1) this.completeQuiz();
         else this.showQuestion(this.quizEngine.currentQuestionIndex + 1); 
     }
-    quitQuiz() { this.completeQuiz(true); }
+    
+    quitQuiz() {
+        if (this.quitModal) this.quitModal.classList.remove('active');
+        this.completeQuiz(true);
+    }
 
     completeQuiz(forced = false) { 
-        const res = this.quizEngine.getResults(); 
-        if (!forced && res.unattemptedCount > 0) { if (!confirm(`Finish with ${res.unattemptedCount} unattempted questions?`)) return; }
-        this.quizEngine.stopTimer(); QuizUtils.createConfetti(); 
-        if (this.finalScore) this.finalScore.textContent = res.totalScore; 
-        if (this.totalPossible) this.totalPossible.textContent = res.maxScore; 
-        if (this.percentage) this.percentage.textContent = res.percentage + '%'; 
-        if (this.totalTime) this.totalTime.textContent = res.timeTaken; 
-        this.renderResultsBreakdown(res); QuizUtils.showScreen('resultsScreen'); this.submitScore(res); 
+        try {
+            const res = this.quizEngine.getResults(); 
+            if (!forced && res.unattemptedCount > 0) {
+                if (!confirm(`Finish with ${res.unattemptedCount} unattempted questions?`)) return;
+            }
+            
+            this.quizEngine.stopTimer(); 
+            QuizUtils.createConfetti(); 
+            
+            // --- FIX: SAFE UI UPDATES ---
+            if (this.finalScore) this.finalScore.textContent = res.totalScore; 
+            if (this.totalPossible) this.totalPossible.textContent = res.maxScore; 
+            if (this.percentage) this.percentage.textContent = res.percentage + '%'; 
+            if (this.totalTime) this.totalTime.textContent = res.timeTaken; 
+            
+            this.renderResultsBreakdown(res); 
+            QuizUtils.showScreen('resultsScreen'); 
+            this.submitScore(res); 
+            
+            // --- FIX: FORCE FRESH START ---
+            this.quizEngine.clearProgress(); 
+        } catch (error) {
+            console.error("QuizApp: completeQuiz failed", error);
+        }
     }
 
     renderResultsBreakdown(res) {
@@ -336,9 +355,16 @@ class QuizApp {
         } catch (e) { this.scoreboardBody.innerHTML = '<tr><td colspan="7" style="color:#ef4444; text-align:center;">Server Error.</td></tr>'; }
     }
 
+    /**
+     * --- FIX: DURATIONS ONLY ---
+     * Strips ISO date components and leading zero hours to show clean MM:SS.
+     */
     cleanEfficiency(s) {
-        const raw = String(s || '').replace('⏱️', '').trim();
-        return raw.includes('T') ? raw.split('T')[1].split('.')[0] : raw;
+        let raw = String(s || '').replace('⏱️', '').trim();
+        if (raw.includes('T')) raw = raw.split('T')[1].split('.')[0];
+        // Only show hours if they are greater than zero
+        if (raw.startsWith('00:')) raw = raw.substring(3);
+        return raw || '0:00';
     }
 
     sortScoreboard(key) {
