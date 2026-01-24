@@ -28,6 +28,7 @@ class QuizApp {
     }
 
     async init() {
+        console.log("QuizApp: Initializing...");
         this.cacheDOM();
         this.bindEvents();
         await this.autoScanGitHubLibrary();
@@ -37,19 +38,27 @@ class QuizApp {
         const { owner, repo, path } = this.GITHUB_CONFIG;
         const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
         
+        console.log("QuizApp: Fetching library from", apiUrl);
+        
         try {
             const response = await fetch(apiUrl, { cache: 'no-cache' });
             
-            // ERROR DIAGNOSTICS
             if (response.status === 403) {
-                throw new Error("GitHub Rate Limit Exceeded or Private Repo access denied.");
+                throw new Error("GitHub Rate Limit Exceeded. Please wait.");
             }
             if (response.status === 404) {
-                throw new Error(`Folder '${path}' not found in repo '${repo}'. Check case-sensitivity.`);
+                throw new Error(`Path '${path}' not found in repo '${repo}'. Check spelling/case.`);
             }
-            if (!response.ok) throw new Error(`GitHub Connection Error: ${response.statusText}`);
+            if (!response.ok) {
+                throw new Error(`GitHub Connection Failed (${response.status})`);
+            }
 
             const files = await response.json();
+
+            // FIX: Ensure 'files' is an array before filtering to prevent silent crash
+            if (!Array.isArray(files)) {
+                throw new Error("GitHub API returned invalid data format.");
+            }
 
             this.availableQuizzes = files
                 .filter(file => file.name.toLowerCase().endsWith('.json'))
@@ -62,13 +71,13 @@ class QuizApp {
                 });
 
             if (this.availableQuizzes.length === 0) {
-                this.quizListContainer.innerHTML = '<p style="font-size:12px; opacity:0.6; padding:10px;">No JSONs found in folder.</p>';
+                this.quizListContainer.innerHTML = '<p style="font-size:12px; opacity:0.6; padding:10px;">No JSON files found in folder.</p>';
             } else {
                 this.renderQuizLibrary();
             }
         } catch (error) {
-            // Visible error reporting to replace "Connecting to library..."
-            this.quizListContainer.innerHTML = `<p style="color:#ef4444; font-size:12px; padding:10px;">⚠️ ${error.message}</p>`;
+            console.error("Library Scan Error:", error);
+            this.quizListContainer.innerHTML = `<p style="color:#ef4444; font-size:12px; padding:10px;">⚠️ Library Error: ${error.message}</p>`;
         }
     }
 
@@ -234,11 +243,6 @@ class QuizApp {
         const mode = modeInput ? modeInput.value : 'practice';
         
         this.quizEngine.setMode(mode);
-        this.quizEngine.clearProgress(); 
-        
-        this.currentAttempts = {}; 
-        this.hintUsed = {}; 
-        this.shuffledOrders = {}; 
         
         if (this.quizEngine.userAnswers) {
             Object.keys(this.quizEngine.userAnswers).forEach(qId => {
