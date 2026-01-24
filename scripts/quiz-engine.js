@@ -190,6 +190,16 @@ class QuizEngine {
         return false;
     }
 
+    /**
+     * FIX: NUCLEAR RESET
+     * Ensures absolute termination of the clock and clearing of memory.
+     */
+    nuclearReset() {
+        if (this.overallTimer) { clearInterval(this.overallTimer); this.overallTimer = null; }
+        this.totalElapsedSeconds = 0;
+        this.clearProgress();
+    }
+
     clearProgress() {
         localStorage.removeItem('quizProgress');
         if (this.overallTimer) { clearInterval(this.overallTimer); this.overallTimer = null; }
