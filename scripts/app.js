@@ -155,18 +155,18 @@ class QuizApp {
         this.showQuestion(this.quizEngine.currentQuestionIndex);
     }
 
-    /**
-     * FIX: Restored Gear Icon visibility.
-     * Identity bar is now injected without displacing existing header elements.
-     */
     updateHeaderIdentity() {
         const old = document.getElementById('identityBar'); if(old) old.remove();
         const html = `<div id="identityBar"><div class="id-student-info"><div class="id-name">👤 ${this.studentName.value}</div><div class="id-school">${this.schoolName.value}</div></div><div class="stat-badge ${this.quizEngine.mode === 'test' ? 'strict' : ''}">${this.quizEngine.mode.toUpperCase()} MODE</div></div>`;
         const temp = document.createElement('div'); temp.innerHTML = html.trim();
         const header = document.querySelector('.quiz-header');
         if (header) {
-            // Non-destructive injection: adds bar to top but keeps other children intact
             header.insertBefore(temp.firstChild, header.firstChild);
+            // FIX: Re-cache the gear icon specifically if it was moved in the DOM
+            this.adminGear = document.getElementById('adminGear');
+            if (this.adminGear) {
+                this.adminGear.onclick = () => this.adminModal.classList.add('active');
+            }
         }
     }
 
@@ -305,10 +305,6 @@ class QuizApp {
         this.completeQuiz(true);
     }
 
-    /**
-     * FIX: Fail-Safe Session Termination.
-     * Ensures memory is cleared even if UI updates hit a snag.
-     */
     completeQuiz(forced = false) { 
         try {
             const res = this.quizEngine.getResults(); 
@@ -328,11 +324,11 @@ class QuizApp {
             QuizUtils.showScreen('resultsScreen'); 
             this.submitScore(res); 
             
-            // Critical Step: Killing the Master Clock and wiping cache
+            // FIX: Force Clear session memory immediately
             this.quizEngine.clearProgress(); 
         } catch (error) {
-            console.error("QuizApp: Termination sequence failed, force-clearing session.", error);
-            this.quizEngine.clearProgress(); // Force clear even on crash
+            console.error("QuizApp: completeQuiz failed", error);
+            this.quizEngine.clearProgress(); 
         }
     }
 
